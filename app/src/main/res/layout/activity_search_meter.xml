@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.gfo.gfo_meesterproef.SearchTool.Search.SearchMeterActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_Volume"
+        android:layout_marginRight="20dp"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:id="@+id/volumeEditText"
+        android:layout_marginLeft="180dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_Volume"
+        android:textSize="14dp"
+        android:id="@+id/volumeTextView"
+        android:layout_alignBaseline="@id/volumeEditText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_LinePressure"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:id="@+id/linePressureEditText"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/volumeEditText"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_LinePressure"
+        android:textSize="14dp"
+        android:id="@+id/linePressureTextView"
+        android:layout_alignBaseline="@id/linePressureEditText" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_LineTemp"
+        android:id="@+id/lineTempEditText"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/linePressureEditText"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_LineTemp"
+        android:textSize="14dp"
+        android:id="@+id/lineTempTextView"
+        android:layout_alignBaseline="@id/lineTempEditText"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_BaseTemp"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:id="@+id/baseTempEditText"
+        android:layout_marginRight="20dp"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/lineTempEditText"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_BaseTemp"
+        android:textSize="14dp"
+        android:id="@+id/baseTempTextView"
+        android:layout_alignBaseline="@id/baseTempEditText"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:hint="@string/label_BasePress"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:id="@+id/basePressureEditText"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/baseTempEditText"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_BasePress"
+        android:textSize="14dp"
+        android:id="@+id/basePressureTextView"
+        android:layout_alignBaseline="@id/basePressureEditText"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pipeDiameterSpinner"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/basePressureEditText"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_PipeDiameter"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:id="@+id/pipeDiameterTextView"
+        android:layout_alignBaseline="@id/pipeDiameterSpinner" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_QminATMAir"
+        android:textSize="14dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/QminATMAirEditText"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/pipeDiameterSpinner"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_QminATMAir"
+        android:textSize="14dp"
+        android:id="@+id/QminATMAirTextView"
+        android:layout_alignBaseline="@id/QminATMAirEditText"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_DensityAtQMax"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:layout_marginRight="20dp"
+        android:id="@+id/densityAtQmaxEditText"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/QminATMAirEditText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_DensityAtQMax"
+        android:textSize="14dp"
+        android:id="@+id/densityAtQMaxTextView"
+        android:layout_alignBaseline="@id/densityAtQmaxEditText"
+        android:layout_marginTop="3dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_DensityAtBase"
+        android:textSize="14dp"
+        android:layout_marginRight="20dp"
+        android:maxLines="1"
+        android:id="@+id/densityAtBaseEditText"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/densityAtQmaxEditText"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_DensityAtBase"
+        android:textSize="14dp"
+        android:id="@+id/densityAtBaseTextView"
+        android:layout_alignBaseline="@id/densityAtBaseEditText"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_dpATMAir"
+        android:textSize="14dp"
+        android:maxLines="1"
+        android:layout_marginRight="20dp"
+        android:id="@+id/dpATMAirEditText"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/densityAtBaseEditText"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_dpATMAir"
+        android:textSize="14dp"
+        android:id="@+id/dpATMAirTextView"
+        android:layout_alignBaseline="@id/dpATMAirEditText"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_relDensity"
+        android:textSize="14dp"
+        android:layout_marginRight="20dp"
+        android:maxLines="1"
+        android:id="@+id/relDensityEditText"
+        android:layout_alignLeft="@id/volumeEditText"
+        android:layout_below="@id/dpATMAirEditText"
+        android:layout_marginTop="3dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_relDensity"
+        android:textSize="14dp"
+        android:id="@+id/relDensityTextView"
+        android:layout_alignBaseline="@id/relDensityEditText"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:onClick="search"
+        android:id="@+id/confirmButton"
+        android:layout_alignParentBottom="true"
+        android:theme="@style/Button"/>
+
+</RelativeLayout>

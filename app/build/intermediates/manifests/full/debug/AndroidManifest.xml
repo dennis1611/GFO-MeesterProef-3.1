@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gfo.gfo_meesterproef"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="25" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <meta-data
+        android:name="android.support.VERSION"
+        android:value="25.3.1" />
+
+    <application
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@mipmap/gfoimage"
+        android:label="GFO"
+        android:roundIcon="@mipmap/gfoimage"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.gfo.gfo_meesterproef.LoginActivity"
+            android:label="GFO"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.gfo.gfo_meesterproef.User.FetchProductActivity"
+            android:label="Fetch Product"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.Admin.AdminActivity"
+            android:label="Admin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.Admin.AddAccount.AddAccountActivity"
+            android:label="Add Account"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity"
+            android:label="View Account"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProductActivity"
+            android:label="View Product"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewFileActivity"
+            android:label="View File"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.User.FetchFileActivity"
+            android:label="Fetch File"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.Admin.ViewAccount.EditAccount.EditAccountActivity"
+            android:label="Edit Account"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.Admin.ViewFiles.CoupleToProduct.CoupleToProductActivity"
+            android:label="Couple To Product"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.Admin.ViewAccount.CoupleToAccount.CoupleToAccountActivity"
+            android:label="Couple To Account"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.User.UserActivity"
+            android:label="User"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.SearchTool.LookUp.LookUpMeterActivity"
+            android:label="Look Up Meter"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.SearchTool.Search.SearchMeterActivity"
+            android:label="Search Meter"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.gfo.gfo_meesterproef.SearchTool.Search.SettingsActivity"
+            android:label="Settings"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.gfo.gfo_meesterproef.SearchTool.Search.InformationActivity" />
+        <activity android:name="com.gfo.gfo_meesterproef.SearchTool.Search.ErrorActivity" />
+    </application>
+
+</manifest>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_wich_meter_do_ineed_screen"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_VolumeUnit"
+        android:id="@+id/volumeUnitTextView"
+        android:layout_alignBaseline="@+id/volumeSpinner" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/volumeSpinner"
+        android:layout_marginLeft="180dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_pressureUnit"
+        android:id="@+id/pressureUnitTextView"
+        android:layout_below="@+id/volumeSpinner" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pressureSpinner"
+        android:layout_alignLeft="@id/volumeSpinner"
+        android:layout_below="@+id/volumeSpinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_temperatureUnit"
+        android:id="@+id/temperatureUnitTextView"
+        android:layout_below="@+id/pressureSpinner"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperatureSpinner"
+        android:layout_alignLeft="@id/volumeSpinner"
+        android:layout_below="@+id/pressureSpinner" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unit_diameter"
+        android:id="@+id/diameterTextView"
+        android:layout_alignLeft="@id/volumeSpinner"
+        android:layout_below="@+id/temperatureSpinner" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_diameterUnit"
+        android:id="@+id/diameterUnitTextView"
+        android:layout_below="@+id/temperatureSpinner"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unit_Q"
+        android:id="@+id/QTextView"
+        android:layout_alignLeft="@id/volumeSpinner"
+        android:layout_below="@+id/diameterTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_QUnit"
+        android:id="@+id/QUnitTextView"
+        android:layout_below="@+id/diameterTextView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unit_density"
+        android:id="@+id/densityTextView"
+        android:layout_alignLeft="@id/volumeSpinner"
+        android:layout_below="@+id/QTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_densityUnit"
+        android:id="@+id/densityUnitTextView"
+        android:layout_below="@+id/QTextView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unit_dp"
+        android:id="@+id/dpTextView"
+        android:layout_alignLeft="@id/volumeSpinner"
+        android:layout_below="@+id/densityTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_dpUnit"
+        android:id="@+id/dpUnitTextView"
+        android:layout_below="@+id/densityTextView"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:onClick="confirm"
+        android:id="@+id/confirmButton"
+        android:layout_alignParentBottom="true"
+        android:theme="@style/Button"/>
+
+</RelativeLayout>
