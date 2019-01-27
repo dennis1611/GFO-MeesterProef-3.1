@@ -22,6 +22,7 @@
         android:label="GFO"
         android:roundIcon="@mipmap/gfoimage"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.gfo.gfo_meesterproef.LoginActivity"

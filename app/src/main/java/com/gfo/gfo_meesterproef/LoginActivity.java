@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 //        save username
         SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
         usernamePref.edit().putString("username", username).apply(); }//        end method
+
 //    create listener to wait for AsyncTask to finish
         LoginBackgroundWorker.OnTaskCompleted listener = new LoginBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished

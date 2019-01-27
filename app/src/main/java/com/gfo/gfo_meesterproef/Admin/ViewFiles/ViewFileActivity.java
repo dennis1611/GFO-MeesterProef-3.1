@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.gfo.gfo_meesterproef.OpenFileBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
+import com.gfo.gfo_meesterproef.Support.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,24 +46,30 @@ public class ViewFileActivity extends AppCompatActivity {
 
 //        contact database for files
         String type = "view";
-        List<String> files = new ArrayList<>();
-        ViewFile viewFile = new ViewFile(this);
+
+        ViewFile viewFile = new ViewFile(this, listener);
         viewFile.setProgressBar(progressBar);
-        try {
-            files = new ViewFile(this).execute(type, product).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        viewFile.execute(type, product);}//        end method
+
+
+//    create listener to wait for AsyncTask to finish
+    ViewFile.OnTaskCompleted listener = new ViewFile.OnTaskCompleted() {
+//    code below won't get executed until AsyncTask is finished
+        @Override
+        public void onTaskCompleted(String rawFiles) {
+//            convert rawFiles String to List<String>
+            Converter converter = new Converter();
+            List<String> files = new ArrayList<>();
+            files = converter.splitStringToList(rawFiles, ",");
+
+            // fill listView with List
+            adminProductList = (ListView) findViewById(R.id.list);
+            ArrayAdapter<String> productAdapter = new ArrayAdapter<>(ViewFileActivity.this, android.R.layout.simple_list_item_1, files);
+            adminProductList.setAdapter(productAdapter);
+
+            registerFileClickCallBack();
         }
-
-        // fill listView with List
-        adminProductList = (ListView) findViewById(R.id.list);
-        ArrayAdapter<String> productAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, files);
-        adminProductList.setAdapter(productAdapter);
-
-        registerFileClickCallBack();
-    }
+    };
 
     private void registerFileClickCallBack() {
         adminProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

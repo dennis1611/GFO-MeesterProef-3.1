@@ -17,10 +17,10 @@ import com.gfo.gfo_meesterproef.Admin.ViewFiles.CoupleToProduct.CoupleToProductA
 import com.gfo.gfo_meesterproef.Custom.FolderAdapter;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
+import com.gfo.gfo_meesterproef.Support.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class ViewProductActivity extends AppCompatActivity {
 
@@ -43,25 +43,30 @@ public class ViewProductActivity extends AppCompatActivity {
 
 //        contact database
         String type = "view";
-        List<String> products = new ArrayList<String>();
-        ViewProduct viewProduct = new ViewProduct(this);
+        ViewProduct viewProduct = new ViewProduct(this, listener);
         viewProduct.setProgressBar(progressBar);
-        try {
-//            products = new ViewProduct(this).execute(type).get();
-            products = viewProduct.execute(type).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        viewProduct.execute(type);}//        end method
 
+//    create listener to wait for AsyncTask to finish
+    ViewProduct.OnTaskCompleted listener = new ViewProduct.OnTaskCompleted() {
+//    code below won't get executed until AsyncTask is finished
+        @Override
+        public void onTaskCompleted(String rawProducts) {
+//            convert rawProducts String to List<String>
+        Converter converter = new Converter();
+        List<String> products = new ArrayList<String>();
+        products = converter.splitStringToList(rawProducts, ",");
 //        fill listView with (array)List
         adminProductGrid = (GridView) findViewById(R.id.grid);
-        FolderAdapter productAdapter = new FolderAdapter(this, products);
+        FolderAdapter productAdapter = new FolderAdapter(ViewProductActivity.this, products);
         adminProductGrid.setAdapter(productAdapter);
 
         registerProductClickCallback();
-    }
+        }
+    };
+
+
+
 
 //    select product
     private void registerProductClickCallback() {

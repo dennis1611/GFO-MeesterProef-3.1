@@ -1,45 +1,29 @@
-package com.gfo.gfo_meesterproef.Admin.ViewFiles;
+package com.gfo.gfo_meesterproef.Admin.ViewAccount.CoupleToAccount;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 
-public class ViewFile extends AsyncTask<String, Void, String>{
+
+public class AllProducts extends AsyncTask<String, Void, String> {
 
     Context context;
-    private ViewFile.OnTaskCompleted listener;
-    public ViewFile(Context ctx, OnTaskCompleted listener) {
+    public AllProducts(Context ctx) {
         context = ctx;
-        this.listener = listener;
     }
-
-    //    get access to ProgressBar in activity
-    @SuppressLint("StaticFieldLeak") ProgressBar progressBar;
-    public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
-
-    //    create interface to communicate with Activity
-    public interface OnTaskCompleted{ void onTaskCompleted(String result);}
 
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String product = params[1];
-        String view_url = "https://mantixcloud.nl/gfo/products_files/viewfiles.php";
-        String result =  null;
+        String view_url = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
+        String result = null;
         if (type.equals("view")) {
             try {
 //                connect to database
@@ -48,14 +32,6 @@ public class ViewFile extends AsyncTask<String, Void, String>{
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
-//                send data
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "iso-8859-1"));
-                String post_data = URLEncoder.encode("product","iso-8859-1")+"="+URLEncoder.encode(product,"iso-8859-1");
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
@@ -79,12 +55,10 @@ public class ViewFile extends AsyncTask<String, Void, String>{
     }
 
     @Override
-    protected void onPreExecute() {progressBar.setVisibility(View.VISIBLE);}
+    protected void onPreExecute() { }
 
     @Override
     protected void onPostExecute(String result) {
-        progressBar.setVisibility(View.GONE);
-        listener.onTaskCompleted(result);
-    }
 
+    }
 }

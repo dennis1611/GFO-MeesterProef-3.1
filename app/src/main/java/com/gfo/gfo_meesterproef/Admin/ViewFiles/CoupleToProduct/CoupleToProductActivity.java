@@ -2,7 +2,6 @@ package com.gfo.gfo_meesterproef.Admin.ViewFiles.CoupleToProduct;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,7 +18,6 @@ import static com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProductActivity.conte
 
 import com.gfo.gfo_meesterproef.Admin.Couple;
 import com.gfo.gfo_meesterproef.Admin.Uncouple;
-import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountBackgroundWorker;
 import com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProductActivity;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
@@ -54,10 +52,11 @@ public class CoupleToProductActivity extends AppCompatActivity {
         product = selectedProductPref.getString("selectedProduct", "");
 //        change label
         setTitle("Couple to "+product);
+
 //        get all usernames as String
         totalList = new ArrayList<>();
         try {
-            allUsernames = new ViewAccountBackgroundWorker(this).execute("userUsername").get();
+            allUsernames = new AllAccounts(this).execute("userUsername").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

@@ -21,8 +21,10 @@ import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
 import com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProduct;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
+import com.gfo.gfo_meesterproef.Support.Converter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -52,15 +54,21 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         username = selectedAccountPref.getString("selectedUsername", "");
 //        change label
         setTitle("Couple to " + username);
+
 //        get all products (in group)
+        String rawTotalList = null;
+        String[] splitResultArray;
         totalList = new ArrayList<>();
-        try {
-            totalList = new ViewProduct(this).execute("view").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+            try {
+                rawTotalList = new AllProducts(this).execute("view").get();
+            } catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace(); }
+    //        convert rawTotalList String to List<String>
+        splitResultArray = rawTotalList.split(",");
+        totalList = (Arrays.asList(splitResultArray));
+//            Converter converter = new Converter();
+//            totalList = converter.splitStringToList(rawTotalList, ",");
+
 //        get already coupled products
         alreadyCoupled = new ArrayList<>();
         try {

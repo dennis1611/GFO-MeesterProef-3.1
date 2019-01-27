@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.Admin.AdminActivity;
 import com.gfo.gfo_meesterproef.Admin.ViewAccount.CoupleToAccount.CoupleToAccountActivity;
@@ -21,6 +22,8 @@ import com.gfo.gfo_meesterproef.Custom.ViewPagerAdapter;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class ViewAccountActivity extends AppCompatActivity{
@@ -33,6 +36,7 @@ public class ViewAccountActivity extends AppCompatActivity{
     ViewPagerAdapter viewPagerAdapter;
     UserAccountsFragment userFragment;
     AdminAccountsFragment adminFragment;
+    ProgressBar progressBar;
 
     public static Context contextOfViewAccount;
 
@@ -56,68 +60,38 @@ public class ViewAccountActivity extends AppCompatActivity{
 //        needed to save selectedUsername
         contextOfViewAccount = getApplicationContext();
 
-//        get 6 separate account value lists from database
-        String userUsernames = new String();
-        try {
-            userUsernames = new ViewAccountBackgroundWorker(this).execute("userUsername").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        String userPasswords = new String();
-        try {
-            userPasswords = new ViewAccountBackgroundWorker(this).execute("userPassword").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        String userEmails = new String();
-        try {
-            userEmails = new ViewAccountBackgroundWorker(this).execute("userEmail").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        String adminUsernames = new String();
-        try {
-            adminUsernames = new ViewAccountBackgroundWorker(this).execute("adminUsername").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        String adminPasswords = new String();
-        try {
-            adminPasswords = new ViewAccountBackgroundWorker(this).execute("adminPassword").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        String adminEmails = new String();
-        try {
-            adminEmails = new ViewAccountBackgroundWorker(this).execute("adminEmail").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-//        send data to fragments
-        Bundle userBundle = new Bundle();
-        userBundle.putString("userUsernames", userUsernames);
-        userBundle.putString("userPasswords", userPasswords);
-        userBundle.putString("userEmails", userEmails);
-        userFragment.setArguments(userBundle);
-        Bundle adminBundle = new Bundle();
-        adminBundle.putString("adminUsernames", adminUsernames);
-        adminBundle.putString("adminPasswords", adminPasswords);
-        adminBundle.putString("adminEmails", adminEmails);
-        adminFragment.setArguments(adminBundle);
+//        setup ProgressBar
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-    }
+//        get 6 separate account value lists (not separated, contained in parent list) from database
+        ViewAccountBackgroundWorker viewAccountBackgroundWorker = new ViewAccountBackgroundWorker(this);
+        viewAccountBackgroundWorker.setProgressBar(progressBar);
+
+        ArrayList<String> resultList = new ArrayList<String>();
+        try { resultList = viewAccountBackgroundWorker.execute("all").get(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace(); }
+
+//                      get  value lists (not separated) from parent list
+                    String userUsernames = resultList.get(0);
+                    String userPasswords = resultList.get(1);
+                    String userEmails = resultList.get(2);
+                    String adminUsernames = resultList.get(3);
+                    String adminPasswords = resultList.get(4);
+                    String adminEmails = resultList.get(5);
+
+//                      send data to fragments
+                    Bundle userBundle = new Bundle();
+                    userBundle.putString("userUsernames", userUsernames);
+                    userBundle.putString("userPasswords", userPasswords);
+                    userBundle.putString("userEmails", userEmails);
+                    userFragment.setArguments(userBundle);
+                    Bundle adminBundle = new Bundle();
+                    adminBundle.putString("adminUsernames", adminUsernames);
+                    adminBundle.putString("adminPasswords", adminPasswords);
+                    adminBundle.putString("adminEmails", adminEmails);
+                    adminFragment.setArguments(adminBundle);
+                }
 
 //    gets called from within fragment
     public void onSelect(String selectedUsername, String selectedPassword, String selectedEmail, String type){

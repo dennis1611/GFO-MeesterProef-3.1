@@ -42,7 +42,6 @@ public class LoginBackgroundWorker extends AsyncTask<String, Void, String> {
         String result = null;
         if(type.equals("login")) {
             try {
-//                publishProgress();
 //                connect to database
                 URL url = new URL(login_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
