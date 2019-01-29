@@ -54,8 +54,7 @@ public class ViewProductActivity extends AppCompatActivity {
         public void onTaskCompleted(String rawProducts) {
 //            convert rawProducts String to List<String>
         Converter converter = new Converter();
-        List<String> products = new ArrayList<String>();
-        products = converter.splitStringToList(rawProducts, ",");
+        List<String> products = converter.splitStringToList(rawProducts, ",");
 //        fill listView with (array)List
         adminProductGrid = (GridView) findViewById(R.id.grid);
         FolderAdapter productAdapter = new FolderAdapter(ViewProductActivity.this, products);

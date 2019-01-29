@@ -59,8 +59,7 @@ public class ViewFileActivity extends AppCompatActivity {
         public void onTaskCompleted(String rawFiles) {
 //            convert rawFiles String to List<String>
             Converter converter = new Converter();
-            List<String> files = new ArrayList<>();
-            files = converter.splitStringToList(rawFiles, ",");
+            List<String> files = converter.splitStringToList(rawFiles, ",");
 
             // fill listView with List
             adminProductList = (ListView) findViewById(R.id.list);

@@ -88,12 +88,7 @@ public class LoginBackgroundWorker extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         progressBar.setVisibility(View.GONE);
-//        notify Activity that AsyncTask is completed
+//        notify Activity that AsyncTask is finished
             listener.onTaskCompleted(result);
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
     }
 }

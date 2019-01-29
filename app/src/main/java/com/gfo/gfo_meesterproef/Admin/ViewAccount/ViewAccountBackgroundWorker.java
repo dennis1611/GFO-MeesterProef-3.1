@@ -19,8 +19,10 @@ import java.util.ArrayList;
 public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, ArrayList<String>> {
 
     Context context;
-    public ViewAccountBackgroundWorker(Context ctx) {
+    private OnTaskCompleted listener;
+    public ViewAccountBackgroundWorker(Context ctx, OnTaskCompleted listener) {
         context = ctx;
+        this.listener = listener;
     }
 
     //    get access to ProgressBar in activity
@@ -28,7 +30,7 @@ public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, ArrayLi
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
 
     //    create interface to communicate with Activity
-//    public interface OnTaskCompleted{ void onTaskCompleted(ArrayList<String> resultList);}
+    public interface OnTaskCompleted{ void onTaskCompleted(ArrayList<String> resultList);}
 
     @Override
     protected ArrayList<String> doInBackground(String... params) {
@@ -36,14 +38,6 @@ public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, ArrayLi
         String view_url = null;
         String result = null;
         ArrayList<String> resultList = new ArrayList<>();
-
-//        set view_url
-//        if (type.equals("userUsername")){view_url="https://mantixcloud.nl/gfo/account/viewusername-user.php";}
-//        if (type.equals("userPassword")){view_url="https://mantixcloud.nl/gfo/account/viewpassword-user.php";}
-//        if (type.equals("userEmail")){view_url="https://mantixcloud.nl/gfo/account/viewemail-user.php";}
-//        if (type.equals("adminUsername")){view_url="https://mantixcloud.nl/gfo/account/viewusername-admin.php";}
-//        if (type.equals("adminPassword")){view_url="https://mantixcloud.nl/gfo/account/viewpassword-admin.php";}
-//        if (type.equals("adminEmail")){view_url="https://mantixcloud.nl/gfo/account/viewemail-admin.php";}
 
 //        contact database
         if (type.equals("userUsername") || type.equals("userPassword") || type.equals("userEmail")
@@ -101,5 +95,7 @@ public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, ArrayLi
     @Override
     protected void onPostExecute(ArrayList<String> resultList) {
             progressBar.setVisibility(View.GONE);
+//        Notify activity that AsyncTask is finished
+            listener.onTaskCompleted(resultList);
     }
 }

@@ -44,18 +44,10 @@ public class ViewAccountActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_account);
-//        needed for toolbar
-        toolbar = (Toolbar) findViewById(R.id.tabbedToolbar);
-        setSupportActionBar(toolbar);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        userFragment = new UserAccountsFragment();
-        viewPagerAdapter.addFragment(userFragment, "Users");
-        adminFragment = new AdminAccountsFragment();
-        viewPagerAdapter.addFragment(adminFragment, "Admins");
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
+
+//        toolbar stuff
+
+
 
 //        needed to save selectedUsername
         contextOfViewAccount = getApplicationContext();
@@ -64,34 +56,61 @@ public class ViewAccountActivity extends AppCompatActivity{
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 //        get 6 separate account value lists (not separated, contained in parent list) from database
-        ViewAccountBackgroundWorker viewAccountBackgroundWorker = new ViewAccountBackgroundWorker(this);
+        ViewAccountBackgroundWorker viewAccountBackgroundWorker = new ViewAccountBackgroundWorker(this, listener);
         viewAccountBackgroundWorker.setProgressBar(progressBar);
 
-        ArrayList<String> resultList = new ArrayList<String>();
-        try { resultList = viewAccountBackgroundWorker.execute("all").get(); }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace(); }
+//        ArrayList<String> resultList = new ArrayList<String>();
+//        try { resultList = viewAccountBackgroundWorker.execute("all").get(); }
+//            catch (InterruptedException e) { e.printStackTrace(); }
+//            catch (ExecutionException e) { e.printStackTrace(); }
 
-//                      get  value lists (not separated) from parent list
-                    String userUsernames = resultList.get(0);
-                    String userPasswords = resultList.get(1);
-                    String userEmails = resultList.get(2);
-                    String adminUsernames = resultList.get(3);
-                    String adminPasswords = resultList.get(4);
-                    String adminEmails = resultList.get(5);
+        viewAccountBackgroundWorker.execute("all");}//        end method
 
-//                      send data to fragments
-                    Bundle userBundle = new Bundle();
-                    userBundle.putString("userUsernames", userUsernames);
-                    userBundle.putString("userPasswords", userPasswords);
-                    userBundle.putString("userEmails", userEmails);
-                    userFragment.setArguments(userBundle);
-                    Bundle adminBundle = new Bundle();
-                    adminBundle.putString("adminUsernames", adminUsernames);
-                    adminBundle.putString("adminPasswords", adminPasswords);
-                    adminBundle.putString("adminEmails", adminEmails);
-                    adminFragment.setArguments(adminBundle);
-                }
+//    create listener to wait for AsyncTask to finish
+        ViewAccountBackgroundWorker.OnTaskCompleted listener = new ViewAccountBackgroundWorker.OnTaskCompleted() {
+//    code below won't get executed until AsyncTask is finished
+            @Override
+            public void onTaskCompleted(ArrayList<String> resultList) {
+//                get  value lists (not separated) from parent list
+                String userUsernames = resultList.get(0);
+                String userPasswords = resultList.get(1);
+                String userEmails = resultList.get(2);
+                String adminUsernames = resultList.get(3);
+                String adminPasswords = resultList.get(4);
+                String adminEmails = resultList.get(5);
+
+
+                //        needed for toolbar
+                toolbar = (Toolbar) findViewById(R.id.tabbedToolbar);
+                setSupportActionBar(toolbar);
+                viewPager = (ViewPager) findViewById(R.id.viewPager);
+                viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+                userFragment = new UserAccountsFragment();
+                viewPagerAdapter.addFragment(userFragment, "Users");
+                adminFragment = new AdminAccountsFragment();
+                viewPagerAdapter.addFragment(adminFragment, "Admins");
+
+
+//                send data to fragments
+                Bundle userBundle = new Bundle();
+                userBundle.putString("userUsernames", userUsernames);
+                userBundle.putString("userPasswords", userPasswords);
+                userBundle.putString("userEmails", userEmails);
+                userFragment.setArguments(userBundle);
+                Bundle adminBundle = new Bundle();
+                adminBundle.putString("adminUsernames", adminUsernames);
+                adminBundle.putString("adminPasswords", adminPasswords);
+                adminBundle.putString("adminEmails", adminEmails);
+                adminFragment.setArguments(adminBundle);
+
+//                viewpager.setAdapter(...) must come after ...Fragment.setArguments(...)
+                viewPager.setAdapter(viewPagerAdapter);
+                tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+                tabLayout.setupWithViewPager(viewPager);
+
+
+            }
+        };
 
 //    gets called from within fragment
     public void onSelect(String selectedUsername, String selectedPassword, String selectedEmail, String type){

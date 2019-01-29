@@ -84,7 +84,7 @@ public class ViewFile extends AsyncTask<String, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         progressBar.setVisibility(View.GONE);
+//        Notify activity that AsyncTask is finished
         listener.onTaskCompleted(result);
     }
-
 }

@@ -89,10 +89,4 @@ public void setProgressBar(ProgressBar progressBar) { this.progressBar = progres
     progressBar.setVisibility(View.GONE);
         Toast.makeText(context, result, Toast.LENGTH_LONG).show();
     }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-    }
-
 }

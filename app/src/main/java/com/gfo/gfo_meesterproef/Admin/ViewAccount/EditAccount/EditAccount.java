@@ -94,12 +94,7 @@ public class EditAccount extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         progressBar.setVisibility(View.GONE);
         Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
-//        notify Activity that AsyncTask is completed
+//        notify Activity that AsyncTask is finished
             listener.onTaskCompleted();
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
     }
 }

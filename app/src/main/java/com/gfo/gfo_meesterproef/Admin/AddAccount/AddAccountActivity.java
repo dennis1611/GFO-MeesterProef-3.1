@@ -48,13 +48,13 @@ public class AddAccountActivity extends AppCompatActivity {
             return;
         }//        check if passwords match
         String passwordConfirm = passConfirmET.getText().toString();
-        if(passwordc.equals(passwordConfirm)){
+        if(passwordc.equals(passwordConfirm)){//            do nothing
         } else{
             passConfirmET.setError("Passwords do not match");
             return;
         }//        check if email is valid
         String emailc = emailcET.getText().toString();
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailc).matches()) {
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailc).matches()) {//            do nothing
         } else{
             emailcET.setError("Please enter a valid E-mail address");
             return;
