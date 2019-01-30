@@ -22,8 +22,9 @@ public class AllProducts extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String view_url = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
         String result = null;
+//        set view_url
+        String view_url = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
         if (type.equals("view")) {
             try {
 //                connect to database

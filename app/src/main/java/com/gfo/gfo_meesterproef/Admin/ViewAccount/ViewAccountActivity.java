@@ -23,12 +23,8 @@ import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class ViewAccountActivity extends AppCompatActivity{
-
-    ListView accountList, userAccountList, adminAccountList;
 
     Toolbar toolbar;
     TabLayout tabLayout;
@@ -45,11 +41,7 @@ public class ViewAccountActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_account);
 
-//        toolbar stuff
-
-
-
-//        needed to save selectedUsername
+        //        needed to save selectedUsername
         contextOfViewAccount = getApplicationContext();
 
 //        setup ProgressBar
@@ -58,12 +50,6 @@ public class ViewAccountActivity extends AppCompatActivity{
 //        get 6 separate account value lists (not separated, contained in parent list) from database
         ViewAccountBackgroundWorker viewAccountBackgroundWorker = new ViewAccountBackgroundWorker(this, listener);
         viewAccountBackgroundWorker.setProgressBar(progressBar);
-
-//        ArrayList<String> resultList = new ArrayList<String>();
-//        try { resultList = viewAccountBackgroundWorker.execute("all").get(); }
-//            catch (InterruptedException e) { e.printStackTrace(); }
-//            catch (ExecutionException e) { e.printStackTrace(); }
-
         viewAccountBackgroundWorker.execute("all");}//        end method
 
 //    create listener to wait for AsyncTask to finish
@@ -79,7 +65,6 @@ public class ViewAccountActivity extends AppCompatActivity{
                 String adminPasswords = resultList.get(4);
                 String adminEmails = resultList.get(5);
 
-
                 //        needed for toolbar
                 toolbar = (Toolbar) findViewById(R.id.tabbedToolbar);
                 setSupportActionBar(toolbar);
@@ -89,7 +74,6 @@ public class ViewAccountActivity extends AppCompatActivity{
                 viewPagerAdapter.addFragment(userFragment, "Users");
                 adminFragment = new AdminAccountsFragment();
                 viewPagerAdapter.addFragment(adminFragment, "Admins");
-
 
 //                send data to fragments
                 Bundle userBundle = new Bundle();
@@ -107,8 +91,6 @@ public class ViewAccountActivity extends AppCompatActivity{
                 viewPager.setAdapter(viewPagerAdapter);
                 tabLayout = (TabLayout) findViewById(R.id.tabLayout);
                 tabLayout.setupWithViewPager(viewPager);
-
-
             }
         };
 
@@ -132,7 +114,7 @@ public class ViewAccountActivity extends AppCompatActivity{
         });
 //        no need to show (all) products to an admin
         if (type.equals("user")){
-        builder.setNegativeButton("Couple Product", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Couple Account to Products", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //        check for internet connection
                 boolean connection = new ConnectionCheck().test(getApplicationContext());

@@ -2,7 +2,6 @@ package com.gfo.gfo_meesterproef.Admin.ViewAccount.CoupleToAccount;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import com.gfo.gfo_meesterproef.Admin.Couple;
 import com.gfo.gfo_meesterproef.Admin.Uncouple;
 import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
-import com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProduct;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 import com.gfo.gfo_meesterproef.Support.Converter;
@@ -37,6 +35,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
     List<String> totalList, alreadyCoupled, toCouple, toUncouple;
     ListView list;
     ProgressBar progressBar;
+    String allProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +55,13 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         setTitle("Couple to " + username);
 
 //        get all products (in group)
-        String rawTotalList = null;
-        String[] splitResultArray;
         totalList = new ArrayList<>();
             try {
-                rawTotalList = new AllProducts(this).execute("view").get();
-            } catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace(); }
-    //        convert rawTotalList String to List<String>
-        splitResultArray = rawTotalList.split(",");
+                allProducts = new AllProducts(this).execute("view").get(); }
+                catch (InterruptedException e) { e.printStackTrace(); }
+                catch (ExecutionException e) { e.printStackTrace(); }
+            //        convert allProducts String to List<String>
+        String[] splitResultArray = allProducts.split(",");
         totalList = (Arrays.asList(splitResultArray));
 //            Converter converter = new Converter();
 //            totalList = converter.splitStringToList(rawTotalList, ",");

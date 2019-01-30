@@ -61,7 +61,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        }//                split result at , into array
+        }//                convert allUsernames String to List<String>
         String[] allUsernamesArray = allUsernames.split(",");
         totalList = (Arrays.asList(allUsernamesArray));
 
@@ -129,7 +129,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
                     list.getChildAt(position).setTag(R.color.white);
                     viewClicked.setBackgroundResource(R.color.green);
                     viewClicked.setTag(R.color.green);
-                    toCouple.add(product);
+                    toCouple.add(accountName);
                 }
             }
         });

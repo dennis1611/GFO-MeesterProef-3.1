@@ -81,7 +81,7 @@ public class ViewProductActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ViewProductActivity.this);
                 builder.setTitle(selectedProduct);
 //                builder.setMessage("What do you want to do?");
-                builder.setPositiveButton("Couple Product", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Couple Product to Accounts", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                save selected product for couple to product
                         SharedPreferences selectedProductPref = getSharedPreferences("selectedProductPreference", contextOfViewProduct.MODE_PRIVATE);
