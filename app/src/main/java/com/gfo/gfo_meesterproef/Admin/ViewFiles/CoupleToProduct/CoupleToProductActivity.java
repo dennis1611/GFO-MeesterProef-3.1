@@ -78,9 +78,12 @@ public class CoupleToProductActivity extends AppCompatActivity {
 //        display all usernames
         list = (ListView) findViewById(R.id.list);
         list.setBackgroundResource(R.color.white);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, totalList);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, totalList){
+//            2 Overrides below prevent View recycling
+            @Override public int getViewTypeCount() { return getCount(); }
+            @Override public int getItemViewType(int position) { return position; }
+        };
         list.setAdapter(listAdapter);
-
 
 //        compare total list and already coupled list
         list.post(new Runnable() {

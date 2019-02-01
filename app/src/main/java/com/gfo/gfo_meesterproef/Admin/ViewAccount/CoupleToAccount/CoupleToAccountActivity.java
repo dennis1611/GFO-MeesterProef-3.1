@@ -2,11 +2,15 @@ package com.gfo.gfo_meesterproef.Admin.ViewAccount.CoupleToAccount;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -78,7 +82,28 @@ public class CoupleToAccountActivity extends AppCompatActivity {
 //        display all products
         list = (ListView) findViewById(R.id.list);
         list.setBackgroundResource(R.color.white);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, totalList);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, totalList){
+//            2 Overrides below prevent View recycling
+            @Override public int getViewTypeCount() { return getCount(); }
+            @Override public int getItemViewType(int position) { return position; }
+//            @NonNull @Override
+//            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+////                Check if an existing view is being reused, otherwise inflate the view
+//                View listItemView = convertView;
+//                if (listItemView==null){
+//                    listItemView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+//                }
+//                if (listItemView.getTag()!=null) {
+//                    int ColorId = Integer.parseInt(listItemView.getTag().toString());
+//                    if (ColorId == R.color.blue) { listItemView.setBackgroundResource(R.color.blue); }
+//                    if (ColorId == R.color.red) { listItemView.setBackgroundResource(R.color.red); }
+//                    if (ColorId == R.color.green) { listItemView.setBackgroundResource(R.color.green); }
+//                    if (ColorId == R.color.white) { listItemView.setBackgroundResource(R.color.white); }
+//                }
+//                 else {listItemView.setBackgroundResource(R.color.white);}
+//                return super.getView(position, listItemView, parent);
+//            }
+        };
         list.setAdapter(listAdapter);
 
 //        compare total list and already coupled list
