@@ -129,7 +129,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
                         toCouple.add(accountName);
                     }
                 } else {//                    needed because there is no default tag (done to increase performance)
-                    list.getChildAt(position).setTag(R.color.white);
+                    viewClicked.setTag(R.color.white);
                     viewClicked.setBackgroundResource(R.color.green);
                     viewClicked.setTag(R.color.green);
                     toCouple.add(accountName);

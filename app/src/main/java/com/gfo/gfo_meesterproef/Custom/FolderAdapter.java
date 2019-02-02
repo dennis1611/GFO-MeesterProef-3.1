@@ -22,7 +22,7 @@ public class FolderAdapter extends ArrayAdapter<String> {
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-//            Check if an existing view is being reused, otherwise inflate the view
+//            Check if an existing View is being reused, otherwise inflate the View (create a new View)
             View gridItemView = convertView;
             if (gridItemView == null) {
                 gridItemView = LayoutInflater.from(getContext()).inflate(

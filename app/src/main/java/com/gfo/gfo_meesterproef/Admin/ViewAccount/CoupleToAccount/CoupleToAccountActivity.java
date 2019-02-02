@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -89,19 +90,20 @@ public class CoupleToAccountActivity extends AppCompatActivity {
 //            @NonNull @Override
 //            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 ////                Check if an existing view is being reused, otherwise inflate the view
-//                View listItemView = convertView;
-//                if (listItemView==null){
-//                    listItemView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
-//                }
-//                if (listItemView.getTag()!=null) {
-//                    int ColorId = Integer.parseInt(listItemView.getTag().toString());
-//                    if (ColorId == R.color.blue) { listItemView.setBackgroundResource(R.color.blue); }
-//                    if (ColorId == R.color.red) { listItemView.setBackgroundResource(R.color.red); }
-//                    if (ColorId == R.color.green) { listItemView.setBackgroundResource(R.color.green); }
-//                    if (ColorId == R.color.white) { listItemView.setBackgroundResource(R.color.white); }
-//                }
-//                 else {listItemView.setBackgroundResource(R.color.white);}
-//                return super.getView(position, listItemView, parent);
+//                if (convertView==null){ convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false); }
+////                Get the {@link Word} object located at this position in the list
+//                String currentProduct = getItem(position);
+//                TextView productTextView = (TextView) convertView;
+//                productTextView.setText(currentProduct);
+////                set right color (corresponding to tag) when view is recycled
+//                if (convertView.getTag()!=null) {
+//                    int ColorId = Integer.parseInt(convertView.getTag().toString());
+//                        if (ColorId == R.color.blue) { convertView.setBackgroundResource(R.color.blue); }
+//                        if (ColorId == R.color.red) { convertView.setBackgroundResource(R.color.red); }
+//                        if (ColorId == R.color.green) { convertView.setBackgroundResource(R.color.green); }
+//                        if (ColorId == R.color.white) { convertView.setBackgroundResource(R.color.white); }
+//                } else {convertView.setBackgroundResource(R.color.white);}
+//                return convertView;
 //            }
         };
         list.setAdapter(listAdapter);
@@ -149,7 +151,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
                         toCouple.add(product);
                     }
                 } else {//                    needed because there is no default tag (done to increase performance)
-                    list.getChildAt(position).setTag(R.color.white);
+                    viewClicked.setTag(R.color.white);
                     viewClicked.setBackgroundResource(R.color.green);
                     viewClicked.setTag(R.color.green);
                     toCouple.add(product);
