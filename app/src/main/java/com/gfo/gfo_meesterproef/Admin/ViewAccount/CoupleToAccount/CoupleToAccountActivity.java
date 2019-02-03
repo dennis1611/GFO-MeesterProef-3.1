@@ -3,10 +3,8 @@ package com.gfo.gfo_meesterproef.Admin.ViewAccount.CoupleToAccount;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,11 +34,10 @@ import static com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity.con
 
 public class CoupleToAccountActivity extends AppCompatActivity {
 
-    String username;
+    String allProducts, username;
     List<String> totalList, alreadyCoupled, toCouple, toUncouple;
     ListView list;
     ProgressBar progressBar;
-    String allProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,52 +71,47 @@ public class CoupleToAccountActivity extends AppCompatActivity {
 //        get already coupled products
         alreadyCoupled = new ArrayList<>();
         try {
-            alreadyCoupled = new CoupledProduct(this).execute("coupledProduct", username).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+            alreadyCoupled = new CoupledProduct(this).execute("coupledProduct", username).get(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace();
         }
 //        display all products
         list = (ListView) findViewById(R.id.list);
         list.setBackgroundResource(R.color.white);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, totalList){
-//            2 Overrides below prevent View recycling
-            @Override public int getViewTypeCount() { return getCount(); }
-            @Override public int getItemViewType(int position) { return position; }
-//            @NonNull @Override
-//            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-////                Check if an existing view is being reused, otherwise inflate the view
-//                if (convertView==null){ convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false); }
-////                Get the {@link Word} object located at this position in the list
-//                String currentProduct = getItem(position);
-//                TextView productTextView = (TextView) convertView;
-//                productTextView.setText(currentProduct);
-////                set right color (corresponding to tag) when view is recycled
-//                if (convertView.getTag()!=null) {
-//                    int ColorId = Integer.parseInt(convertView.getTag().toString());
-//                        if (ColorId == R.color.blue) { convertView.setBackgroundResource(R.color.blue); }
-//                        if (ColorId == R.color.red) { convertView.setBackgroundResource(R.color.red); }
-//                        if (ColorId == R.color.green) { convertView.setBackgroundResource(R.color.green); }
-//                        if (ColorId == R.color.white) { convertView.setBackgroundResource(R.color.white); }
-//                } else {convertView.setBackgroundResource(R.color.white);}
-//                return convertView;
-//            }
+        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, totalList){
+            @NonNull @Override
+//            create view correctly (even when recycled)
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+                View row = convertView;
+//                Check if an existing view is being reused, otherwise inflate the view
+                if (row==null){ row = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false); }
+//              handle already coupled items and toUncouple items
+                if (alreadyCoupled.contains(totalList.get(position))){
+//                  compare row with toUncouple. If it contains, make red
+                    if (toUncouple.contains(totalList.get(position))){
+                        row.setBackgroundResource(R.color.red);
+                        row.setTag(R.color.red);
+//                  ... if not, make blue
+                    } else { row.setBackgroundResource(R.color.blue);
+                             row.setTag(R.color.blue); }
+//              handle not yet coupled items and toCouple items
+                } else {
+//                  compare row with toCouple. If it contains, make green
+                    if (toCouple.contains(totalList.get(position))){
+                        row.setBackgroundResource(R.color.green);
+                        row.setTag(R.color.green);
+//                  ... if not, make white
+                    } else { row.setBackgroundResource(R.color.white);
+                             row.setTag(R.color.white); }
+                }
+//                set text to each row
+                String currentProduct = getItem(position);
+                TextView productTextView = (TextView) row;
+                productTextView.setText(currentProduct);
+                return row; }
         };
         list.setAdapter(listAdapter);
 
-//        compare total list and already coupled list
-        list.post(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < totalList.size(); i++) {
-                    if (alreadyCoupled.contains(totalList.get(i))) {
-                        list.getChildAt(i).setBackgroundResource(R.color.blue);
-                        list.getChildAt(i).setTag(R.color.blue);
-                    }
-                }
-            }
-        });
         registerProductClickCallBack();
     }
 
@@ -131,7 +123,6 @@ public class CoupleToAccountActivity extends AppCompatActivity {
                 TextView textView = (TextView) viewClicked;
                 String product = textView.getText().toString();
 //                add or delete from to (un)couple list
-                if (viewClicked.getTag()!=null){//                    if a tag has been set
                     int ColorId = Integer.parseInt(viewClicked.getTag().toString());
                     if (ColorId==R.color.blue){
                         viewClicked.setBackgroundResource(R.color.red);
@@ -150,12 +141,6 @@ public class CoupleToAccountActivity extends AppCompatActivity {
                         viewClicked.setTag(R.color.green);
                         toCouple.add(product);
                     }
-                } else {//                    needed because there is no default tag (done to increase performance)
-                    viewClicked.setTag(R.color.white);
-                    viewClicked.setBackgroundResource(R.color.green);
-                    viewClicked.setTag(R.color.green);
-                    toCouple.add(product);
-                }
             }
         });
     }
@@ -193,12 +178,9 @@ public class CoupleToAccountActivity extends AppCompatActivity {
             couple.setProgressBar(progressBar);
             try {
                 String echo = couple.execute("couple", username, product).get();
-                Toast.makeText(this, echo, Toast.LENGTH_SHORT).show();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+                Toast.makeText(this, echo, Toast.LENGTH_SHORT).show(); }
+                catch (InterruptedException e) { e.printStackTrace(); }
+                catch (ExecutionException e) { e.printStackTrace(); }
         }
     }
     private void uncouple() {
@@ -213,12 +195,9 @@ public class CoupleToAccountActivity extends AppCompatActivity {
             uncouple.setProgressBar(progressBar);
             try {
                 String echo = uncouple.execute("uncouple", username, product).get();
-                Toast.makeText(this, echo, Toast.LENGTH_SHORT).show();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+                Toast.makeText(this, echo, Toast.LENGTH_SHORT).show(); }
+                catch (InterruptedException e) { e.printStackTrace(); }
+                catch (ExecutionException e) { e.printStackTrace(); }
         }
     }
     @Override

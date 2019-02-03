@@ -2,11 +2,14 @@ package com.gfo.gfo_meesterproef.Admin.ViewFiles.CoupleToProduct;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -30,10 +33,9 @@ import java.util.concurrent.ExecutionException;
 
 public class CoupleToProductActivity extends AppCompatActivity {
 
-    String product;
+    String allUsernames, product;
     List<String> totalList, alreadyCoupled, toCouple, toUncouple;
     ListView list;
-    String allUsernames;
     ProgressBar progressBar;
 
     @Override
@@ -56,47 +58,56 @@ public class CoupleToProductActivity extends AppCompatActivity {
 //        get all usernames as String
         totalList = new ArrayList<>();
         try {
-            allUsernames = new AllAccounts(this).execute("userUsername").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }//                convert allUsernames String to List<String>
+            allUsernames = new AllAccounts(this).execute("userUsername").get(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace(); }
+//        convert allUsernames String to List<String>
         String[] allUsernamesArray = allUsernames.split(",");
         totalList = (Arrays.asList(allUsernamesArray));
 
 //        get already coupled usernames
         alreadyCoupled = new ArrayList<>();
         try {
-            alreadyCoupled = new CoupledAccount(this).execute("coupledAccount", product).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+            alreadyCoupled = new CoupledAccount(this).execute("coupledAccount", product).get(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace(); }
 
 //        display all usernames
         list = (ListView) findViewById(R.id.list);
         list.setBackgroundResource(R.color.white);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, totalList){
-//            2 Overrides below prevent View recycling
-            @Override public int getViewTypeCount() { return getCount(); }
-            @Override public int getItemViewType(int position) { return position; }
+            @NonNull @Override
+//            create view correctly (even when recycled)
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+                View row = convertView;
+//                Check if an existing view is being reused, otherwise inflate the view
+                if (row==null){ row = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false); }
+//              handle already coupled items and toUncouple items
+                if (alreadyCoupled.contains(totalList.get(position))){
+//                  compare row with toUncouple. If it contains, make red
+                    if (toUncouple.contains(totalList.get(position))){
+                        row.setBackgroundResource(R.color.red);
+                        row.setTag(R.color.red);
+//                  ... if not, make blue
+                    } else { row.setBackgroundResource(R.color.blue);
+                             row.setTag(R.color.blue); }
+//              handle not yet coupled items and toCouple items
+                } else {
+//                  compare row with toCouple. If it contains, make green
+                    if (toCouple.contains(totalList.get(position))){
+                        row.setBackgroundResource(R.color.green);
+                        row.setTag(R.color.green);
+//                  ... if not, make white
+                    } else { row.setBackgroundResource(R.color.white);
+                             row.setTag(R.color.white); }
+                }
+//                set text to each row
+                String currentProduct = getItem(position);
+                TextView productTextView = (TextView) row;
+                productTextView.setText(currentProduct);
+                return row; }
         };
         list.setAdapter(listAdapter);
-
-//        compare total list and already coupled list
-        list.post(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < totalList.size(); i++) {
-            if (alreadyCoupled.contains(totalList.get(i))) {
-                list.getChildAt(i).setBackgroundResource(R.color.blue);
-                list.getChildAt(i).setTag(R.color.blue);
-            }
-        }
-            }
-        });
 
         registerNameClickCallBack();
     }
@@ -109,7 +120,6 @@ public class CoupleToProductActivity extends AppCompatActivity {
                 TextView textView = (TextView) viewClicked;
                 String accountName = textView.getText().toString();
 //                get color tag and add or delete from to (un)couple list
-                if (viewClicked.getTag()!=null){//                    if a tag has been set
                     int ColorId = Integer.parseInt(viewClicked.getTag().toString());
                     if (ColorId==R.color.blue){
                         viewClicked.setBackgroundResource(R.color.red);
@@ -128,12 +138,6 @@ public class CoupleToProductActivity extends AppCompatActivity {
                         viewClicked.setTag(R.color.green);
                         toCouple.add(accountName);
                     }
-                } else {//                    needed because there is no default tag (done to increase performance)
-                    viewClicked.setTag(R.color.white);
-                    viewClicked.setBackgroundResource(R.color.green);
-                    viewClicked.setTag(R.color.green);
-                    toCouple.add(accountName);
-                }
             }
         });
     }
