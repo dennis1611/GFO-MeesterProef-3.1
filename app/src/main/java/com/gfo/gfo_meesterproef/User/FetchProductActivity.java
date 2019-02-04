@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.Custom.FolderAdapter;
 import com.gfo.gfo_meesterproef.R;
@@ -22,32 +23,38 @@ public class FetchProductActivity extends AppCompatActivity {
 
     GridView userProductGrid;
     String selectedProduct;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grid);
+
+//        setup ProgressBar
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
 //        get saved username
         SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
         String username = usernamePref.getString("username", "");
 
 //        contact database
         String type = "fetch";
-        List<String> products = new ArrayList<String>();
-        try {
-            products = new FetchProduct(this).execute(type, username).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-//        fill listView with (array)List
-        userProductGrid = (GridView) findViewById(R.id.grid);
-        FolderAdapter productAdapter = new FolderAdapter(this, products);
-        userProductGrid.setAdapter(productAdapter);
+        FetchProduct fetchProduct = new FetchProduct(this, listener);
+        fetchProduct.setProgressBar(progressBar);
+        fetchProduct.execute(type, username);}//        end method
 
-        registerProductClickCallback();
-    }
+//        create listener to wait for AsyncTask to finish
+        FetchProduct.OnTaskCompleted listener = new FetchProduct.OnTaskCompleted() {
+            @Override
+            public void onTaskCompleted(List<String> products) {
+                //        fill gridView with (array)List
+                userProductGrid = (GridView) findViewById(R.id.grid);
+                FolderAdapter productAdapter = new FolderAdapter(FetchProductActivity.this, products);
+                userProductGrid.setAdapter(productAdapter);
+
+                registerProductClickCallback();
+            }
+        };
 
     private void registerProductClickCallback() {
         userProductGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {

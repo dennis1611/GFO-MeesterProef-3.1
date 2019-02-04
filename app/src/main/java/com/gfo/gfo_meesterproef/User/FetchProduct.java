@@ -1,13 +1,10 @@
 package com.gfo.gfo_meesterproef.User;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
-
-import android.content.Context;
-import android.os.AsyncTask;
-import android.widget.EditText;
-
-import com.gfo.gfo_meesterproef.R;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,9 +24,18 @@ import java.util.List;
 public class FetchProduct extends AsyncTask<String, Void, List<String>> {
 
     Context context;
-    FetchProduct(Context ctx) {
+    private OnTaskCompleted listener;
+    FetchProduct(Context ctx, OnTaskCompleted listener) {
         context = ctx;
+        this.listener = listener;
     }
+
+    //    get access to ProgressBar in activity
+    @SuppressLint("StaticFieldLeak") ProgressBar progressBar;
+    public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
+
+    //    create interface to communicate with Activity
+    public interface OnTaskCompleted{ void onTaskCompleted(List<String> splitResultList);}
 
     @Override
     protected List<String> doInBackground(String... params) {
@@ -81,14 +87,12 @@ public class FetchProduct extends AsyncTask<String, Void, List<String>> {
     }
 
     @Override
-    protected void onPreExecute() { }
+    protected void onPreExecute() { progressBar.setVisibility(View.VISIBLE); }
 
     @Override
-    protected void onPostExecute(List<String> splitResultList) { }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
+    protected void onPostExecute(List<String> splitResultList) {
+        progressBar.setVisibility(View.GONE);
+        //        Notify activity that AsyncTask is finished
+        listener.onTaskCompleted(splitResultList);
     }
-
 }

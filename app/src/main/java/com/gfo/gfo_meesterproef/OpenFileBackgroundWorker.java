@@ -1,8 +1,6 @@
 package com.gfo.gfo_meesterproef;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -70,9 +68,7 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
         }
-
         return result;
-
     }
 
 
@@ -81,11 +77,6 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
     }
 
 }

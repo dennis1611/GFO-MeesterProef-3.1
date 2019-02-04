@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gfo.gfo_meesterproef.OpenFileBackgroundWorker;
@@ -25,11 +26,15 @@ public class FetchFileActivity extends AppCompatActivity {
 
     ListView userProductList;
     String clickedFile;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
+
+//        setup ProgressBar
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 //        get selected product from FetchProductActivity
         String product = getIntent().getExtras().getString("userProduct", "");
@@ -40,22 +45,23 @@ public class FetchFileActivity extends AppCompatActivity {
 
 //        contact database for files
         String type = "fetch";
-        List<String> products = new ArrayList<String>();
-        try {
-            products = new FetchFile(this).execute(type, product).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        FetchFile fetchFile = new FetchFile(this, listener);
+        fetchFile.setProgressBar(progressBar);
+        fetchFile.execute(type, product);}//        end method
+
+//    create listener to wait for AsyncTask to finish
+    FetchFile.OnTaskCompleted listener = new FetchFile.OnTaskCompleted() {
+        @Override
+        public void onTaskCompleted(List<String> files) {
+            //        fill listView with List
+            userProductList = (ListView) findViewById(R.id.list);
+            ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(FetchFileActivity.this, android.R.layout.simple_list_item_1, files);
+            userProductList.setAdapter(productAdapter);
+
+            registerFileClickCallBack();
         }
+    };
 
-//        fill listView with List
-        userProductList = (ListView) findViewById(R.id.list);
-        ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, products);
-        userProductList.setAdapter(productAdapter);
-
-        registerFileClickCallBack();
-    }
     private void registerFileClickCallBack() {
         userProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
