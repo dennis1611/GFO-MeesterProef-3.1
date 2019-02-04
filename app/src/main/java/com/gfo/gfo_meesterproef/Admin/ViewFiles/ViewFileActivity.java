@@ -80,19 +80,20 @@ public class ViewFileActivity extends AppCompatActivity {
 //                get selected file
                 TextView textView = (TextView) viewClicked;
                 clickedFile = textView.getText().toString();
-//                contact database to open file
-                String url = null;
-                try{
-                    url = new OpenFileBackgroundWorker(ViewFileActivity.this).execute("view", clickedFile).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace(); }
-//                        open file
-                Intent web = new Intent(Intent.ACTION_VIEW);
-                web.setData(Uri.parse(url));
-                startActivity(web);
-            }
+
+//                contact database for url
+                OpenFileBackgroundWorker openFileBackgroundWorker = new OpenFileBackgroundWorker(ViewFileActivity.this, listener);
+                openFileBackgroundWorker.setProgressBar(progressBar);
+                openFileBackgroundWorker.execute("view", clickedFile);}//                end method
+
+            OpenFileBackgroundWorker.OnTaskCompleted listener = new OpenFileBackgroundWorker.OnTaskCompleted() {
+                @Override
+                public void onTaskCompleted(String url) {
+                    //                        open file
+                    Intent web = new Intent(Intent.ACTION_VIEW);
+                    web.setData(Uri.parse(url));
+                    startActivity(web); }
+            };
         });
     }
     @Override
@@ -102,6 +103,5 @@ public class ViewFileActivity extends AppCompatActivity {
         if (!connection){return;}
         Intent i = new Intent(ViewFileActivity.this, ViewProductActivity.class);
         ViewFileActivity.this.finish();
-        startActivity(i);
-    }
+        startActivity(i); }
 }

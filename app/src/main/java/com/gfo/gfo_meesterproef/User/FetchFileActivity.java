@@ -16,9 +16,7 @@ import com.gfo.gfo_meesterproef.OpenFileBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import static com.gfo.gfo_meesterproef.LoginActivity.contextOfLogin;
 
@@ -39,8 +37,8 @@ public class FetchFileActivity extends AppCompatActivity {
 //        get selected product from FetchProductActivity
         String product = getIntent().getExtras().getString("userProduct", "");
 //        get saved username and set label
-        SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
-        String username = usernamePref.getString("username", "");
+//        SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
+//        String username = usernamePref.getString("username", "");
         setTitle("Files in "+product);
 
 //        contact database for files
@@ -66,27 +64,28 @@ public class FetchFileActivity extends AppCompatActivity {
         userProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View viewClicked, int position, long id) {
-//                get selected file
+
                 //        check for internet connection
                 boolean connection = new ConnectionCheck().test(getApplicationContext());
                 if (!connection){return;}
+                //                get selected file
                 TextView textView = (TextView) viewClicked;
                 clickedFile = textView.getText().toString();
-//                contact database for files
-                String url = null;
-                try{
-                    url = new OpenFileBackgroundWorker(FetchFileActivity.this).execute("view", clickedFile).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace(); }
-//                open file
-                Intent web = new Intent(Intent.ACTION_VIEW);
-                web.setData(Uri.parse(url));
-                startActivity(web);
-            }
 
+//                contact database for url
+                OpenFileBackgroundWorker openFileBackgroundWorker = new OpenFileBackgroundWorker(FetchFileActivity.this, listener);
+                openFileBackgroundWorker.setProgressBar(progressBar);
+                openFileBackgroundWorker.execute("view", clickedFile);}//                end method
 
+//            create listener to wait for AsyncTask to finish
+            OpenFileBackgroundWorker.OnTaskCompleted listener = new OpenFileBackgroundWorker.OnTaskCompleted() {
+                @Override
+                public void onTaskCompleted(String url) {
+                    //                open file
+                    Intent web = new Intent(Intent.ACTION_VIEW);
+                    web.setData(Uri.parse(url));
+                    startActivity(web); }
+            };
         });
     }
     @Override
@@ -96,6 +95,5 @@ public class FetchFileActivity extends AppCompatActivity {
         if (!connection){return;}
         Intent i = new Intent(FetchFileActivity.this, FetchProductActivity.class);
         FetchFileActivity.this.finish();
-        startActivity(i);
-    }
+        startActivity(i); }
 }

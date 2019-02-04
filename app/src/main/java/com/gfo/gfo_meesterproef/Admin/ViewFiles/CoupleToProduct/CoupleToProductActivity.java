@@ -61,6 +61,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
             allUsernames = new AllAccounts(this).execute("userUsername").get(); }
             catch (InterruptedException e) { e.printStackTrace(); }
             catch (ExecutionException e) { e.printStackTrace(); }
+
 //        convert allUsernames String to List<String>
         String[] allUsernamesArray = allUsernames.split(",");
         totalList = (Arrays.asList(allUsernamesArray));
