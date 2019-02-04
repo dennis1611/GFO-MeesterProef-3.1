@@ -10,7 +10,7 @@
     </string-array>
     <string name="label_pressureUnit">PressureUnit:</string>
     <string-array name="unit_pressure">
-        <item>@string/Pressure_bar.abs</item>
+        <item>@string/Pressure_bar_abs</item>
         <item>@string/Pressure_MPa</item>
     </string-array>
     <string name="label_temperatureUnit">TemperatureUnit:</string>
@@ -31,7 +31,7 @@
     <string name="Volume_Nm3h">Nm³/h</string>
     <string name="Volume_TJday">TJ/day</string>
     <string name="Volume_GJSm3">GHV(GJ/Sm³)</string>
-    <string name="Pressure_bar.abs">bar abs.</string>
+    <string name="Pressure_bar_abs">bar abs.</string>
     <string name="Pressure_MPa">MPa</string>
     <string name="Temperature_Centrigrade">℃</string>
     <string name="Temperature_Kelvin">Kelvin</string>

@@ -34,7 +34,7 @@ import static com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity.con
 
 public class CoupleToAccountActivity extends AppCompatActivity {
 
-    String allProducts, username;
+    String username;
     List<String> totalList, alreadyCoupled, toCouple, toUncouple;
     ListView list;
     ProgressBar progressBar;
@@ -57,28 +57,31 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         setTitle("Couple to " + username);
 
 //        get all products (in group)
-        totalList = new ArrayList<>();
-            try {
-                allProducts = new AllProducts(this).execute("view").get(); }
-                catch (InterruptedException e) { e.printStackTrace(); }
-                catch (ExecutionException e) { e.printStackTrace(); }
-            //        convert allProducts String to List<String>
-        String[] splitResultArray = allProducts.split(",");
-        totalList = (Arrays.asList(splitResultArray));
-//            Converter converter = new Converter();
-//            totalList = converter.splitStringToList(rawTotalList, ",");
+        AllProducts allProducts = new AllProducts(this, totalListener);
+        allProducts.setProgressBar(progressBar);
+        allProducts.execute("view");}//        end method
 
-//        get already coupled products
-        alreadyCoupled = new ArrayList<>();
-        try {
-            alreadyCoupled = new CoupledProduct(this).execute("coupledProduct", username).get(); }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace();
-        }
-//        display all products
+//    create totalListener to wait for AsyncTask to finish
+    AllProducts.OnTaskCompleted totalListener = new AllProducts.OnTaskCompleted() {
+        @Override
+        public void onTaskCompleted(List<String> splitResultList) {
+//            get already coupled products
+            totalList = splitResultList;
+            CoupledProduct coupledProduct = new CoupledProduct(CoupleToAccountActivity.this, coupledListener);
+            coupledProduct.setProgressBar(progressBar);
+            coupledProduct.execute("coupledProduct", username);
+        }//        end totalListener
+    };
+
+//    create coupledListener to wait for AsyncTask to finish
+    CoupledProduct.OnTaskCompleted coupledListener = new CoupledProduct.OnTaskCompleted() {
+    @Override
+    public void onTaskCompleted(List<String> splitResultList) {
+        alreadyCoupled = splitResultList;
+        //        display all products
         list = (ListView) findViewById(R.id.list);
         list.setBackgroundResource(R.color.white);
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, totalList){
+        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(CoupleToAccountActivity.this, android.R.layout.simple_list_item_1, totalList){
             @NonNull @Override
 //            create view correctly (even when recycled)
             public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -93,7 +96,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
                         row.setTag(R.color.red);
 //                  ... if not, make blue
                     } else { row.setBackgroundResource(R.color.blue);
-                             row.setTag(R.color.blue); }
+                        row.setTag(R.color.blue); }
 //              handle not yet coupled items and toCouple items
                 } else {
 //                  compare row with toCouple. If it contains, make green
@@ -102,7 +105,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
                         row.setTag(R.color.green);
 //                  ... if not, make white
                     } else { row.setBackgroundResource(R.color.white);
-                             row.setTag(R.color.white); }
+                        row.setTag(R.color.white); }
                 }
 //                set text to each row
                 String currentProduct = getItem(position);
@@ -114,6 +117,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
 
         registerProductClickCallBack();
     }
+};
 
     private void registerProductClickCallBack() {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

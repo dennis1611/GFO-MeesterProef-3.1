@@ -26,14 +26,13 @@ import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class CoupleToProductActivity extends AppCompatActivity {
 
-    String allUsernames, product;
+    String product;
     List<String> totalList, alreadyCoupled, toCouple, toUncouple;
     ListView list;
     ProgressBar progressBar;
@@ -55,63 +54,67 @@ public class CoupleToProductActivity extends AppCompatActivity {
 //        change label
         setTitle("Couple to "+product);
 
-//        get all usernames as String
-        totalList = new ArrayList<>();
-        try {
-            allUsernames = new AllAccounts(this).execute("userUsername").get(); }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace(); }
+//        get all usernames as (Array)List
+        AllAccounts allAccounts = new AllAccounts(CoupleToProductActivity.this, totalListener);
+        allAccounts.setProgressBar(progressBar);
+        allAccounts.execute("userUsername");}//        end method
 
-//        convert allUsernames String to List<String>
-        String[] allUsernamesArray = allUsernames.split(",");
-        totalList = (Arrays.asList(allUsernamesArray));
+//    create totalListener to wait for AsyncTask to finish
+    AllAccounts.OnTaskCompleted totalListener = new AllAccounts.OnTaskCompleted() {
+        @Override
+        public void onTaskCompleted(List<String> splitResultList) {
+//            get already coupled usernames
+            totalList = splitResultList;
+            CoupledAccount coupledAccount = new CoupledAccount(CoupleToProductActivity.this, coupledListener );
+            coupledAccount.setProgressBar(progressBar);
+            coupledAccount.execute("coupledAccount", product); }
+    };//    end totalListener
 
-//        get already coupled usernames
-        alreadyCoupled = new ArrayList<>();
-        try {
-            alreadyCoupled = new CoupledAccount(this).execute("coupledAccount", product).get(); }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace(); }
-
-//        display all usernames
-        list = (ListView) findViewById(R.id.list);
-        list.setBackgroundResource(R.color.white);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, totalList){
-            @NonNull @Override
+//    create coupledListener to wait for AsyncTask to finish
+    CoupledAccount.OnTaskCompleted coupledListener = new CoupledAccount.OnTaskCompleted() {
+        @Override
+        public void onTaskCompleted(final List<String> splitResultList) {
+            //        display all usernames
+            alreadyCoupled = splitResultList;
+            list = (ListView) findViewById(R.id.list);
+            list.setBackgroundResource(R.color.white);
+            ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(CoupleToProductActivity.this, android.R.layout.simple_list_item_1, totalList){
+                @NonNull @Override
 //            create view correctly (even when recycled)
-            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-                View row = convertView;
+                public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+                    View row = convertView;
 //                Check if an existing view is being reused, otherwise inflate the view
-                if (row==null){ row = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false); }
+                    if (row==null){ row = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false); }
 //              handle already coupled items and toUncouple items
-                if (alreadyCoupled.contains(totalList.get(position))){
+                    if (alreadyCoupled.contains(totalList.get(position))){
 //                  compare row with toUncouple. If it contains, make red
-                    if (toUncouple.contains(totalList.get(position))){
-                        row.setBackgroundResource(R.color.red);
-                        row.setTag(R.color.red);
+                        if (toUncouple.contains(totalList.get(position))){
+                            row.setBackgroundResource(R.color.red);
+                            row.setTag(R.color.red);
 //                  ... if not, make blue
-                    } else { row.setBackgroundResource(R.color.blue);
-                             row.setTag(R.color.blue); }
+                        } else { row.setBackgroundResource(R.color.blue);
+                            row.setTag(R.color.blue); }
 //              handle not yet coupled items and toCouple items
-                } else {
+                    } else {
 //                  compare row with toCouple. If it contains, make green
-                    if (toCouple.contains(totalList.get(position))){
-                        row.setBackgroundResource(R.color.green);
-                        row.setTag(R.color.green);
+                        if (toCouple.contains(totalList.get(position))){
+                            row.setBackgroundResource(R.color.green);
+                            row.setTag(R.color.green);
 //                  ... if not, make white
-                    } else { row.setBackgroundResource(R.color.white);
-                             row.setTag(R.color.white); }
-                }
+                        } else { row.setBackgroundResource(R.color.white);
+                            row.setTag(R.color.white); }
+                    }
 //                set text to each row
-                String currentProduct = getItem(position);
-                TextView productTextView = (TextView) row;
-                productTextView.setText(currentProduct);
-                return row; }
-        };
-        list.setAdapter(listAdapter);
+                    String currentProduct = getItem(position);
+                    TextView productTextView = (TextView) row;
+                    productTextView.setText(currentProduct);
+                    return row; }
+            };
+            list.setAdapter(listAdapter);
 
-        registerNameClickCallBack();
-    }
+            registerNameClickCallBack();
+        }
+    };
 
     private void registerNameClickCallBack() {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
