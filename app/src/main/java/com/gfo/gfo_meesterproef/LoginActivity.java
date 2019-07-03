@@ -15,6 +15,8 @@ import com.gfo.gfo_meesterproef.Admin.AdminActivity;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 import com.gfo.gfo_meesterproef.User.UserActivity;
 
+import java.util.List;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -68,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
         LoginBackgroundWorker.OnTaskCompleted listener = new LoginBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
             @Override
-            public void onTaskCompleted(String result) {
-                String adminFlag = result;
+            public void onTaskCompleted(List<String> resultList) {
+                String adminFlag = resultList.get(0);
                 //        check adminFlag and clear EditTexts
                 switch (adminFlag) {
                     case "Y"://    admin

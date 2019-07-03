@@ -51,10 +51,7 @@ public class ViewProductActivity extends AppCompatActivity {
     ViewProduct.OnTaskCompleted listener = new ViewProduct.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted(String rawProducts) {
-//            convert rawProducts String to List<String>
-        Converter converter = new Converter();
-        List<String> products = converter.splitStringToList(rawProducts, ",");
+        public void onTaskCompleted(List<String> products) {
 //        fill gridView with (array)List
         adminProductGrid = (GridView) findViewById(R.id.grid);
         FolderAdapter productAdapter = new FolderAdapter(ViewProductActivity.this, products);
@@ -63,8 +60,6 @@ public class ViewProductActivity extends AppCompatActivity {
         registerProductClickCallback();
         }
     };
-
-
 
 
 //    select product

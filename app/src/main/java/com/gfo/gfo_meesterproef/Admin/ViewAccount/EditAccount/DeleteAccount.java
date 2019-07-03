@@ -18,8 +18,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DeleteAccount extends AsyncTask<String, Void, String> {
+public class DeleteAccount extends AsyncTask<String, Void, List<String>> {
 
 
     Context context;
@@ -36,8 +38,9 @@ public class DeleteAccount extends AsyncTask<String, Void, String> {
     public interface OnTaskCompleted{ void onTaskCompleted();}
 
     @Override
-    protected String doInBackground(String... params) {
+    protected List<String> doInBackground(String... params) {
         String result = null;
+        List<String> resultList = new ArrayList<String>();
         String type = params[0];
         String username = params[1];
         String login_url = "https://mantixcloud.nl/gfo/account/deleteaccount.php";
@@ -69,14 +72,17 @@ public class DeleteAccount extends AsyncTask<String, Void, String> {
                 inputStream.close();
 
                 httpURLConnection.disconnect();
-                return result;
+
+//                set String in List (for future MasterBgWorker)
+                resultList.add(result);
+                return resultList;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return result;
+        return resultList;
     }
 
     @Override
@@ -85,9 +91,9 @@ public class DeleteAccount extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(List<String> resultList) {
         progressBar.setVisibility(View.GONE);
-        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, resultList.get(0), Toast.LENGTH_SHORT).show();
         //        notify Activity that AsyncTask is finished
         listener.onTaskCompleted();
     }

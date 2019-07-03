@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import static com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProductActivity.contextOfViewProduct;
 
@@ -152,6 +151,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.link, menu);
         return true;
     }
+
     @Override
 //    set onClick to icons in toolbar
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -180,12 +180,9 @@ public class CoupleToProductActivity extends AppCompatActivity {
             couple.setProgressBar(progressBar);
             try {
                 String echo = couple.execute("couple", name, product).get();
-                Toast.makeText(this, echo, Toast.LENGTH_SHORT).show();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
             }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace(); }
         }
     }
     private void uncouple() {
@@ -200,12 +197,9 @@ public class CoupleToProductActivity extends AppCompatActivity {
             uncouple.setProgressBar(progressBar);
             try {
                 String echo = uncouple.execute("uncouple", name, product).get();
-                Toast.makeText(this, echo, Toast.LENGTH_SHORT).show();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
             }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace(); }
         }
     }
     @Override

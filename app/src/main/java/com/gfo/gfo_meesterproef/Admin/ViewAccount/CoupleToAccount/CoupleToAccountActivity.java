@@ -15,17 +15,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gfo.gfo_meesterproef.Admin.Couple;
 import com.gfo.gfo_meesterproef.Admin.Uncouple;
 import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
-import com.gfo.gfo_meesterproef.Support.Converter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -78,6 +75,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
     @Override
     public void onTaskCompleted(List<String> splitResultList) {
         alreadyCoupled = splitResultList;
+
         //        display all products
         list = (ListView) findViewById(R.id.list);
         list.setBackgroundResource(R.color.white);
@@ -182,7 +180,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
             couple.setProgressBar(progressBar);
             try {
                 String echo = couple.execute("couple", username, product).get();
-                Toast.makeText(this, echo, Toast.LENGTH_SHORT).show(); }
+            }
                 catch (InterruptedException e) { e.printStackTrace(); }
                 catch (ExecutionException e) { e.printStackTrace(); }
         }
@@ -199,7 +197,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
             uncouple.setProgressBar(progressBar);
             try {
                 String echo = uncouple.execute("uncouple", username, product).get();
-                Toast.makeText(this, echo, Toast.LENGTH_SHORT).show(); }
+            }
                 catch (InterruptedException e) { e.printStackTrace(); }
                 catch (ExecutionException e) { e.printStackTrace(); }
         }

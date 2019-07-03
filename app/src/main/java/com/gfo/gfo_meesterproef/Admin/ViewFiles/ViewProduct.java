@@ -13,8 +13,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class ViewProduct extends AsyncTask<String, Void, String> {
+public class ViewProduct extends AsyncTask<String, Void, List<String>> {
 
     Context context;
     private OnTaskCompleted listener;
@@ -28,13 +31,15 @@ public class ViewProduct extends AsyncTask<String, Void, String> {
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
 
     //    create interface to communicate with Activity
-    public interface OnTaskCompleted{ void onTaskCompleted(String result);}
+    public interface OnTaskCompleted{ void onTaskCompleted(List<String> splitResultList);}
 
     @Override
-    protected String doInBackground(String... params) {
+    protected List<String> doInBackground(String... params) {
         String type = params[0];
         String view_url = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
         String result = null;
+        String[] splitResultArray;
+        List<String> splitResultList = new ArrayList<String>();
         if (type.equals("view")) {
             try {
 //                connect to database
@@ -51,27 +56,30 @@ public class ViewProduct extends AsyncTask<String, Void, String> {
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;
                 }
+                //                split result at , into array
+                splitResultArray = result.split(",");
+                splitResultList = (Arrays.asList(splitResultArray));
 
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return result;
+                return splitResultList;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return result;
+        return splitResultList;
     }
 
     @Override
     protected void onPreExecute() {progressBar.setVisibility(View.VISIBLE);}
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(List<String> splitResultList) {
         progressBar.setVisibility(View.GONE);
 //        Notify activity that AsyncTask is finished
-   listener.onTaskCompleted(result);
+   listener.onTaskCompleted(splitResultList);
     }
 }

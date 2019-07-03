@@ -17,9 +17,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class LoginBackgroundWorker extends AsyncTask<String, Void, String> {
+public class LoginBackgroundWorker extends AsyncTask<String, Void, List<String>> {
 
     Context context;
     private OnTaskCompleted listener;
@@ -31,15 +33,16 @@ public class LoginBackgroundWorker extends AsyncTask<String, Void, String> {
 @SuppressLint("StaticFieldLeak") ProgressBar progressBar;
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
 //    create interface to communicate with Activity
-    public interface OnTaskCompleted{ void onTaskCompleted(String result);}
+    public interface OnTaskCompleted{ void onTaskCompleted(List<String> resultList);}
 
     @Override
-    protected String doInBackground(String... params) {
+    protected List<String> doInBackground(String... params) {
         String type = params[0];
         String username = params[1];
         String password = params[2];
         String login_url = "https://mantixcloud.nl/gfo/login.php";
         String result = null;
+        List<String> resultList = new ArrayList<>();
         if(type.equals("login")) {
             try {
 //                connect to database
@@ -71,13 +74,16 @@ public class LoginBackgroundWorker extends AsyncTask<String, Void, String> {
                 inputStream.close();
 
                 httpURLConnection.disconnect();
-                return result;
+
+//                set String in List (for future MasterBgWorker)
+                resultList.add(result);
+                return resultList;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }return result;
+        }return resultList;
     }
 
     @Override
@@ -86,9 +92,9 @@ public class LoginBackgroundWorker extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(List<String> resultList) {
         progressBar.setVisibility(View.GONE);
 //        notify Activity that AsyncTask is finished
-            listener.onTaskCompleted(result);
+            listener.onTaskCompleted(resultList);
     }
 }

@@ -15,11 +15,8 @@ import android.widget.TextView;
 import com.gfo.gfo_meesterproef.OpenFileBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
-import com.gfo.gfo_meesterproef.Support.Converter;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class ViewFileActivity extends AppCompatActivity {
 
@@ -56,11 +53,7 @@ public class ViewFileActivity extends AppCompatActivity {
     ViewFile.OnTaskCompleted listener = new ViewFile.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted(String rawFiles) {
-//            convert rawFiles String to List<String>
-            Converter converter = new Converter();
-            List<String> files = converter.splitStringToList(rawFiles, ",");
-
+        public void onTaskCompleted(List<String> files) {
             // fill listView with List
             adminProductList = (ListView) findViewById(R.id.list);
             ArrayAdapter<String> productAdapter = new ArrayAdapter<>(ViewFileActivity.this, android.R.layout.simple_list_item_1, files);
@@ -88,8 +81,9 @@ public class ViewFileActivity extends AppCompatActivity {
 
             OpenFileBackgroundWorker.OnTaskCompleted listener = new OpenFileBackgroundWorker.OnTaskCompleted() {
                 @Override
-                public void onTaskCompleted(String url) {
+                public void onTaskCompleted(List<String> resultList) {
                     //                        open file
+                    String url = resultList.get(0);
                     Intent web = new Intent(Intent.ACTION_VIEW);
                     web.setData(Uri.parse(url));
                     startActivity(web); }

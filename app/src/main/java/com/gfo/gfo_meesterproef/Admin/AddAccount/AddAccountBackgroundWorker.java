@@ -18,20 +18,28 @@ import java.io.BufferedReader;
     import java.net.MalformedURLException;
     import java.net.URL;
     import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AddAccountBackgroundWorker extends AsyncTask<String, Void, String> {
+public class AddAccountBackgroundWorker extends AsyncTask<String, Void, List<String>> {
 
     Context context;
-    AddAccountBackgroundWorker(Context ctx) {
+    private OnTaskCompleted listener;
+    AddAccountBackgroundWorker(Context ctx, OnTaskCompleted listener) {
         context = ctx;
+        this.listener = listener;
     }
+
 //    get access to ProgressBar in activity
 @SuppressLint("StaticFieldLeak") ProgressBar progressBar;
 public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
+    //    create interface to communicate with Activity
+    public interface OnTaskCompleted{ void onTaskCompleted();}
 
     @Override
-    protected String doInBackground(String... params) {
+    protected List<String> doInBackground(String... params) {
         String result = null;
+        List<String> resultList = new ArrayList<String>();
         String type = params[0];
         String login_url = "https://mantixcloud.nl/gfo/account/addaccount.php";
         if(type.equals("add_account")) {
@@ -69,14 +77,17 @@ public void setProgressBar(ProgressBar progressBar) { this.progressBar = progres
                 inputStream.close();
 
                 httpURLConnection.disconnect();
-                return result;
+
+//                set String in List (for future MasterBgWorker)
+                resultList.add(result);
+                return resultList;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return result;
+        return resultList;
     }
 
     @Override
@@ -85,8 +96,10 @@ public void setProgressBar(ProgressBar progressBar) { this.progressBar = progres
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(List<String> resultList) {
     progressBar.setVisibility(View.GONE);
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, resultList.get(0), Toast.LENGTH_LONG).show();
+//        notify Activity that AsyncTask is finished
+        listener.onTaskCompleted();
     }
 }

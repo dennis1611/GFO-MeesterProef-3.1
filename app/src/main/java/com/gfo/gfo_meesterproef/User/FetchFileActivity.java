@@ -80,8 +80,9 @@ public class FetchFileActivity extends AppCompatActivity {
 //            create listener to wait for AsyncTask to finish
             OpenFileBackgroundWorker.OnTaskCompleted listener = new OpenFileBackgroundWorker.OnTaskCompleted() {
                 @Override
-                public void onTaskCompleted(String url) {
+                public void onTaskCompleted(List<String> resultList) {
                     //                open file
+                    String url = resultList.get(0);
                     Intent web = new Intent(Intent.ACTION_VIEW);
                     web.setData(Uri.parse(url));
                     startActivity(web); }

@@ -23,6 +23,7 @@ import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewAccountActivity extends AppCompatActivity{
 
@@ -56,7 +57,7 @@ public class ViewAccountActivity extends AppCompatActivity{
         ViewAccountBackgroundWorker.OnTaskCompleted listener = new ViewAccountBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
             @Override
-            public void onTaskCompleted(ArrayList<String> resultList) {
+            public void onTaskCompleted(List<String> resultList) {
 //                get  value lists (not separated) from parent list
                 String userUsernames = resultList.get(0);
                 String userPasswords = resultList.get(1);

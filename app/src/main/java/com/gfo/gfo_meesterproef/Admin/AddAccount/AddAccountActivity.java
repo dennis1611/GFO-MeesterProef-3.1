@@ -18,6 +18,7 @@ import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 public class AddAccountActivity extends AppCompatActivity {
 
     EditText usernamecET, passwordcET, passConfirmET,emailcET;
+    String usernamec, passwordc, emailc, adminflagc;
     CheckBox AdminCheck;
     ProgressBar progressBar;
 
@@ -37,12 +38,12 @@ public class AddAccountActivity extends AppCompatActivity {
     public void addAccount(View view) {
 
 //        check if username is not empty
-        String usernamec = usernamecET.getText().toString();
+        usernamec = usernamecET.getText().toString();
         if (TextUtils.isEmpty(usernamec)) {
             usernamecET.setError("Username can't be empty");
             return;
         }//        check if password is not empty
-        String passwordc = passwordcET.getText().toString();
+        passwordc = passwordcET.getText().toString();
         if (TextUtils.isEmpty(passwordc)) {
             passwordcET.setError("Password can't be empty");
             return;
@@ -53,13 +54,13 @@ public class AddAccountActivity extends AppCompatActivity {
             passConfirmET.setError("Passwords do not match");
             return;
         }//        check if email is valid
-        String emailc = emailcET.getText().toString();
+        emailc = emailcET.getText().toString();
         if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailc).matches()) {//            do nothing
         } else{
             emailcET.setError("Please enter a valid E-mail address");
             return;
         }//        check if admin checkbox is checked
-        String adminflagc = "n";
+        adminflagc = "n";
         if ((AdminCheck).isChecked()){
             adminflagc = "Y";
         }
@@ -68,10 +69,20 @@ public class AddAccountActivity extends AppCompatActivity {
         if (!connection){return;}
 //        sends data to backgroundWorker
         String type = "add_account";
-        AddAccountBackgroundWorker addAccountBackgroundWorker = new AddAccountBackgroundWorker(this);
+        AddAccountBackgroundWorker addAccountBackgroundWorker = new AddAccountBackgroundWorker(this, listener);
         addAccountBackgroundWorker.setProgressBar(progressBar);
         addAccountBackgroundWorker.execute(type, usernamec, passwordc, emailc, adminflagc);
-    }
+    }//    end method
+
+//    create listener to wait for AsyncTask to finish
+    AddAccountBackgroundWorker.OnTaskCompleted listener = new AddAccountBackgroundWorker.OnTaskCompleted() {
+//        code below won't get executed until AsyncTask is finished
+        @Override
+        public void onTaskCompleted() {
+            //        return to AdminActivity
+            onBackPressed();
+        }
+    };
 
     public void reset () {//        reset editText
         ((EditText) findViewById(R.id.editTextUsername)).setText("");

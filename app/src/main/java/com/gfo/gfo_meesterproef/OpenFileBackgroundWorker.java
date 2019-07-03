@@ -17,12 +17,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gebruiker on 06/11/2017.
  */
 
-public class OpenFileBackgroundWorker extends AsyncTask<String, Void, String> {
+public class OpenFileBackgroundWorker extends AsyncTask<String, Void, List<String>> {
 
     Context context;
     private OnTaskCompleted listener;
@@ -36,13 +38,14 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, String> {
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
 
     //    create interface to communicate with Activity
-    public interface OnTaskCompleted{ void onTaskCompleted(String result);}
+    public interface OnTaskCompleted{ void onTaskCompleted(List<String> resultList);}
 
     @Override
-    protected String doInBackground(String... params) {
+    protected List<String> doInBackground(String... params) {
         String type = params[0];
         String dname = params[1];
         String result = null;
+        List<String> resultList = new ArrayList<>();
         String login_url = "https://mantixcloud.nl/gfo/openfile.php";
         if(type.equals("view")) {
             try {
@@ -73,14 +76,17 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, String> {
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return result;
+
+//                set String in List (for future MasterBgWorker)
+                resultList.add(result);
+                return resultList;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return result;
+        return resultList;
     }
 
 
@@ -88,9 +94,9 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, String> {
     protected void onPreExecute() {progressBar.setVisibility(View.VISIBLE);}
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(List<String> resultList) {
         progressBar.setVisibility(View.GONE);
         //        Notify activity that AsyncTask is finished
-        listener.onTaskCompleted(result);
+        listener.onTaskCompleted(resultList);
     }
 }

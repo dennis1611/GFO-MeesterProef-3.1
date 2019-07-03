@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -74,6 +75,7 @@ public class Couple extends AsyncTask<String, Void, String> {
             }
         }return result;
     }
+
     @Override
     protected void onPreExecute() {
         progressBar.setVisibility(View.VISIBLE);
@@ -82,5 +84,6 @@ public class Couple extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         progressBar.setVisibility(View.GONE);
+        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
     }
 }

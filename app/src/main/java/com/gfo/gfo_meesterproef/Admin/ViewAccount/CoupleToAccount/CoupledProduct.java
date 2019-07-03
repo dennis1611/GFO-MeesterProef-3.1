@@ -77,7 +77,6 @@ public class CoupledProduct extends AsyncTask<String, Void, List<String>> {
                 inputStream.close();
                 httpURLConnection.disconnect();
                 return splitResultList;
-
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {

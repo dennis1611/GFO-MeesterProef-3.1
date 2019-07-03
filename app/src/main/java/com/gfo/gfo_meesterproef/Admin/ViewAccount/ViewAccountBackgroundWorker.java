@@ -14,9 +14,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, ArrayList<String>> {
+public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, List<String>> {
 
     Context context;
     private OnTaskCompleted listener;
@@ -30,14 +31,14 @@ public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, ArrayLi
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
 
     //    create interface to communicate with Activity
-    public interface OnTaskCompleted{ void onTaskCompleted(ArrayList<String> resultList);}
+    public interface OnTaskCompleted{ void onTaskCompleted(List<String> resultList);}
 
     @Override
-    protected ArrayList<String> doInBackground(String... params) {
+    protected List<String> doInBackground(String... params) {
         String type = params[0];
         String view_url = null;
         String result = null;
-        ArrayList<String> resultList = new ArrayList<>();
+        List<String> resultList = new ArrayList<>();
 
 //        contact database
         if (type.equals("userUsername") || type.equals("userPassword") || type.equals("userEmail")
@@ -72,7 +73,7 @@ public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, ArrayLi
                 inputStream.close();
                 httpURLConnection.disconnect();
 
-//                add iteration's result to parent ArrayList
+//                add iteration's result to parent List
                     resultList.add(result);
             }//            end loop
 
@@ -93,7 +94,7 @@ public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, ArrayLi
     }
 
     @Override
-    protected void onPostExecute(ArrayList<String> resultList) {
+    protected void onPostExecute(List<String> resultList) {
             progressBar.setVisibility(View.GONE);
 //        Notify activity that AsyncTask is finished
             listener.onTaskCompleted(resultList);
