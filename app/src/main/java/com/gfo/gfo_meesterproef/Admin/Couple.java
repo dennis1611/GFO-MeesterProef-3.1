@@ -18,8 +18,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Couple extends AsyncTask<String, Void, String> {
+public class Couple extends AsyncTask<String, Void, List<String>> {
 
     Context context;
 
@@ -31,12 +33,13 @@ public class Couple extends AsyncTask<String, Void, String> {
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected List<String> doInBackground(String... params) {
         String type = params[0];
         String username = params[1];
         String product = params[2];
         String login_url = "https://mantixcloud.nl/gfo/couple/couple.php";
         String result = null;
+        List<String> resultList = new ArrayList<>();
         if (type.equals("couple")) {
             try {
 //                connect to database
@@ -67,13 +70,15 @@ public class Couple extends AsyncTask<String, Void, String> {
                 inputStream.close();
 
                 httpURLConnection.disconnect();
-                return result;
+//                set String in List (for future MasterBgWorker)
+                resultList.add(result);
+                return resultList;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }return result;
+        }return resultList;
     }
 
     @Override
@@ -82,8 +87,8 @@ public class Couple extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(List<String> resultList) {
         progressBar.setVisibility(View.GONE);
-        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, resultList.get(0), Toast.LENGTH_SHORT).show();
     }
 }

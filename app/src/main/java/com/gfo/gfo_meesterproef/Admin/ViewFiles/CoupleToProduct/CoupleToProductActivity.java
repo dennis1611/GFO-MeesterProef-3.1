@@ -179,7 +179,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
             Couple couple = new Couple(this);
             couple.setProgressBar(progressBar);
             try {
-                String echo = couple.execute("couple", name, product).get();
+                List<String> echo = couple.execute("couple", name, product).get();
             }
             catch (InterruptedException e) { e.printStackTrace(); }
             catch (ExecutionException e) { e.printStackTrace(); }
@@ -196,7 +196,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
             Uncouple uncouple = new Uncouple(this);
             uncouple.setProgressBar(progressBar);
             try {
-                String echo = uncouple.execute("uncouple", name, product).get();
+                List<String> echo = uncouple.execute("uncouple", name, product).get();
             }
             catch (InterruptedException e) { e.printStackTrace(); }
             catch (ExecutionException e) { e.printStackTrace(); }

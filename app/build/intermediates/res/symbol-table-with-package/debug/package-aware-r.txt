@@ -763,16 +763,10 @@ drawable ic_action_delete
 drawable ic_action_link
 drawable ic_action_reset
 drawable ic_action_settings
-drawable ic_delete_white_24dp
-drawable ic_edit_black_24dp
-drawable ic_edit_white_24dp
 drawable ic_folder_open_black_24dp
-drawable ic_link_white_24dp
 drawable ic_lock_outline_black_24dp
 drawable ic_mail_outline_black_24dp
 drawable ic_person_black_24dp
-drawable ic_refresh_white_24dp
-drawable ic_settings_white_24dp
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
