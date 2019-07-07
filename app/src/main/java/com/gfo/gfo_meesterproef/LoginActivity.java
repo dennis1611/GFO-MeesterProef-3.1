@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                         break;
                     default:
                         Toast.makeText(contextOfLogin,
-                                "Incorrect Username/Password", Toast.LENGTH_LONG).show();
+                                adminFlag, Toast.LENGTH_LONG).show();
                         break; }
             }
         };
