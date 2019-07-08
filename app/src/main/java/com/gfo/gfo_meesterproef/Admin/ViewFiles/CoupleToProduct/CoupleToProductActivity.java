@@ -56,7 +56,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
 //        get all usernames as (Array)List
         AllAccounts allAccounts = new AllAccounts(CoupleToProductActivity.this, totalListener);
         allAccounts.setProgressBar(progressBar);
-        allAccounts.execute("userUsername");}//        end method
+        allAccounts.execute("allAccounts");}//        end method
 
 //    create totalListener to wait for AsyncTask to finish
     AllAccounts.OnTaskCompleted totalListener = new AllAccounts.OnTaskCompleted() {

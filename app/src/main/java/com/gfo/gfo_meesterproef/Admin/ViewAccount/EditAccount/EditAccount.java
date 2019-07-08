@@ -43,9 +43,9 @@ public class EditAccount extends AsyncTask<String, Void, List<String>> {
         List<String> resultList = new ArrayList<String>();
         String type = params[0];
         String edit_url = "https://mantixcloud.nl/gfo/account/editaccount.php";
-        if(type.equals("edit")) {
+        if(type.equals("editAccount")) {
             try {
-                String first = params[1];//                old username
+                String oldUsername = params[1];
                 String username = params[2];
                 String password = params[3];
                 String email = params[4];
@@ -58,7 +58,7 @@ public class EditAccount extends AsyncTask<String, Void, List<String>> {
 //                send data
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String post_data = URLEncoder.encode("first","UTF-8")+"="+URLEncoder.encode(first,"UTF-8")+"&"
+                String post_data = URLEncoder.encode("old_username","UTF-8")+"="+URLEncoder.encode(oldUsername,"UTF-8")+"&"
                         +URLEncoder.encode("username","UTF-8")+"="+URLEncoder.encode(username,"UTF-8")+"&"
                         +URLEncoder.encode("password","UTF-8")+"="+URLEncoder.encode(password,"UTF-8")+"&"
                         +URLEncoder.encode("email","UTF-8")+"="+URLEncoder.encode(email,"UTF-8");
@@ -68,7 +68,7 @@ public class EditAccount extends AsyncTask<String, Void, List<String>> {
                 outputStream.close();
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
                 result="";
                 String line="";
                 while((line = bufferedReader.readLine())!= null) {

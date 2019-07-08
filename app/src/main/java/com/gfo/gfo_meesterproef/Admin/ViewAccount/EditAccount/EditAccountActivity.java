@@ -105,10 +105,9 @@ public class EditAccountActivity extends AppCompatActivity{
 
     public void editConfirmed() {
 //        separate method needed because listener could't be recognized in OnClick
-        String type = "edit";
         EditAccount editAccount = new EditAccount(EditAccountActivity.this, editListener);
         editAccount.setProgressBar(progressBar);
-        editAccount.execute(type, oldUsername, newUsername, newPassword, newEmail); }//        end method
+        editAccount.execute("editAccount", oldUsername, newUsername, newPassword, newEmail); }//        end method
 //    create listener to wait for AsyncTask to finish
     EditAccount.OnTaskCompleted editListener = new EditAccount.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
@@ -145,10 +144,9 @@ public class EditAccountActivity extends AppCompatActivity{
 
     public void deleteConfirmed() {
 //        separate method needed because listener could't be recognized in OnClick
-        String type = "delete";
         DeleteAccount deleteAccount = new DeleteAccount(EditAccountActivity.this, deleteListener);
         deleteAccount.setProgressBar(progressBar);
-        deleteAccount.execute(type, oldUsername); }//        end method
+        deleteAccount.execute("deleteAccount", oldUsername); }//        end method
 //        create listener to wait for AsyncTask to finish
         DeleteAccount.OnTaskCompleted deleteListener = new DeleteAccount.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished

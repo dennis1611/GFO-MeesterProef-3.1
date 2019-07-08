@@ -58,10 +58,9 @@ public class LoginActivity extends AppCompatActivity {
             passwordET.setError("Please enter a password");
             return;
         }//        contact database
-        String type = "login";
         LoginBackgroundWorker loginBackgroundWorker = new LoginBackgroundWorker(this, listener);
         loginBackgroundWorker.setProgressBar(progressBar);
-        loginBackgroundWorker.execute(type, username, password);
+        loginBackgroundWorker.execute("login", username, password);
 //        save username
         SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
         usernamePref.edit().putString("username", username).apply(); }//        end method

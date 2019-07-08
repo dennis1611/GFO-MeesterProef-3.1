@@ -62,7 +62,7 @@ public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, List<St
                 httpURLConnection.setDoInput(true);
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 result = "";
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {

@@ -38,10 +38,9 @@ public class FetchProductActivity extends AppCompatActivity {
         String username = usernamePref.getString("username", "");
 
 //        contact database
-        String type = "fetch";
         FetchProduct fetchProduct = new FetchProduct(this, listener);
         fetchProduct.setProgressBar(progressBar);
-        fetchProduct.execute(type, username);}//        end method
+        fetchProduct.execute("fetchProduct", username);}//        end method
 
 //        create listener to wait for AsyncTask to finish
         FetchProduct.OnTaskCompleted listener = new FetchProduct.OnTaskCompleted() {

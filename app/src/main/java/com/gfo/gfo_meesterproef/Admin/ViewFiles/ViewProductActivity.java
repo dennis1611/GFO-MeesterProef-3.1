@@ -42,10 +42,9 @@ public class ViewProductActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 //        contact database
-        String type = "view";
         ViewProduct viewProduct = new ViewProduct(this, listener);
         viewProduct.setProgressBar(progressBar);
-        viewProduct.execute(type);}//        end method
+        viewProduct.execute("viewProduct");}//        end method
 
 //    create listener to wait for AsyncTask to finish
     ViewProduct.OnTaskCompleted listener = new ViewProduct.OnTaskCompleted() {

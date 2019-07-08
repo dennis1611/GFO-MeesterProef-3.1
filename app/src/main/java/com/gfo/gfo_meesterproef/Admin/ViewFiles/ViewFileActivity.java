@@ -42,12 +42,9 @@ public class ViewFileActivity extends AppCompatActivity {
         setTitle("View Files from "+product);
 
 //        contact database for files
-        String type = "view";
-
         ViewFile viewFile = new ViewFile(this, listener);
         viewFile.setProgressBar(progressBar);
-        viewFile.execute(type, product);}//        end method
-
+        viewFile.execute("viewFile", product);}//        end method
 
 //    create listener to wait for AsyncTask to finish
     ViewFile.OnTaskCompleted listener = new ViewFile.OnTaskCompleted() {
@@ -77,7 +74,7 @@ public class ViewFileActivity extends AppCompatActivity {
 //                contact database for url
                 OpenFileBackgroundWorker openFileBackgroundWorker = new OpenFileBackgroundWorker(ViewFileActivity.this, listener);
                 openFileBackgroundWorker.setProgressBar(progressBar);
-                openFileBackgroundWorker.execute("view", clickedFile);}//                end method
+                openFileBackgroundWorker.execute("openFile", clickedFile);}//                end method
 
             OpenFileBackgroundWorker.OnTaskCompleted listener = new OpenFileBackgroundWorker.OnTaskCompleted() {
                 @Override

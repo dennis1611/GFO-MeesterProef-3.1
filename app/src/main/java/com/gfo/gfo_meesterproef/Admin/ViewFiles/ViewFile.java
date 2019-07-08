@@ -45,7 +45,7 @@ public class ViewFile extends AsyncTask<String, Void, List<String>>{
         String result =  null;
         String[] splitResultArray;
         List<String> splitResultList = new ArrayList<String>();
-        if (type.equals("view")) {
+        if (type.equals("viewFile")) {
             try {
 //                connect to database
                 URL url = new URL(view_url);
@@ -55,15 +55,15 @@ public class ViewFile extends AsyncTask<String, Void, List<String>>{
                 httpURLConnection.setDoInput(true);
 //                send data
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "iso-8859-1"));
-                String post_data = URLEncoder.encode("product","iso-8859-1")+"="+URLEncoder.encode(product,"iso-8859-1");
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("product","UTF-8")+"="+URLEncoder.encode(product,"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 result = "";
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {

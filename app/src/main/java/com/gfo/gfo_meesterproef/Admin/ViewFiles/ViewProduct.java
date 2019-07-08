@@ -40,7 +40,7 @@ public class ViewProduct extends AsyncTask<String, Void, List<String>> {
         String result = null;
         String[] splitResultArray;
         List<String> splitResultList = new ArrayList<String>();
-        if (type.equals("view")) {
+        if (type.equals("viewProduct")) {
             try {
 //                connect to database
                 URL url = new URL(view_url);
@@ -50,7 +50,7 @@ public class ViewProduct extends AsyncTask<String, Void, List<String>> {
                 httpURLConnection.setDoInput(true);
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 result = "";
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {

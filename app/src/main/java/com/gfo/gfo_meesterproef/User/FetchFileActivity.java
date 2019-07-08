@@ -42,10 +42,9 @@ public class FetchFileActivity extends AppCompatActivity {
         setTitle("Files in "+product);
 
 //        contact database for files
-        String type = "fetch";
         FetchFile fetchFile = new FetchFile(this, listener);
         fetchFile.setProgressBar(progressBar);
-        fetchFile.execute(type, product);}//        end method
+        fetchFile.execute("fetchFile", product);}//        end method
 
 //    create listener to wait for AsyncTask to finish
     FetchFile.OnTaskCompleted listener = new FetchFile.OnTaskCompleted() {
@@ -75,7 +74,7 @@ public class FetchFileActivity extends AppCompatActivity {
 //                contact database for url
                 OpenFileBackgroundWorker openFileBackgroundWorker = new OpenFileBackgroundWorker(FetchFileActivity.this, listener);
                 openFileBackgroundWorker.setProgressBar(progressBar);
-                openFileBackgroundWorker.execute("view", clickedFile);}//                end method
+                openFileBackgroundWorker.execute("openFile", clickedFile);}//                end method
 
 //            create listener to wait for AsyncTask to finish
             OpenFileBackgroundWorker.OnTaskCompleted listener = new OpenFileBackgroundWorker.OnTaskCompleted() {

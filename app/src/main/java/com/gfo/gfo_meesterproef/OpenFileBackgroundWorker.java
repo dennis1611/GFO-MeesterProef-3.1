@@ -47,7 +47,7 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, List<Strin
         String result = null;
         List<String> resultList = new ArrayList<>();
         String login_url = "https://mantixcloud.nl/gfo/openfile.php";
-        if(type.equals("view")) {
+        if(type.equals("openFile")) {
             try {
 //                connect to database
                 URL url = new URL(login_url);
@@ -58,8 +58,8 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, List<Strin
 
 //                send data
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "iso-8859-1"));
-                String post_data = URLEncoder.encode("dname","iso-8859-1")+"="+URLEncoder.encode(dname,"iso-8859-1");
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("dname","UTF-8")+"="+URLEncoder.encode(dname,"UTF-8");
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -67,7 +67,7 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, List<Strin
 
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 result = "";
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {

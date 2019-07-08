@@ -56,7 +56,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
 //        get all products (in group)
         AllProducts allProducts = new AllProducts(this, totalListener);
         allProducts.setProgressBar(progressBar);
-        allProducts.execute("view");}//        end method
+        allProducts.execute("allProducts");}//        end method
 
 //    create totalListener to wait for AsyncTask to finish
     AllProducts.OnTaskCompleted totalListener = new AllProducts.OnTaskCompleted() {

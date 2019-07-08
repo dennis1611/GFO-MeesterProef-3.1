@@ -42,7 +42,7 @@ public void setProgressBar(ProgressBar progressBar) { this.progressBar = progres
         List<String> resultList = new ArrayList<String>();
         String type = params[0];
         String login_url = "https://mantixcloud.nl/gfo/account/addaccount.php";
-        if(type.equals("add_account")) {
+        if(type.equals("addAccount")) {
             try {
                 String usernamec = params[1];
                 String passwordc = params[2];

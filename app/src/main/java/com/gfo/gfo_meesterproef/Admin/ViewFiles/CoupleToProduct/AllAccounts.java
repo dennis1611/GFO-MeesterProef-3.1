@@ -41,7 +41,7 @@ public class AllAccounts extends AsyncTask<String, Void, List<String>> {
         List<String> splitResultList = new ArrayList<>();
 //        set view_url
         String view_url="https://mantixcloud.nl/gfo/account/viewusername-user.php";
-        if (type.equals("userUsername")) {
+        if (type.equals("allAccounts")) {
             try {
                 //                connect to database
                 URL url = new URL(view_url);
@@ -51,7 +51,7 @@ public class AllAccounts extends AsyncTask<String, Void, List<String>> {
                 httpURLConnection.setDoInput(true);
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 result = "";
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {

@@ -45,7 +45,7 @@ public class FetchProduct extends AsyncTask<String, Void, List<String>> {
         String result;
         String[] splitResultArray;
         List<String> splitResultList = new ArrayList<String>();
-        if (type.equals("fetch")) {
+        if (type.equals("fetchProduct")) {
             try {
 //                connect to database
                 URL url = new URL(fetch_url);
@@ -63,7 +63,7 @@ public class FetchProduct extends AsyncTask<String, Void, List<String>> {
                 outputStream.close();
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
                 String line="";
                 result = "";
                 while((line = bufferedReader.readLine())!= null) {

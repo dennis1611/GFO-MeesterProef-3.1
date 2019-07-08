@@ -68,10 +68,9 @@ public class AddAccountActivity extends AppCompatActivity {
         boolean connection = new ConnectionCheck().test(getApplicationContext());
         if (!connection){return;}
 //        sends data to backgroundWorker
-        String type = "add_account";
         AddAccountBackgroundWorker addAccountBackgroundWorker = new AddAccountBackgroundWorker(this, listener);
         addAccountBackgroundWorker.setProgressBar(progressBar);
-        addAccountBackgroundWorker.execute(type, usernamec, passwordc, emailc, adminflagc);
+        addAccountBackgroundWorker.execute("addAccount", usernamec, passwordc, emailc, adminflagc);
     }//    end method
 
 //    create listener to wait for AsyncTask to finish

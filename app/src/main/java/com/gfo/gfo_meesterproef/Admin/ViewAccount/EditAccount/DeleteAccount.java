@@ -44,7 +44,7 @@ public class DeleteAccount extends AsyncTask<String, Void, List<String>> {
         String type = params[0];
         String username = params[1];
         String login_url = "https://mantixcloud.nl/gfo/account/deleteaccount.php";
-        if(type.equals("delete")) {
+        if(type.equals("deleteAccount")) {
             try {
 //                connect to database
                 URL url = new URL(login_url);
@@ -62,7 +62,7 @@ public class DeleteAccount extends AsyncTask<String, Void, List<String>> {
                 outputStream.close();
 //                receive data
                 InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
                 result="";
                 String line="";
                 while((line = bufferedReader.readLine())!= null) {
