@@ -12,11 +12,12 @@ public class ConnectionCheck {
 
     public boolean test(Context context){
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//        if-statement needs attention for newer version
         if(cm.getActiveNetworkInfo() != null &&
                 cm.getActiveNetworkInfo().isConnectedOrConnecting()){
             return true;
         } else {
-            Toast.makeText(context, "no connection found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "No Connection Found", Toast.LENGTH_SHORT).show();
             return false;
         }
     }

@@ -77,7 +77,7 @@ public class OpenFileBackgroundWorker extends AsyncTask<String, Void, List<Strin
                 inputStream.close();
                 httpURLConnection.disconnect();
 
-//                set String in List (for future MasterBgWorker)
+//                set String in List (for future MasterBackgroundWorker)
                 resultList.add(result);
                 return resultList;
             } catch (MalformedURLException e) {

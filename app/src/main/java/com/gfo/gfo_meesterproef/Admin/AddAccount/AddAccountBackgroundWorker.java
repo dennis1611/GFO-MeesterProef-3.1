@@ -78,7 +78,7 @@ public void setProgressBar(ProgressBar progressBar) { this.progressBar = progres
 
                 httpURLConnection.disconnect();
 
-//                set String in List (for future MasterBgWorker)
+//                set String in List (for future MasterBackgroundWorker)
                 resultList.add(result);
                 return resultList;
             } catch (MalformedURLException e) {

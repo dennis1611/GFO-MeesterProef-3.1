@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gfo.gfo_meesterproef.OpenFileBackgroundWorker;
+import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
@@ -42,12 +42,12 @@ public class ViewFileActivity extends AppCompatActivity {
         setTitle("View Files from "+product);
 
 //        contact database for files
-        ViewFile viewFile = new ViewFile(this, listener);
+        MasterBackgroundWorker viewFile = new MasterBackgroundWorker(this, listener);
         viewFile.setProgressBar(progressBar);
         viewFile.execute("viewFile", product);}//        end method
 
 //    create listener to wait for AsyncTask to finish
-    ViewFile.OnTaskCompleted listener = new ViewFile.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
         public void onTaskCompleted(List<String> files) {
@@ -72,11 +72,11 @@ public class ViewFileActivity extends AppCompatActivity {
                 clickedFile = textView.getText().toString();
 
 //                contact database for url
-                OpenFileBackgroundWorker openFileBackgroundWorker = new OpenFileBackgroundWorker(ViewFileActivity.this, listener);
+                MasterBackgroundWorker openFileBackgroundWorker = new MasterBackgroundWorker(ViewFileActivity.this, listener);
                 openFileBackgroundWorker.setProgressBar(progressBar);
                 openFileBackgroundWorker.execute("openFile", clickedFile);}//                end method
 
-            OpenFileBackgroundWorker.OnTaskCompleted listener = new OpenFileBackgroundWorker.OnTaskCompleted() {
+            MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
                 @Override
                 public void onTaskCompleted(List<String> resultList) {
                     //                        open file

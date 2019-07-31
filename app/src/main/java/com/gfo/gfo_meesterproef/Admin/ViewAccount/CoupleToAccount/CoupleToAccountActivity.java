@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.gfo.gfo_meesterproef.Admin.Couple;
 import com.gfo.gfo_meesterproef.Admin.Uncouple;
 import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
+import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
@@ -54,24 +55,24 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         setTitle("Couple to " + username);
 
 //        get all products (in group)
-        AllProducts allProducts = new AllProducts(this, totalListener);
+        MasterBackgroundWorker allProducts = new MasterBackgroundWorker(this, totalListener);
         allProducts.setProgressBar(progressBar);
         allProducts.execute("allProducts");}//        end method
 
 //    create totalListener to wait for AsyncTask to finish
-    AllProducts.OnTaskCompleted totalListener = new AllProducts.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted totalListener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
         public void onTaskCompleted(List<String> splitResultList) {
 //            get already coupled products
             totalList = splitResultList;
-            CoupledProduct coupledProduct = new CoupledProduct(CoupleToAccountActivity.this, coupledListener);
+            MasterBackgroundWorker coupledProduct = new MasterBackgroundWorker(CoupleToAccountActivity.this, coupledListener);
             coupledProduct.setProgressBar(progressBar);
             coupledProduct.execute("coupledProduct", username);
         }//        end totalListener
     };
 
 //    create coupledListener to wait for AsyncTask to finish
-    CoupledProduct.OnTaskCompleted coupledListener = new CoupledProduct.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted coupledListener = new MasterBackgroundWorker.OnTaskCompleted() {
     @Override
     public void onTaskCompleted(List<String> splitResultList) {
         alreadyCoupled = splitResultList;

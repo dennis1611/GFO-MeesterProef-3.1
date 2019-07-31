@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import com.gfo.gfo_meesterproef.Admin.AdminActivity;
 import com.gfo.gfo_meesterproef.Admin.ViewFiles.CoupleToProduct.CoupleToProductActivity;
 import com.gfo.gfo_meesterproef.Custom.FolderAdapter;
+import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 import com.gfo.gfo_meesterproef.Support.Converter;
@@ -42,12 +43,12 @@ public class ViewProductActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 //        contact database
-        ViewProduct viewProduct = new ViewProduct(this, listener);
+        MasterBackgroundWorker viewProduct = new MasterBackgroundWorker(this, listener);
         viewProduct.setProgressBar(progressBar);
         viewProduct.execute("viewProduct");}//        end method
 
 //    create listener to wait for AsyncTask to finish
-    ViewProduct.OnTaskCompleted listener = new ViewProduct.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
         public void onTaskCompleted(List<String> products) {

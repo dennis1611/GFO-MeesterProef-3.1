@@ -21,6 +21,7 @@ import static com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProductActivity.conte
 import com.gfo.gfo_meesterproef.Admin.Couple;
 import com.gfo.gfo_meesterproef.Admin.Uncouple;
 import com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProductActivity;
+import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
@@ -54,23 +55,23 @@ public class CoupleToProductActivity extends AppCompatActivity {
         setTitle("Couple to "+product);
 
 //        get all usernames as (Array)List
-        AllAccounts allAccounts = new AllAccounts(CoupleToProductActivity.this, totalListener);
+        MasterBackgroundWorker allAccounts = new MasterBackgroundWorker(CoupleToProductActivity.this, totalListener);
         allAccounts.setProgressBar(progressBar);
         allAccounts.execute("allAccounts");}//        end method
 
 //    create totalListener to wait for AsyncTask to finish
-    AllAccounts.OnTaskCompleted totalListener = new AllAccounts.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted totalListener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
         public void onTaskCompleted(List<String> splitResultList) {
 //            get already coupled usernames
             totalList = splitResultList;
-            CoupledAccount coupledAccount = new CoupledAccount(CoupleToProductActivity.this, coupledListener );
+            MasterBackgroundWorker coupledAccount = new MasterBackgroundWorker(CoupleToProductActivity.this, coupledListener );
             coupledAccount.setProgressBar(progressBar);
             coupledAccount.execute("coupledAccount", product); }
     };//    end totalListener
 
 //    create coupledListener to wait for AsyncTask to finish
-    CoupledAccount.OnTaskCompleted coupledListener = new CoupledAccount.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted coupledListener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
         public void onTaskCompleted(final List<String> splitResultList) {
             //        display all usernames

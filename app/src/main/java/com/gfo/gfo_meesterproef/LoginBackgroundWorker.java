@@ -19,6 +19,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -76,7 +77,7 @@ public class LoginBackgroundWorker extends AsyncTask<String, Void, List<String>>
 
                 httpURLConnection.disconnect();
 
-//                set String in List (for future MasterBgWorker)
+//                set String in List (for future MasterBackgroundWorker)
                 resultList.add(result);
                 return resultList;
             } catch (MalformedURLException e) {

@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.Custom.FolderAdapter;
+import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
@@ -38,12 +39,12 @@ public class FetchProductActivity extends AppCompatActivity {
         String username = usernamePref.getString("username", "");
 
 //        contact database
-        FetchProduct fetchProduct = new FetchProduct(this, listener);
+        MasterBackgroundWorker fetchProduct = new MasterBackgroundWorker(this, listener);
         fetchProduct.setProgressBar(progressBar);
         fetchProduct.execute("fetchProduct", username);}//        end method
 
 //        create listener to wait for AsyncTask to finish
-        FetchProduct.OnTaskCompleted listener = new FetchProduct.OnTaskCompleted() {
+        MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
             @Override
             public void onTaskCompleted(List<String> products) {
                 //        fill gridView with (array)List

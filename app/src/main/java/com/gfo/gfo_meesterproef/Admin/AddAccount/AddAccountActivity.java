@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.Admin.AdminActivity;
+import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
+
+import java.util.List;
 
 public class AddAccountActivity extends AppCompatActivity {
 
@@ -68,16 +71,16 @@ public class AddAccountActivity extends AppCompatActivity {
         boolean connection = new ConnectionCheck().test(getApplicationContext());
         if (!connection){return;}
 //        sends data to backgroundWorker
-        AddAccountBackgroundWorker addAccountBackgroundWorker = new AddAccountBackgroundWorker(this, listener);
+        MasterBackgroundWorker addAccountBackgroundWorker = new MasterBackgroundWorker(this, listener);
         addAccountBackgroundWorker.setProgressBar(progressBar);
         addAccountBackgroundWorker.execute("addAccount", usernamec, passwordc, emailc, adminflagc);
     }//    end method
 
 //    create listener to wait for AsyncTask to finish
-    AddAccountBackgroundWorker.OnTaskCompleted listener = new AddAccountBackgroundWorker.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted() {
+        public void onTaskCompleted(List<String> resultList) {
             //        return to AdminActivity
             onBackPressed();
         }

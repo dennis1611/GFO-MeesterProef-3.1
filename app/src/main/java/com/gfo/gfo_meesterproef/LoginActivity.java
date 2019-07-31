@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             passwordET.setError("Please enter a password");
             return;
         }//        contact database
-        LoginBackgroundWorker loginBackgroundWorker = new LoginBackgroundWorker(this, listener);
+        MasterBackgroundWorker loginBackgroundWorker = new MasterBackgroundWorker(this, listener);
         loginBackgroundWorker.setProgressBar(progressBar);
         loginBackgroundWorker.execute("login", username, password);
 //        save username
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         usernamePref.edit().putString("username", username).apply(); }//        end method
 
 //    create listener to wait for AsyncTask to finish
-        LoginBackgroundWorker.OnTaskCompleted listener = new LoginBackgroundWorker.OnTaskCompleted() {
+        MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
             @Override
             public void onTaskCompleted(List<String> resultList) {

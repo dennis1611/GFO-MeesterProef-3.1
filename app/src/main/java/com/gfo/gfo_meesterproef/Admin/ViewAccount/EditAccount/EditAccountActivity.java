@@ -16,8 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
+import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
+
+import java.util.List;
 
 import static com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity.contextOfViewAccount;
 
@@ -105,14 +108,14 @@ public class EditAccountActivity extends AppCompatActivity{
 
     public void editConfirmed() {
 //        separate method needed because listener could't be recognized in OnClick
-        EditAccount editAccount = new EditAccount(EditAccountActivity.this, editListener);
+        MasterBackgroundWorker editAccount = new MasterBackgroundWorker(EditAccountActivity.this, editListener);
         editAccount.setProgressBar(progressBar);
         editAccount.execute("editAccount", oldUsername, newUsername, newPassword, newEmail); }//        end method
 //    create listener to wait for AsyncTask to finish
-    EditAccount.OnTaskCompleted editListener = new EditAccount.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted editListener = new MasterBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted() {
+        public void onTaskCompleted(List<String> resultList) {
 //            close Activity
             Intent i = new Intent(EditAccountActivity.this, ViewAccountActivity.class);
             EditAccountActivity.this.finish();
@@ -144,14 +147,14 @@ public class EditAccountActivity extends AppCompatActivity{
 
     public void deleteConfirmed() {
 //        separate method needed because listener could't be recognized in OnClick
-        DeleteAccount deleteAccount = new DeleteAccount(EditAccountActivity.this, deleteListener);
+        MasterBackgroundWorker deleteAccount = new MasterBackgroundWorker(EditAccountActivity.this, deleteListener);
         deleteAccount.setProgressBar(progressBar);
         deleteAccount.execute("deleteAccount", oldUsername); }//        end method
 //        create listener to wait for AsyncTask to finish
-        DeleteAccount.OnTaskCompleted deleteListener = new DeleteAccount.OnTaskCompleted() {
+        MasterBackgroundWorker.OnTaskCompleted deleteListener = new MasterBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
             @Override
-            public void onTaskCompleted() {
+            public void onTaskCompleted(List<String> resultList) {
 //                close Activity
                 Intent i = new Intent(EditAccountActivity.this, ViewAccountActivity.class);
                 EditAccountActivity.this.finish();

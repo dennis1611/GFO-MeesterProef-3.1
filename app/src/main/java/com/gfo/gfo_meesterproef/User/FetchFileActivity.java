@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gfo.gfo_meesterproef.OpenFileBackgroundWorker;
+import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
@@ -42,12 +42,12 @@ public class FetchFileActivity extends AppCompatActivity {
         setTitle("Files in "+product);
 
 //        contact database for files
-        FetchFile fetchFile = new FetchFile(this, listener);
+        MasterBackgroundWorker fetchFile = new MasterBackgroundWorker(this, listener);
         fetchFile.setProgressBar(progressBar);
         fetchFile.execute("fetchFile", product);}//        end method
 
 //    create listener to wait for AsyncTask to finish
-    FetchFile.OnTaskCompleted listener = new FetchFile.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
         public void onTaskCompleted(List<String> files) {
             //        fill listView with List
@@ -72,12 +72,12 @@ public class FetchFileActivity extends AppCompatActivity {
                 clickedFile = textView.getText().toString();
 
 //                contact database for url
-                OpenFileBackgroundWorker openFileBackgroundWorker = new OpenFileBackgroundWorker(FetchFileActivity.this, listener);
+                MasterBackgroundWorker openFileBackgroundWorker = new MasterBackgroundWorker(FetchFileActivity.this, listener);
                 openFileBackgroundWorker.setProgressBar(progressBar);
                 openFileBackgroundWorker.execute("openFile", clickedFile);}//                end method
 
 //            create listener to wait for AsyncTask to finish
-            OpenFileBackgroundWorker.OnTaskCompleted listener = new OpenFileBackgroundWorker.OnTaskCompleted() {
+            MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
                 @Override
                 public void onTaskCompleted(List<String> resultList) {
                     //                open file
