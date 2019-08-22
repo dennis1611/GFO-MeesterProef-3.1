@@ -43,13 +43,13 @@ public class EditAccountActivity extends AppCompatActivity{
         oldPassword = selectedAccountPref.getString("selectedPassword", "");
         oldEmail = selectedAccountPref.getString("selectedEmail", "");
 //        connect views with id
-        usernameTV = (TextView) findViewById(R.id.usernameTextView);
-        passwordTV = (TextView) findViewById(R.id.passwordTextView);
-        emailTV = (TextView) findViewById(R.id.emailTextView);
-        usernameET = (EditText) findViewById(R.id.usernameEditText);
-        passwordET = (EditText) findViewById(R.id.passwordEditText);
-        emailET = (EditText) findViewById(R.id.emailEditText);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        usernameTV = findViewById(R.id.usernameTextView);
+        passwordTV = findViewById(R.id.passwordTextView);
+        emailTV = findViewById(R.id.emailTextView);
+        usernameET = findViewById(R.id.usernameEditText);
+        passwordET = findViewById(R.id.passwordEditText);
+        emailET = findViewById(R.id.emailEditText);
+        progressBar = findViewById(R.id.progressBar);
 //        fill views
         usernameTV.setText(oldUsername);
         passwordTV.setText(oldPassword);

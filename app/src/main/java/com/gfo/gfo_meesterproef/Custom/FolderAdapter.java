@@ -31,7 +31,7 @@ public class FolderAdapter extends ArrayAdapter<String> {
 //            Get the {@link Word} object located at this position in the list
             String currentGroup = getItem(position);
 
-            TextView groupTextView = (TextView) gridItemView.findViewById(R.id.textViewGroup);
+            TextView groupTextView = gridItemView.findViewById(R.id.textViewGroup);
             groupTextView.setText(currentGroup);
 
             return gridItemView;

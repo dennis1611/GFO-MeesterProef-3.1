@@ -54,7 +54,7 @@ public class SearchMeterActivity extends AppCompatActivity {
         temperatureUnit = unitsPref.getString("temperatureUnit", "Degree Centigrade");
 
 //        create diameterSpinner
-        pipeDiameterSpinner = (Spinner) findViewById(R.id.pipeDiameterSpinner);
+        pipeDiameterSpinner = findViewById(R.id.pipeDiameterSpinner);
 
         ArrayAdapter<CharSequence> pipeDiameterAdapter = ArrayAdapter.createFromResource(this, R.array.spinner_pipeDiameter, R.layout.spinner_item);
         pipeDiameterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -244,17 +244,17 @@ public class SearchMeterActivity extends AppCompatActivity {
 
     private void getText() {
         valuesEditText = new EditText[11];
-        valuesEditText[0] = (EditText) findViewById(R.id.volumeEditText);
-        valuesEditText[1] = (EditText) findViewById(R.id.linePressureEditText);
-        valuesEditText[2] = (EditText) findViewById(R.id.lineTempEditText);
-        valuesEditText[3] = (EditText) findViewById(R.id.baseTempEditText);
-        valuesEditText[4] = (EditText) findViewById(R.id.basePressureEditText);
+        valuesEditText[0] = findViewById(R.id.volumeEditText);
+        valuesEditText[1] = findViewById(R.id.linePressureEditText);
+        valuesEditText[2] = findViewById(R.id.lineTempEditText);
+        valuesEditText[3] = findViewById(R.id.baseTempEditText);
+        valuesEditText[4] = findViewById(R.id.basePressureEditText);
         valuesEditText[5] = null;
-        valuesEditText[6] = (EditText) findViewById(R.id.QminATMAirEditText);
-        valuesEditText[7] = (EditText) findViewById(R.id.densityAtQmaxEditText);
-        valuesEditText[8] = (EditText) findViewById(R.id.densityAtBaseEditText);
-        valuesEditText[9] = (EditText) findViewById(R.id.dpATMAirEditText);
-        valuesEditText[10] = (EditText) findViewById(R.id.relDensityEditText);
+        valuesEditText[6] = findViewById(R.id.QminATMAirEditText);
+        valuesEditText[7] = findViewById(R.id.densityAtQmaxEditText);
+        valuesEditText[8] = findViewById(R.id.densityAtBaseEditText);
+        valuesEditText[9] = findViewById(R.id.dpATMAirEditText);
+        valuesEditText[10] = findViewById(R.id.relDensityEditText);
 
         values = new double[valuesEditText.length];
         isErrorInValues = new boolean[valuesEditText.length];
@@ -270,7 +270,7 @@ public class SearchMeterActivity extends AppCompatActivity {
             }
         }
         //System.out.println("Spinner");
-        pipeDiameterSpinner = (Spinner) findViewById(R.id.pipeDiameterSpinner);
+        pipeDiameterSpinner = findViewById(R.id.pipeDiameterSpinner);
         isErrorInValues[spinnerNumber] = false;
         try {
             values[spinnerNumber] = Double.parseDouble(pipeDiameterSpinner.getSelectedItem().toString());

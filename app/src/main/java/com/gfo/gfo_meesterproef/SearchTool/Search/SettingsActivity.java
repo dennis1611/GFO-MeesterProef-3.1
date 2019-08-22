@@ -35,11 +35,11 @@ public class SettingsActivity extends AppCompatActivity {
         pressureUnit = unitsPref.getString("pressureUnit", "bar abs.");
         temperatureUnit = unitsPref.getString("temperatureUnit", "Degree Centigrade");
 //        setup TextViews and display currently selected units
-        volumeTV = (TextView) findViewById(R.id.volumeUnitTextView);
+        volumeTV = findViewById(R.id.volumeUnitTextView);
         volumeTV.append(" "+volumeUnit);
-        pressureTV = (TextView) findViewById(R.id.pressureUnitTextView);
+        pressureTV = findViewById(R.id.pressureUnitTextView);
         pressureTV.append(" "+pressureUnit);
-        temperatureTV = (TextView) findViewById(R.id.temperatureUnitTextView);
+        temperatureTV = findViewById(R.id.temperatureUnitTextView);
         temperatureTV.append(" "+temperatureUnit);
 
         createSpinners();
@@ -47,17 +47,17 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void createSpinners() {
         //        create volumeSpinner
-        volumeSpinner = (Spinner) findViewById(R.id.volumeSpinner);
+        volumeSpinner = findViewById(R.id.volumeSpinner);
         ArrayAdapter<CharSequence> volumeAdapter = ArrayAdapter.createFromResource(this, R.array.unit_Volume, R.layout.spinner_item);
         volumeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         volumeSpinner.setAdapter(volumeAdapter);
 //        create pressureSpinner
-        pressureSpinner = (Spinner) findViewById(R.id.pressureSpinner);
+        pressureSpinner = findViewById(R.id.pressureSpinner);
         ArrayAdapter<CharSequence> pressureAdapter = ArrayAdapter.createFromResource(this, R.array.unit_pressure, R.layout.spinner_item);
         pressureAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pressureSpinner.setAdapter(pressureAdapter);
 //        create temperatureSpinner
-        temperatureSpinner = (Spinner) findViewById(R.id.temperatureSpinner);
+        temperatureSpinner = findViewById(R.id.temperatureSpinner);
         ArrayAdapter<CharSequence> temperatureAdapter = ArrayAdapter.createFromResource(this, R.array.unit_temperature, R.layout.spinner_item);
         temperatureAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         temperatureSpinner.setAdapter(temperatureAdapter);

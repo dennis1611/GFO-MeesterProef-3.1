@@ -33,7 +33,7 @@ public class ViewFileActivity extends AppCompatActivity {
         fileContext = getApplicationContext();
 
 //        setup ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
 //        get selected product from ViewProductActivity
         String product = getIntent().getExtras().getString("adminProduct", "");
@@ -52,7 +52,7 @@ public class ViewFileActivity extends AppCompatActivity {
         @Override
         public void onTaskCompleted(List<String> files) {
             // fill listView with List
-            adminProductList = (ListView) findViewById(R.id.list);
+            adminProductList = findViewById(R.id.list);
             ArrayAdapter<String> productAdapter = new ArrayAdapter<>(ViewFileActivity.this, android.R.layout.simple_list_item_1, files);
             adminProductList.setAdapter(productAdapter);
 

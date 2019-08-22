@@ -32,7 +32,7 @@ public class FetchFileActivity extends AppCompatActivity {
         setContentView(R.layout.list);
 
 //        setup ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
 //        get selected product from FetchProductActivity
         String product = getIntent().getExtras().getString("userProduct", "");
@@ -51,7 +51,7 @@ public class FetchFileActivity extends AppCompatActivity {
         @Override
         public void onTaskCompleted(List<String> files) {
             //        fill listView with List
-            userProductList = (ListView) findViewById(R.id.list);
+            userProductList = findViewById(R.id.list);
             ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(FetchFileActivity.this, android.R.layout.simple_list_item_1, files);
             userProductList.setAdapter(productAdapter);
 

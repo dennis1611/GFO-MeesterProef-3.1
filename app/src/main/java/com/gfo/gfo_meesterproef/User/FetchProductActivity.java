@@ -32,7 +32,7 @@ public class FetchProductActivity extends AppCompatActivity {
         setContentView(R.layout.grid);
 
 //        setup ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
 //        get saved username
         SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
@@ -48,7 +48,7 @@ public class FetchProductActivity extends AppCompatActivity {
             @Override
             public void onTaskCompleted(List<String> products) {
                 //        fill gridView with (array)List
-                userProductGrid = (GridView) findViewById(R.id.grid);
+                userProductGrid = findViewById(R.id.grid);
                 FolderAdapter productAdapter = new FolderAdapter(FetchProductActivity.this, products);
                 userProductGrid.setAdapter(productAdapter);
 

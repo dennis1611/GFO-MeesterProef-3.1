@@ -30,12 +30,12 @@ public class AddAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_account);
 //        connect views with id
-        usernamecET = (EditText) findViewById(R.id.editTextUsername);
-        passwordcET = (EditText) findViewById(R.id.editTextPassword);
-        passConfirmET = (EditText) findViewById(R.id.editTextPasswordConfirm);
-        emailcET = (EditText) findViewById(R.id.editTextEmail);
-        AdminCheck = (CheckBox) findViewById(R.id.CheckboxAdmin);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        usernamecET = findViewById(R.id.editTextUsername);
+        passwordcET = findViewById(R.id.editTextPassword);
+        passConfirmET = findViewById(R.id.editTextPasswordConfirm);
+        emailcET = findViewById(R.id.editTextEmail);
+        AdminCheck = findViewById(R.id.CheckboxAdmin);
+        progressBar = findViewById(R.id.progressBar);
     }
 
     public void addAccount(View view) {

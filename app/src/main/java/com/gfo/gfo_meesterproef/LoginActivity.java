@@ -29,9 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 //        connect views with id
-        usernameET = (EditText) findViewById(R.id.editTextUser);
-        passwordET = (EditText) findViewById(R.id.editTextPass);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        usernameET = findViewById(R.id.editTextUser);
+        passwordET = findViewById(R.id.editTextPass);
+        progressBar = findViewById(R.id.progressBar);
 //        needed to save username
         contextOfLogin = getApplicationContext();
     }

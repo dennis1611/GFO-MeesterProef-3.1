@@ -25,9 +25,9 @@ import java.util.List;
 
 public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>> {
 
-    String php_url;
-    String[] inputKeys, inputValues;
-    boolean feedbackToast = false;//    by default
+    private String php_url;
+    private String[] inputKeys;
+    private boolean feedbackToast = false;//    by default
 
     Context context;
     private OnTaskCompleted listener;
@@ -36,7 +36,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
         this.listener = listener;
     }
     //    get access to ProgressBar in activity
-    @SuppressLint("StaticFieldLeak") ProgressBar progressBar;
+    @SuppressLint("StaticFieldLeak") private ProgressBar progressBar;
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
     //    create interface to communicate with Activity
     public interface OnTaskCompleted{ void onTaskCompleted(List<String> resultList);}
@@ -48,7 +48,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
 //        determine input keys for php, based on type
         processType(type);
 //        copy params[] to inputValues[] without type as first index entry
-        inputValues = new String[inputKeys.length];
+        String[] inputValues = new String[inputKeys.length];
         inputValues = Arrays.copyOfRange(params,1,params.length);
 //        create variables
         String result = null;

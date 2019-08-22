@@ -40,7 +40,7 @@ public class ViewProductActivity extends AppCompatActivity {
         contextOfViewProduct = getApplicationContext();
 
 //        setup ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
 //        contact database
         MasterBackgroundWorker viewProduct = new MasterBackgroundWorker(this, listener);
@@ -53,7 +53,7 @@ public class ViewProductActivity extends AppCompatActivity {
         @Override
         public void onTaskCompleted(List<String> products) {
 //        fill gridView with (array)List
-        adminProductGrid = (GridView) findViewById(R.id.grid);
+        adminProductGrid = findViewById(R.id.grid);
         FolderAdapter productAdapter = new FolderAdapter(ViewProductActivity.this, products);
         adminProductGrid.setAdapter(productAdapter);
 

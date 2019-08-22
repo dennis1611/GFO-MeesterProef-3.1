@@ -42,7 +42,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
 //        connect views with id
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 //        reset toCouple and toUncouple
         toCouple = new ArrayList<String>();
         toCouple.clear();

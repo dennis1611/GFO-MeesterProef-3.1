@@ -59,7 +59,7 @@ public class AdminAccountsFragment extends Fragment {
             accounts.add(newAccount);
         }
         //        couple accounts to layout
-        accountList = (ListView) rootView.findViewById(R.id.list);
+        accountList = rootView.findViewById(R.id.list);
         AccountAdapter accountAdapter = new AccountAdapter(getActivity(), accounts);
         accountList.setAdapter(accountAdapter);
 
