@@ -3,7 +3,6 @@ package com.gfo.gfo_meesterproef;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,6 +27,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
     private String php_url;
     private String[] inputKeys;
     private boolean feedbackToast = false;//    by default
+    private PhpCase phpCase;
 
     Context context;
     private OnTaskCompleted listener;
@@ -44,9 +44,14 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
     @Override
     protected List<String> doInBackground(String... params) {
         String type = params[0];
-        feedbackToast = false;
 //        determine input keys for php, based on type
-        processType(type);
+        phpCase = new PhpCase(php_url, inputKeys, feedbackToast);
+        phpCase.processType(type);
+
+        php_url = phpCase.getUrl();
+        inputKeys = phpCase.getInputKeys();
+        feedbackToast = phpCase.getFeedbackToast();//    by default
+
 //        copy params[] to inputValues[] without type as first index entry
         String[] inputValues = new String[inputKeys.length];
         inputValues = Arrays.copyOfRange(params,1,params.length);
@@ -121,101 +126,101 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
         listener.onTaskCompleted(resultList);
     }
 
-    private void processType(@NonNull String type) {
-        switch (type) {
-            case "login":
-                php_url = "https://mantixcloud.nl/gfo/login.php";
-                inputKeys = new String[2];
-                inputKeys[0] = "username";
-                inputKeys[1] = "password";
-                break;
-            case "openFile":
-                php_url = "https://mantixcloud.nl/gfo/openfile.php";
-                inputKeys = new String[1];
-                inputKeys[0] = "dname";
-                break;
-            case "addAccount":
-                php_url = "https://mantixcloud.nl/gfo/account/addaccount.php";
-                inputKeys = new String[4];
-                inputKeys[0] = "usernamec";
-                inputKeys[1] = "passwordc";
-                inputKeys[2] = "emailc";
-                inputKeys[3] = "adminflagc";
-                feedbackToast = true;
-                break;
-            case "editAccount":
-                php_url = "https://mantixcloud.nl/gfo/account/editaccount.php";
-                inputKeys = new String[4];
-                inputKeys[0] = "old_username";
-                inputKeys[1] = "username";
-                inputKeys[2] = "password";
-                inputKeys[3] = "email";
-                feedbackToast = true;
-                break;
-            case "deleteAccount":
-                php_url = "https://mantixcloud.nl/gfo/account/deleteaccount.php";
-                inputKeys = new String[1];
-                inputKeys[0] = "username";
-                feedbackToast = true;
-                break;
-//        reserved for Couple
-//        reserved for Uncouple
-            case "allProducts":
-                php_url = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
-                inputKeys = new String[0];
-                break;
-            case "coupledProduct":
-                php_url = "https://mantixcloud.nl/gfo/couple/coupledproduct.php";
-                inputKeys = new String[1];
-                inputKeys[0] = "username";
-                break;
-            case "allAccounts":
-                php_url = "https://mantixcloud.nl/gfo/account/viewusername-user.php";
-                inputKeys = new String[0];
-                break;
-            case "coupledAccount":
-                php_url = "https://mantixcloud.nl/gfo/couple/coupledaccount.php";
-                inputKeys = new String[1];
-                inputKeys[0] = "product";
-                break;
-            case "fetchFile":
-                php_url = "https://mantixcloud.nl/gfo/products_files/fetchfiles.php";
-                inputKeys = new String[1];
-                inputKeys[0] = "product";
-                break;
-            case "fetchProduct":
-                php_url = "https://mantixcloud.nl/gfo/products_files/fetchproducts.php";
-                inputKeys = new String[1];
-                inputKeys[0] = "username";
-                break;
-            case "viewFile":
-                php_url = "https://mantixcloud.nl/gfo/products_files/viewfiles.php";
-                inputKeys = new String[1];
-                inputKeys[0] = "product";
-                break;
-            case "viewProduct":
-                php_url = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
-                inputKeys = new String[0];
-                break;
-
-//        ViewAccountBackgroundWorker will be separate
-
-//        Couple and Uncouple don't have OnTaskCompleted yet
-//            case "couple":
-//                php_url = "https://mantixcloud.nl/gfo/couple/couple.php";
+//    private void processType(@NonNull String type) {
+//        switch (type) {
+//            case "login":
+//                php_url = "https://mantixcloud.nl/gfo/login.php";
 //                inputKeys = new String[2];
-//                inputKeys[1] = "username";
-//                inputKeys[2] = "product";
+//                inputKeys[0] = "username";
+//                inputKeys[1] = "password";
+//                break;
+//            case "openFile":
+//                php_url = "https://mantixcloud.nl/gfo/openfile.php";
+//                inputKeys = new String[1];
+//                inputKeys[0] = "dname";
+//                break;
+//            case "addAccount":
+//                php_url = "https://mantixcloud.nl/gfo/account/addaccount.php";
+//                inputKeys = new String[4];
+//                inputKeys[0] = "usernamec";
+//                inputKeys[1] = "passwordc";
+//                inputKeys[2] = "emailc";
+//                inputKeys[3] = "adminflagc";
 //                feedbackToast = true;
 //                break;
-//            case "uncouple":
-//                php_url = "https://mantixcloud.nl/gfo/couple/uncouple.php";
-//                inputKeys = new String[2];
+//            case "editAccount":
+//                php_url = "https://mantixcloud.nl/gfo/account/editaccount.php";
+//                inputKeys = new String[4];
+//                inputKeys[0] = "old_username";
 //                inputKeys[1] = "username";
-//                inputKeys[2] = "product";
+//                inputKeys[2] = "password";
+//                inputKeys[3] = "email";
 //                feedbackToast = true;
 //                break;
-
-        }
-    }
+//            case "deleteAccount":
+//                php_url = "https://mantixcloud.nl/gfo/account/deleteaccount.php";
+//                inputKeys = new String[1];
+//                inputKeys[0] = "username";
+//                feedbackToast = true;
+//                break;
+////        reserved for Couple
+////        reserved for Uncouple
+//            case "allProducts":
+//                php_url = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
+//                inputKeys = new String[0];
+//                break;
+//            case "coupledProduct":
+//                php_url = "https://mantixcloud.nl/gfo/couple/coupledproduct.php";
+//                inputKeys = new String[1];
+//                inputKeys[0] = "username";
+//                break;
+//            case "allAccounts":
+//                php_url = "https://mantixcloud.nl/gfo/account/viewusername-user.php";
+//                inputKeys = new String[0];
+//                break;
+//            case "coupledAccount":
+//                php_url = "https://mantixcloud.nl/gfo/couple/coupledaccount.php";
+//                inputKeys = new String[1];
+//                inputKeys[0] = "product";
+//                break;
+//            case "fetchFile":
+//                php_url = "https://mantixcloud.nl/gfo/products_files/fetchfiles.php";
+//                inputKeys = new String[1];
+//                inputKeys[0] = "product";
+//                break;
+//            case "fetchProduct":
+//                php_url = "https://mantixcloud.nl/gfo/products_files/fetchproducts.php";
+//                inputKeys = new String[1];
+//                inputKeys[0] = "username";
+//                break;
+//            case "viewFile":
+//                php_url = "https://mantixcloud.nl/gfo/products_files/viewfiles.php";
+//                inputKeys = new String[1];
+//                inputKeys[0] = "product";
+//                break;
+//            case "viewProduct":
+//                php_url = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
+//                inputKeys = new String[0];
+//                break;
+//
+////        ViewAccountBackgroundWorker will be separate
+//
+////        Couple and Uncouple don't have OnTaskCompleted yet
+////            case "couple":
+////                php_url = "https://mantixcloud.nl/gfo/couple/couple.php";
+////                inputKeys = new String[2];
+////                inputKeys[1] = "username";
+////                inputKeys[2] = "product";
+////                feedbackToast = true;
+////                break;
+////            case "uncouple":
+////                php_url = "https://mantixcloud.nl/gfo/couple/uncouple.php";
+////                inputKeys = new String[2];
+////                inputKeys[1] = "username";
+////                inputKeys[2] = "product";
+////                feedbackToast = true;
+////                break;
+//
+//        }
+//    }
 }
