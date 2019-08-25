@@ -47,7 +47,7 @@ public class UserAccountsFragment extends Fragment {
         List<String> splitEmailList = (Arrays.asList(splitEmailArray));
 
 //        look for unhandled accounts and add them to accountList
-        ArrayList<Account> accounts = new ArrayList<Account>();
+        ArrayList<Account> accounts = new ArrayList<>();
         Iterator<String> usernameIterator = splitUsernameList.iterator();
         Iterator<String> passwordIterator = splitPasswordList.iterator();
         Iterator<String> emailIterator = splitEmailList.iterator();

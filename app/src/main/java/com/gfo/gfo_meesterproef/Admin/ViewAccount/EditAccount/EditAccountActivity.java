@@ -72,8 +72,7 @@ public class EditAccountActivity extends AppCompatActivity{
             return;
         }//        check if email is valid
         newEmail = emailET.getText().toString();
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()) {
-        } else{
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()) {
             emailET.setError("Please enter a valid E-mail address");
             return;
         }

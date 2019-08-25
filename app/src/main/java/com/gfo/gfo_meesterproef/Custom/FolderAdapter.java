@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.gfo.gfo_meesterproef.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -52,7 +52,7 @@ public class FetchFileActivity extends AppCompatActivity {
         public void onTaskCompleted(List<String> files) {
             //        fill listView with List
             userProductList = findViewById(R.id.list);
-            ArrayAdapter<String> productAdapter = new ArrayAdapter<String>(FetchFileActivity.this, android.R.layout.simple_list_item_1, files);
+            ArrayAdapter<String> productAdapter = new ArrayAdapter<>(FetchFileActivity.this, android.R.layout.simple_list_item_1, files);
             userProductList.setAdapter(productAdapter);
 
             registerFileClickCallBack();

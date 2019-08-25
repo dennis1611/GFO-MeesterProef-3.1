@@ -15,14 +15,9 @@ public class Account {
         mEmail = email;
     }
 
-    public String getName() {
-        return mName;
-    }
-    public String getPass() {
-        return mPass;
-    }
-    public String getEmail() {
-        return mEmail;}
+    public String getName() { return mName; }
+    public String getPass() { return mPass; }
+    public String getEmail() { return mEmail; }
 
     public void setName(String name) {mName = name;}
     public void setPass(String pass) {mPass = pass;}

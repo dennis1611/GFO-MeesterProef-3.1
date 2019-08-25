@@ -12,30 +12,22 @@ import java.util.ArrayList;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    ArrayList<Fragment> fragments = new ArrayList<>();
-    ArrayList<String> tabTitles = new ArrayList<>();
+    private ArrayList<Fragment> fragments = new ArrayList<>();
+    private ArrayList<String> tabTitles = new ArrayList<>();
 
     public void addFragment(Fragment fragment, String title){
         this.fragments.add(fragment);
         this.tabTitles.add(title);
     }
 
-    public ViewPagerAdapter(FragmentManager fm){
-        super(fm);
-    }
+    public ViewPagerAdapter(FragmentManager fm){ super(fm); }
 
     @Override
-    public Fragment getItem(int position) {
-        return fragments.get(position);
-    }
+    public Fragment getItem(int position) { return fragments.get(position); }
 
     @Override
-    public int getCount() {
-        return fragments.size();
-    }
+    public int getCount() { return fragments.size(); }
 
     @Override
-    public CharSequence getPageTitle(int position) {
-        return tabTitles.get(position);
-    }
+    public CharSequence getPageTitle(int position) { return tabTitles.get(position); }
 }

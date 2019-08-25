@@ -18,9 +18,7 @@ import com.gfo.gfo_meesterproef.Custom.FolderAdapter;
 import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
-import com.gfo.gfo_meesterproef.Support.Converter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewProductActivity extends AppCompatActivity {

@@ -16,15 +16,13 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gfo.gfo_meesterproef.Admin.Couple;
-import com.gfo.gfo_meesterproef.Admin.Uncouple;
+import com.gfo.gfo_meesterproef.Admin.CouplerBackgroundWorker;
 import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
 import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -42,11 +40,11 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
 //        connect views with id
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 //        reset toCouple and toUncouple
-        toCouple = new ArrayList<String>();
+        toCouple = new ArrayList<>();
         toCouple.clear();
-        toUncouple = new ArrayList<String>();
+        toUncouple = new ArrayList<>();
         toUncouple.clear();
 //        get selected username
         SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", contextOfViewAccount.MODE_PRIVATE);
@@ -78,7 +76,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         alreadyCoupled = splitResultList;
 
         //        display all products
-        list = (ListView) findViewById(R.id.list);
+        list = findViewById(R.id.list);
         list.setBackgroundResource(R.color.white);
         final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(CoupleToAccountActivity.this, android.R.layout.simple_list_item_1, totalList){
             @NonNull @Override
@@ -174,16 +172,14 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         boolean connection = new ConnectionCheck().test(getApplicationContext());
         if (!connection){return;}
 //        couple all selected products
-        Iterator<String> toCoupleIterator = toCouple.iterator();
-        while (toCoupleIterator.hasNext()) {
-            String product = toCoupleIterator.next();
-            Couple couple = new Couple(this);
+        for (String product : toCouple) {
+            CouplerBackgroundWorker couple = new CouplerBackgroundWorker(this);
             couple.setProgressBar(progressBar);
             try {
                 List<String> echo = couple.execute("couple", username, product).get();
             }
-                catch (InterruptedException e) { e.printStackTrace(); }
-                catch (ExecutionException e) { e.printStackTrace(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace(); }
         }
     }
     private void uncouple() {
@@ -191,16 +187,14 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         boolean connection = new ConnectionCheck().test(getApplicationContext());
         if (!connection){return;}
 //        uncouple all selected products
-        Iterator<String> toUncoupleIterator = toUncouple.iterator();
-        while (toUncoupleIterator.hasNext()) {
-            String product = toUncoupleIterator.next();
-            Uncouple uncouple = new Uncouple(this);
+        for (String product : toUncouple) {
+            CouplerBackgroundWorker uncouple = new CouplerBackgroundWorker(this);
             uncouple.setProgressBar(progressBar);
             try {
                 List<String> echo = uncouple.execute("uncouple", username, product).get();
             }
-                catch (InterruptedException e) { e.printStackTrace(); }
-                catch (ExecutionException e) { e.printStackTrace(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+            catch (ExecutionException e) { e.printStackTrace(); }
         }
     }
     @Override

@@ -10,7 +10,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.Admin.AdminActivity;
@@ -22,7 +21,6 @@ import com.gfo.gfo_meesterproef.Custom.ViewPagerAdapter;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAccountActivity extends AppCompatActivity{
@@ -46,7 +44,7 @@ public class ViewAccountActivity extends AppCompatActivity{
         contextOfViewAccount = getApplicationContext();
 
 //        setup ProgressBar
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
 //        get 6 separate account value lists (not separated, contained in parent list) from database
         ViewAccountBackgroundWorker viewAccountBackgroundWorker = new ViewAccountBackgroundWorker(this, listener);
@@ -67,9 +65,9 @@ public class ViewAccountActivity extends AppCompatActivity{
                 String adminEmails = resultList.get(5);
 
                 //        needed for toolbar
-                toolbar = (Toolbar) findViewById(R.id.tabbedToolbar);
+                toolbar = findViewById(R.id.tabbedToolbar);
                 setSupportActionBar(toolbar);
-                viewPager = (ViewPager) findViewById(R.id.viewPager);
+                viewPager = findViewById(R.id.viewPager);
                 viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
                 userFragment = new UserAccountsFragment();
                 viewPagerAdapter.addFragment(userFragment, "Users");
@@ -90,7 +88,7 @@ public class ViewAccountActivity extends AppCompatActivity{
 
 //                viewpager.setAdapter(...) must come after ...Fragment.setArguments(...)
                 viewPager.setAdapter(viewPagerAdapter);
-                tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+                tabLayout = findViewById(R.id.tabLayout);
                 tabLayout.setupWithViewPager(viewPager);
             }
         };

@@ -52,14 +52,12 @@ public class AddAccountActivity extends AppCompatActivity {
             return;
         }//        check if passwords match
         String passwordConfirm = passConfirmET.getText().toString();
-        if(passwordc.equals(passwordConfirm)){//            do nothing
-        } else{
+        if (!passwordc.equals(passwordConfirm)) {
             passConfirmET.setError("Passwords do not match");
             return;
         }//        check if email is valid
         emailc = emailcET.getText().toString();
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailc).matches()) {//            do nothing
-        } else{
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailc).matches()) {
             emailcET.setError("Please enter a valid E-mail address");
             return;
         }//        check if admin checkbox is checked
