@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.gfo.gfo_meesterproef.LoginActivity;
 import com.gfo.gfo_meesterproef.R;
@@ -15,32 +16,50 @@ import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
 public class UserActivity extends AppCompatActivity {
 
+    Button fetchProductButton, searchMeterButton, lookUpMeterButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
-    }
+        setContentView(R.layout.activity_home);
 
-//    Intents to other activities
-    public void FetchProductActivity(View view){
-        //        check for internet connection
-        boolean connection = new ConnectionCheck().test(getApplicationContext());
-        if (!connection){return;}
-        Intent i = new Intent(this, FetchProductActivity.class);
-        startActivity(i);
-    }
-    public void SearchMeterActivity(View view){
-        Intent i = new Intent(this, SearchMeterActivity.class);
-        startActivity(i);
-    }
-    public void LookUpMeterActivity(View view){
-        //        check for internet connection
-        boolean connection = new ConnectionCheck().test(getApplicationContext());
-        if (!connection){return;}
-        Intent i = new Intent(this, LookUpMeterActivity.class);
-        startActivity(i);
-    }
-
+//        Fetch product, position: top
+        fetchProductButton = findViewById(R.id.top);
+        fetchProductButton.setText("Fetch Product");
+        fetchProductButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //        check for internet connection
+                boolean connection = new ConnectionCheck().test(getApplicationContext());
+                if (!connection){return;}
+                Intent i = new Intent(UserActivity.this, FetchProductActivity.class);
+                startActivity(i);
+            }
+        });
+//        Search meter, position: bottom right
+        searchMeterButton = findViewById(R.id.bottom_right);
+        searchMeterButton.setText("Search Meter");
+        searchMeterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UserActivity.this, SearchMeterActivity.class);
+                startActivity(i);
+            }
+        });
+//        Look up meter, position: bottom left
+        lookUpMeterButton = findViewById(R.id.bottom_left);
+        lookUpMeterButton.setText("Look Up Meter");
+        lookUpMeterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //        check for internet connection
+                boolean connection = new ConnectionCheck().test(getApplicationContext());
+                if (!connection){return;}
+                Intent i = new Intent(UserActivity.this, LookUpMeterActivity.class);
+                startActivity(i);
+            }
+        });
+    }//    end onCreate
 
     @Override//    confirmation for logout
     public void onBackPressed() {

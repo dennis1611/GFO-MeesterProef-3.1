@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.gfo.gfo_meesterproef.Admin.AdminActivity">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="@dimen/logoSize"
@@ -42,9 +41,7 @@
             android:background="@drawable/round_button"
             android:layout_above="@+id/semi_top"
             android:layout_marginBottom="@dimen/OuterRingMargin"
-            android:layout_centerHorizontal="true"
-            android:text="add account"
-            android:onClick="AddAccountActivity"/>
+            android:layout_centerHorizontal="true" />
         <Button
             android:id="@+id/top_right"
             android:layout_width="@dimen/diameter"
@@ -71,9 +68,7 @@
             android:layout_below="@+id/right"
             android:layout_marginTop="@dimen/verticalMargin"
             android:layout_toRightOf="@+id/center"
-            android:layout_marginLeft="@dimen/InnerRingMargin"
-            android:text="view product"
-            android:onClick="ViewProductActivity"/>
+            android:layout_marginLeft="@dimen/InnerRingMargin" />
 
         <Button
             android:id="@+id/bottom"
@@ -92,9 +87,7 @@
             android:layout_below="@+id/left"
             android:layout_marginTop="@dimen/verticalMargin"
             android:layout_toLeftOf="@+id/center"
-            android:layout_marginRight="@dimen/InnerRingMargin"
-            android:text="view account"
-            android:onClick="ViewAccountActivity"/>
+            android:layout_marginRight="@dimen/InnerRingMargin" />
 
         <View
             android:id="@+id/left"

@@ -1574,15 +1574,14 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout account_item
 layout activity_add_account
-layout activity_admin
 layout activity_edit_account
 layout activity_error
+layout activity_home
 layout activity_information
 layout activity_login
 layout activity_look_up_meter
 layout activity_search_meter
 layout activity_settings
-layout activity_user
 layout activity_view_account
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog

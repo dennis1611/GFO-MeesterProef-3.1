@@ -48,11 +48,11 @@ public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, List<St
                 for (int i = 0; i<6; i++){
 //                    set view_url for each iteration
                     if (i==0){view_url="https://mantixcloud.nl/gfo/account/viewusername-user.php";}
-                    if (i==1){view_url="https://mantixcloud.nl/gfo/account/viewpassword-user.php";}
-                    if (i==2){view_url="https://mantixcloud.nl/gfo/account/viewemail-user.php";}
-                    if (i==3){view_url="https://mantixcloud.nl/gfo/account/viewusername-admin.php";}
-                    if (i==4){view_url="https://mantixcloud.nl/gfo/account/viewpassword-admin.php";}
-                    if (i==5){view_url="https://mantixcloud.nl/gfo/account/viewemail-admin.php";}
+                    else if (i==1){view_url="https://mantixcloud.nl/gfo/account/viewpassword-user.php";}
+                    else if (i==2){view_url="https://mantixcloud.nl/gfo/account/viewemail-user.php";}
+                    else if (i==3){view_url="https://mantixcloud.nl/gfo/account/viewusername-admin.php";}
+                    else if (i==4){view_url="https://mantixcloud.nl/gfo/account/viewpassword-admin.php";}
+                    else if (i==5){view_url="https://mantixcloud.nl/gfo/account/viewemail-admin.php";}
 
 //                connect to database
                 URL url = new URL(view_url);
