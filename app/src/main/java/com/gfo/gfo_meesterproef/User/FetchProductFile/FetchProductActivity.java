@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef.User;
+package com.gfo.gfo_meesterproef.User.FetchProductFile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,14 +9,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
-import com.gfo.gfo_meesterproef.Custom.FolderAdapter;
-import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
+import com.gfo.gfo_meesterproef.Support.FolderAdapter;
+import com.gfo.gfo_meesterproef.Support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
+import com.gfo.gfo_meesterproef.User.UserActivity;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import static com.gfo.gfo_meesterproef.LoginActivity.contextOfLogin;
 

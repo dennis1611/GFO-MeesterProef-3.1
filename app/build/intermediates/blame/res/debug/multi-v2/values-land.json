@@ -4,7 +4,17 @@
             "outputFile": "C:\\Users\\Dennis\\Desktop\\AS_projects\\GFO-MeesterProef-3.0-master\\GFO-MeesterProef-3.0-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\2ce72894151e642762430ac480f24436\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\7f5f0b3369d8fa8a72a20e2278ec0acc\\appcompat-v7-28.0.0\\res\\values-land\\values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\9d7250a774d78c6da773e4ce19c93e82\\design-28.0.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "8",
                         "endColumns": "10",
                         "endOffsets": "431"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\c7aea247fdcc1612ff506a43644b8e29\\res\\values-land\\values-land.xml",
-                    "from": {
-                        "startLines": "2,3,4",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "55,125,196",
-                        "endColumns": "69,70,67",
-                        "endOffsets": "120,191,259"
                     }
                 }
             ]

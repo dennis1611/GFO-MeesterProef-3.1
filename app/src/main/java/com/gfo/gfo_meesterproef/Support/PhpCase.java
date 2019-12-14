@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef;
+package com.gfo.gfo_meesterproef.Support;
 
 public class PhpCase {
     private String mUrl;
@@ -23,77 +23,60 @@ public class PhpCase {
         switch (type) {
             case "login":
                 mUrl = "https://mantixcloud.nl/gfo/login.php";
-                mInputKeys = new String[2];
-                mInputKeys[0] = "username";
-                mInputKeys[1] = "password";
+                mInputKeys = new String[] {"username", "password"};
                 break;
             case "openFile":
                 mUrl = "https://mantixcloud.nl/gfo/openfile.php";
-                mInputKeys = new String[1];
-                mInputKeys[0] = "dname";
+                mInputKeys = new String[] {"dname"};
                 break;
             case "addAccount":
                 mUrl = "https://mantixcloud.nl/gfo/account/addaccount.php";
-                mInputKeys = new String[4];
-                mInputKeys[0] = "usernamec";
-                mInputKeys[1] = "passwordc";
-                mInputKeys[2] = "emailc";
-                mInputKeys[3] = "adminflagc";
+                mInputKeys = new String[] {"usernamec", "passwordc", "emailc", "adminflagc"};
                 mFeedbackToast = true;
                 break;
             case "editAccount":
                 mUrl = "https://mantixcloud.nl/gfo/account/editaccount.php";
-                mInputKeys = new String[4];
-                mInputKeys[0] = "old_username";
-                mInputKeys[1] = "username";
-                mInputKeys[2] = "password";
-                mInputKeys[3] = "email";
+                mInputKeys = new String[] {"old_username", "username", "password", "email"};
                 mFeedbackToast = true;
                 break;
             case "deleteAccount":
                 mUrl = "https://mantixcloud.nl/gfo/account/deleteaccount.php";
-                mInputKeys = new String[1];
-                mInputKeys[0] = "username";
+                mInputKeys = new String[] {"username"};
                 mFeedbackToast = true;
                 break;
 //        reserved for Couple
 //        reserved for Uncouple
             case "allProducts":
                 mUrl = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
-                mInputKeys = new String[0];
+                mInputKeys = new String[] {};
                 break;
             case "coupledProduct":
                 mUrl = "https://mantixcloud.nl/gfo/couple/coupledproduct.php";
-                mInputKeys = new String[1];
-                mInputKeys[0] = "username";
+                mInputKeys = new String[] {"username"};
                 break;
             case "allAccounts":
                 mUrl = "https://mantixcloud.nl/gfo/account/viewusername-user.php";
-                mInputKeys = new String[0];
+                mInputKeys = new String[] {};
                 break;
             case "coupledAccount":
                 mUrl = "https://mantixcloud.nl/gfo/couple/coupledaccount.php";
-                mInputKeys = new String[1];
-                mInputKeys[0] = "product";
+                mInputKeys = new String[] {"product"};
                 break;
             case "fetchFile":
                 mUrl = "https://mantixcloud.nl/gfo/products_files/fetchfiles.php";
-                mInputKeys = new String[1];
-                mInputKeys[0] = "product";
+                mInputKeys = new String[] {"product"};
                 break;
             case "fetchProduct":
                 mUrl = "https://mantixcloud.nl/gfo/products_files/fetchproducts.php";
-                mInputKeys = new String[1];
-                mInputKeys[0] = "username";
+                mInputKeys = new String[] {"username"};
                 break;
             case "viewFile":
                 mUrl = "https://mantixcloud.nl/gfo/products_files/viewfiles.php";
-                mInputKeys = new String[1];
-                mInputKeys[0] = "product";
+                mInputKeys = new String[] {"product"};
                 break;
             case "viewProduct":
                 mUrl = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
-                mInputKeys = new String[0];
+                mInputKeys = new String[] {};
                 break;
 
 //        ViewAccountBackgroundWorker will be separate
@@ -101,16 +84,12 @@ public class PhpCase {
 //        Couple and Uncouple don't have OnTaskCompleted yet
 //            case "couple":
 //                mUrl = "https://mantixcloud.nl/gfo/couple/couple.php";
-//                mInputKeys = new String[2];
-//                mInputKeys[1] = "username";
-//                mInputKeys[2] = "product";
+//                mInputKeys = new String[] {"username", "product"};
 //                mFeedbackToast = true;
 //                break;
 //            case "uncouple":
 //                mUrl = "https://mantixcloud.nl/gfo/couple/uncouple.php";
-//                mInputKeys = new String[2];
-//                mInputKeys[1] = "username";
-//                mInputKeys[2] = "product";
+//                mInputKeys = new String[] {"username", "product"};
 //                mFeedbackToast = true;
 //                break;
 

@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 
 import com.gfo.gfo_meesterproef.Admin.AdminActivity;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
+import com.gfo.gfo_meesterproef.Support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.User.UserActivity;
 
 import java.util.List;

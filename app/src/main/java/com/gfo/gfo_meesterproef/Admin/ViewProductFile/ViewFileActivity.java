@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef.Admin.ViewFiles;
+package com.gfo.gfo_meesterproef.Admin.ViewProductFile;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
+import com.gfo.gfo_meesterproef.Support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 

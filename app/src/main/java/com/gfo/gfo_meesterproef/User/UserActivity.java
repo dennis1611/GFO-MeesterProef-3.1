@@ -13,6 +13,7 @@ import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.SearchTool.LookUp.LookUpMeterActivity;
 import com.gfo.gfo_meesterproef.SearchTool.Search.SearchMeterActivity;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
+import com.gfo.gfo_meesterproef.User.FetchProductFile.FetchProductActivity;
 
 public class UserActivity extends AppCompatActivity {
 

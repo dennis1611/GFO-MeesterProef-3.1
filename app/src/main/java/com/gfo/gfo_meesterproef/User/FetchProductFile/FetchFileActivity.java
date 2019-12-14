@@ -1,7 +1,6 @@
-package com.gfo.gfo_meesterproef.User;
+package com.gfo.gfo_meesterproef.User.FetchProductFile;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,13 +11,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
+import com.gfo.gfo_meesterproef.Support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
 import java.util.List;
-
-import static com.gfo.gfo_meesterproef.LoginActivity.contextOfLogin;
 
 public class FetchFileActivity extends AppCompatActivity {
 

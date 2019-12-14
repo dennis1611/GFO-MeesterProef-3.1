@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context="com.gfo.gfo_meesterproef.Admin.AddAccount.AddAccountActivity"
+    tools:context="com.gfo.gfo_meesterproef.Admin.AccountAction.AddAccountActivity"
     android:orientation="vertical">
 
     <LinearLayout

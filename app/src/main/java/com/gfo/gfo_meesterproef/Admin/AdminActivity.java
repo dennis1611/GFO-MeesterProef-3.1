@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.gfo.gfo_meesterproef.Admin.AddAccount.AddAccountActivity;
+import com.gfo.gfo_meesterproef.Admin.AccountAction.AddAccountActivity;
 import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
-import com.gfo.gfo_meesterproef.Admin.ViewFiles.ViewProductActivity;
+import com.gfo.gfo_meesterproef.Admin.ViewProductFile.ViewProductActivity;
 import com.gfo.gfo_meesterproef.LoginActivity;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;

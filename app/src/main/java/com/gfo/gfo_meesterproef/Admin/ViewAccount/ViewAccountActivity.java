@@ -13,11 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.Admin.AdminActivity;
-import com.gfo.gfo_meesterproef.Admin.ViewAccount.CoupleToAccount.CoupleToAccountActivity;
-import com.gfo.gfo_meesterproef.Admin.ViewAccount.EditAccount.EditAccountActivity;
-import com.gfo.gfo_meesterproef.Custom.AdminAccountsFragment;
-import com.gfo.gfo_meesterproef.Custom.UserAccountsFragment;
-import com.gfo.gfo_meesterproef.Custom.ViewPagerAdapter;
+import com.gfo.gfo_meesterproef.Admin.Link.CoupleToAccountActivity;
+import com.gfo.gfo_meesterproef.Admin.AccountAction.EditAccountActivity;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 

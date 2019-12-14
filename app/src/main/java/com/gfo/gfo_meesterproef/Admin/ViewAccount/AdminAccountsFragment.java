@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef.Custom;
+package com.gfo.gfo_meesterproef.Admin.ViewAccount;
 
 
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
 import com.gfo.gfo_meesterproef.R;
 
 import java.util.ArrayList;
@@ -20,12 +19,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserAccountsFragment extends Fragment {
+public class AdminAccountsFragment extends Fragment {
 
     ListView accountList;
 
-    public UserAccountsFragment() {
-//        Required empty public constructor
+    public AdminAccountsFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -34,9 +33,9 @@ public class UserAccountsFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.list, container, false);
         //        get strings with all values
-        String usernames = getArguments().getString("userUsernames");
-        String passwords = getArguments().getString("userPasswords");
-        String emails = getArguments().getString("userEmails");
+        String usernames = getArguments().getString("adminUsernames");
+        String passwords = getArguments().getString("adminPasswords");
+        String emails = getArguments().getString("adminEmails");
 
 //        split strings to arrayLists
         String[] splitUsernameArray = usernames.split(",");
@@ -58,7 +57,7 @@ public class UserAccountsFragment extends Fragment {
             Account newAccount = new Account(user, pass, email);
             accounts.add(newAccount);
         }
-//        couple accounts to layout
+        //        couple accounts to layout
         accountList = rootView.findViewById(R.id.list);
         AccountAdapter accountAdapter = new AccountAdapter(getActivity(), accounts);
         accountList.setAdapter(accountAdapter);
@@ -78,7 +77,7 @@ public class UserAccountsFragment extends Fragment {
                 String selectedPassword = selectedAccount.getPass();
                 String selectedEmail = selectedAccount.getEmail();
 //                call method in parent activity
-                ((ViewAccountActivity)getActivity()).onSelect(selectedUsername, selectedPassword, selectedEmail, "user");
+                ((ViewAccountActivity)getActivity()).onSelect(selectedUsername, selectedPassword, selectedEmail, "admin");
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef.Admin.AddAccount;
+package com.gfo.gfo_meesterproef.Admin.AccountAction;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.Admin.AdminActivity;
-import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
+import com.gfo.gfo_meesterproef.Support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 

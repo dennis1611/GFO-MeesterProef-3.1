@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef.Custom;
+package com.gfo.gfo_meesterproef.Admin.ViewAccount;
 
 /**
  * Created by Denni on 12-11-2017.

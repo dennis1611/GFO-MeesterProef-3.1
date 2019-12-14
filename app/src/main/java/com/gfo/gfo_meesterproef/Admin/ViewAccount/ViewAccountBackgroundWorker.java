@@ -16,7 +16,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ViewAccountBackgroundWorker extends AsyncTask<String, Void, List<String>> {
 
     Context context;

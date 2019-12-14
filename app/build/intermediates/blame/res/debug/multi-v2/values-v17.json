@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\Dennis\\Desktop\\AS_projects\\GFO-MeesterProef-3.0-master\\GFO-MeesterProef-3.0-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v17\\values-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\c7aea247fdcc1612ff506a43644b8e29\\res\\values-v17\\values-v17.xml",
+                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\7f5f0b3369d8fa8a72a20e2278ec0acc\\appcompat-v7-28.0.0\\res\\values-v17\\values-v17.xml",
                     "from": {
                         "startLines": "2,5,9,12,15,18,22,25,29,33,37,40,43,46,50,53,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

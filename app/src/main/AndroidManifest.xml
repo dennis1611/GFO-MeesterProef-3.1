@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".User.FetchProductActivity"
+            android:name=".User.FetchProductFile.FetchProductActivity"
             android:label="Fetch Product"
             android:screenOrientation="portrait" />
         <activity
@@ -31,7 +31,7 @@
             android:label="Admin"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.AddAccount.AddAccountActivity"
+            android:name=".Admin.AccountAction.AddAccountActivity"
             android:label="Add Account"
             android:screenOrientation="portrait" />
         <activity
@@ -40,27 +40,27 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Admin.ViewFiles.ViewProductActivity"
+            android:name=".Admin.ViewProductFile.ViewProductActivity"
             android:label="View Product"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.ViewFiles.ViewFileActivity"
+            android:name=".Admin.ViewProductFile.ViewFileActivity"
             android:label="View File"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".User.FetchFileActivity"
+            android:name=".User.FetchProductFile.FetchFileActivity"
             android:label="Fetch File"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.ViewAccount.EditAccount.EditAccountActivity"
+            android:name=".Admin.AccountAction.EditAccountActivity"
             android:label="Edit Account"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.ViewFiles.CoupleToProduct.CoupleToProductActivity"
+            android:name=".Admin.Link.CoupleToProductActivity"
             android:label="Couple To Product"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Admin.ViewAccount.CoupleToAccount.CoupleToAccountActivity"
+            android:name=".Admin.Link.CoupleToAccountActivity"
             android:label="Couple To Account"
             android:screenOrientation="portrait" />
         <activity

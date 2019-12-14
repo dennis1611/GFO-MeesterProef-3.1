@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef.Admin.ViewAccount.EditAccount;
+package com.gfo.gfo_meesterproef.Admin.AccountAction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity;
-import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
+import com.gfo.gfo_meesterproef.Support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 

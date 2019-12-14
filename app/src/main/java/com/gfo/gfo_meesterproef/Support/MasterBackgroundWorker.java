@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef;
+package com.gfo.gfo_meesterproef.Support;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

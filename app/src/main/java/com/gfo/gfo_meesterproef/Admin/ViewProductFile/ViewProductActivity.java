@@ -1,4 +1,4 @@
-package com.gfo.gfo_meesterproef.Admin.ViewFiles;
+package com.gfo.gfo_meesterproef.Admin.ViewProductFile;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,9 +13,9 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.Admin.AdminActivity;
-import com.gfo.gfo_meesterproef.Admin.ViewFiles.CoupleToProduct.CoupleToProductActivity;
-import com.gfo.gfo_meesterproef.Custom.FolderAdapter;
-import com.gfo.gfo_meesterproef.MasterBackgroundWorker;
+import com.gfo.gfo_meesterproef.Admin.Link.CoupleToProductActivity;
+import com.gfo.gfo_meesterproef.Support.FolderAdapter;
+import com.gfo.gfo_meesterproef.Support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
 
