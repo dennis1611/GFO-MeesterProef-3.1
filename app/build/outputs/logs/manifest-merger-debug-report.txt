@@ -104,7 +104,7 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:22:17-77
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:22:27-74
-activity#com.gfo.gfo_meesterproef.User.FetchProductFile.FetchProductActivity
+activity#com.gfo.gfo_meesterproef.user.fetchProductFile.FetchProductActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:25:9-28:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:28:13-49
@@ -112,7 +112,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:27:13-42
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:26:13-71
-activity#com.gfo.gfo_meesterproef.Admin.AdminActivity
+activity#com.gfo.gfo_meesterproef.admin.AdminActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:29:9-32:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:32:13-49
@@ -120,7 +120,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:31:13-34
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:30:13-48
-activity#com.gfo.gfo_meesterproef.Admin.AccountAction.AddAccountActivity
+activity#com.gfo.gfo_meesterproef.admin.accountAction.AddAccountActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:33:9-36:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:36:13-49
@@ -128,7 +128,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:35:13-40
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:34:13-67
-activity#com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity
+activity#com.gfo.gfo_meesterproef.admin.viewAccount.ViewAccountActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:37:9-41:59
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:40:13-49
@@ -138,7 +138,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:41:13-56
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:38:13-66
-activity#com.gfo.gfo_meesterproef.Admin.ViewProductFile.ViewProductActivity
+activity#com.gfo.gfo_meesterproef.admin.viewProductFile.ViewProductActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:42:9-45:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:45:13-49
@@ -146,7 +146,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:44:13-41
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:43:13-70
-activity#com.gfo.gfo_meesterproef.Admin.ViewProductFile.ViewFileActivity
+activity#com.gfo.gfo_meesterproef.admin.viewProductFile.ViewFileActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:46:9-49:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:49:13-49
@@ -154,7 +154,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:48:13-38
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:47:13-67
-activity#com.gfo.gfo_meesterproef.User.FetchProductFile.FetchFileActivity
+activity#com.gfo.gfo_meesterproef.user.fetchProductFile.FetchFileActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:50:9-53:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:53:13-49
@@ -162,7 +162,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:52:13-39
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:51:13-68
-activity#com.gfo.gfo_meesterproef.Admin.AccountAction.EditAccountActivity
+activity#com.gfo.gfo_meesterproef.admin.accountAction.EditAccountActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:54:9-57:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:57:13-49
@@ -170,7 +170,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:56:13-41
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:55:13-68
-activity#com.gfo.gfo_meesterproef.Admin.Link.CoupleToProductActivity
+activity#com.gfo.gfo_meesterproef.admin.link.CoupleToProductActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:58:9-61:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:61:13-49
@@ -178,7 +178,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:60:13-46
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:59:13-63
-activity#com.gfo.gfo_meesterproef.Admin.Link.CoupleToAccountActivity
+activity#com.gfo.gfo_meesterproef.admin.link.CoupleToAccountActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:62:9-65:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:65:13-49
@@ -186,7 +186,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:64:13-46
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:63:13-63
-activity#com.gfo.gfo_meesterproef.User.UserActivity
+activity#com.gfo.gfo_meesterproef.user.UserActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:66:9-69:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:69:13-49
@@ -194,7 +194,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:68:13-33
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:67:13-46
-activity#com.gfo.gfo_meesterproef.SearchTool.LookUp.LookUpMeterActivity
+activity#com.gfo.gfo_meesterproef.searchTool.lookUp.LookUpMeterActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:70:9-73:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:73:13-49
@@ -202,7 +202,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:72:13-42
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:71:13-66
-activity#com.gfo.gfo_meesterproef.SearchTool.Search.SearchMeterActivity
+activity#com.gfo.gfo_meesterproef.searchTool.search.SearchMeterActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:74:9-77:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:77:13-49
@@ -210,7 +210,7 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:76:13-41
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:75:13-66
-activity#com.gfo.gfo_meesterproef.SearchTool.Search.SettingsActivity
+activity#com.gfo.gfo_meesterproef.searchTool.search.SettingsActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:78:9-81:52
 	android:screenOrientation
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:81:13-49
@@ -218,11 +218,11 @@ ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-M
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:80:13-37
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:79:13-63
-activity#com.gfo.gfo_meesterproef.SearchTool.Search.InformationActivity
+activity#com.gfo.gfo_meesterproef.searchTool.search.InformationActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:82:9-75
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:82:19-72
-activity#com.gfo.gfo_meesterproef.SearchTool.Search.ErrorActivity
+activity#com.gfo.gfo_meesterproef.searchTool.search.ErrorActivity
 ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:83:9-78
 	android:name
 		ADDED from C:\Users\Dennis\Desktop\AS_projects\GFO-MeesterProef-3.0-master\GFO-MeesterProef-3.0-master\app\src\main\AndroidManifest.xml:83:19-66

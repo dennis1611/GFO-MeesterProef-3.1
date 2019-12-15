@@ -11,10 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.content.SharedPreferences;
 
-import com.gfo.gfo_meesterproef.Admin.AdminActivity;
-import com.gfo.gfo_meesterproef.Support.ConnectionCheck;
-import com.gfo.gfo_meesterproef.Support.MasterBackgroundWorker;
-import com.gfo.gfo_meesterproef.User.UserActivity;
+import com.gfo.gfo_meesterproef.admin.AdminActivity;
+import com.gfo.gfo_meesterproef.support.ConnectionCheck;
+import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
+import com.gfo.gfo_meesterproef.user.UserActivity;
 
 import java.util.List;
 

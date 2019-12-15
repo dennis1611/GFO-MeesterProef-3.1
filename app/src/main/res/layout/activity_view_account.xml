@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gfo.gfo_meesterproef.Admin.ViewAccount.ViewAccountActivity">
+    tools:context="com.gfo.gfo_meesterproef.admin.viewAccount.ViewAccountActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
