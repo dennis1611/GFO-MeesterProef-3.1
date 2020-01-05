@@ -86,6 +86,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
 //                post data
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
+//                close output
                 bufferedWriter.close();
                 outputStream.close();
 
@@ -100,10 +101,11 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
                 //                split result at , into array (IF NOT NEEDED: just places result as only entry in resultList)
                 String[] splitResultArray = result.split(",");
                 resultList = (Arrays.asList(splitResultArray));
-
-//                disconnect to database
+//                close input
                 bufferedReader.close();
                 inputStream.close();
+
+//                disconnect to database
                 httpURLConnection.disconnect();
                 return resultList;
             } catch (MalformedURLException e) {

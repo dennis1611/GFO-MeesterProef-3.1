@@ -1,6 +1,5 @@
 package com.gfo.gfo_meesterproef.admin.viewAccount;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,9 +11,7 @@ import android.widget.ListView;
 import com.gfo.gfo_meesterproef.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,18 +29,11 @@ public class UserAccountsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.list, container, false);
-        //        get strings with all values
-        String usernames = getArguments().getString("userUsernames");
-        String passwords = getArguments().getString("userPasswords");
-        String emails = getArguments().getString("userEmails");
 
-//        split strings to arrayLists
-        String[] splitUsernameArray = usernames.split(",");
-        List<String> splitUsernameList = (Arrays.asList(splitUsernameArray));
-        String[] splitPasswordArray = passwords.split(",");
-        List<String> splitPasswordList = (Arrays.asList(splitPasswordArray));
-        String[] splitEmailArray = emails.split(",");
-        List<String> splitEmailList = (Arrays.asList(splitEmailArray));
+//        get ArrayLists with all values
+        ArrayList<String> splitUsernameList = getArguments().getStringArrayList("userUsernames");
+        ArrayList<String> splitPasswordList = getArguments().getStringArrayList("userPasswords");
+        ArrayList<String> splitEmailList = getArguments().getStringArrayList("userEmails");
 
 //        look for unhandled accounts and add them to accountList
         ArrayList<Account> accounts = new ArrayList<>();

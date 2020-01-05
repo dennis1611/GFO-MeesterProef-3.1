@@ -17,8 +17,13 @@ import com.gfo.gfo_meesterproef.admin.link.CoupleToAccountActivity;
 import com.gfo.gfo_meesterproef.admin.accountAction.EditAccountActivity;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
+import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ViewAccountActivity extends AppCompatActivity{
 
@@ -37,29 +42,45 @@ public class ViewAccountActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_account);
 
-        //        needed to save selectedUsername
+//        needed to save selectedUsername
         contextOfViewAccount = getApplicationContext();
-
 //        setup ProgressBar
         progressBar = findViewById(R.id.progressBar);
 
 //        get 6 separate account value lists (not separated, contained in parent list) from database
-        ViewAccountBackgroundWorker viewAccountBackgroundWorker = new ViewAccountBackgroundWorker(this, listener);
-        viewAccountBackgroundWorker.setProgressBar(progressBar);
-        viewAccountBackgroundWorker.execute("all");}//        end method
+        JSONBackgroundWorker jsonBackgroundWorker = new JSONBackgroundWorker(this, listener);
+        jsonBackgroundWorker.setProgressBar(progressBar);
+        jsonBackgroundWorker.execute("getAccounts");}//        end method
 
 //    create listener to wait for AsyncTask to finish
-        ViewAccountBackgroundWorker.OnTaskCompleted listener = new ViewAccountBackgroundWorker.OnTaskCompleted() {
+        JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
             @Override
-            public void onTaskCompleted(List<String> resultList) {
-//                get  value lists (not separated) from parent list
-                String userUsernames = resultList.get(0);
-                String userPasswords = resultList.get(1);
-                String userEmails = resultList.get(2);
-                String adminUsernames = resultList.get(3);
-                String adminPasswords = resultList.get(4);
-                String adminEmails = resultList.get(5);
+            public void onTaskCompleted(String result) throws JSONException {
+
+//                temporarily
+                ArrayList<String> userUsernames = new ArrayList<>(),
+                        userPasswords = new ArrayList<>(),
+                        userEmails = new ArrayList<>(),
+                        adminUsernames = new ArrayList<>(),
+                        adminPasswords = new ArrayList<>(),
+                        adminEmails = new ArrayList<>();
+
+//                temporarily
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    String type = obj.getString("adminflag");
+                    if (type.equals("n")) {
+                        userUsernames.add(obj.getString("username"));
+                        userPasswords.add(obj.getString("password"));
+                        userEmails.add(obj.getString("email"));
+                    } else if (type.equals("Y")) {
+                        adminUsernames.add(obj.getString("username"));
+                        adminPasswords.add(obj.getString("password"));
+                        adminEmails.add(obj.getString("email"));
+                    }
+                }
 
                 //        needed for toolbar
                 toolbar = findViewById(R.id.tabbedToolbar);
@@ -73,14 +94,14 @@ public class ViewAccountActivity extends AppCompatActivity{
 
 //                send data to fragments
                 Bundle userBundle = new Bundle();
-                userBundle.putString("userUsernames", userUsernames);
-                userBundle.putString("userPasswords", userPasswords);
-                userBundle.putString("userEmails", userEmails);
+                userBundle.putStringArrayList("userUsernames", userUsernames);
+                userBundle.putStringArrayList("userPasswords", userPasswords);
+                userBundle.putStringArrayList("userEmails", userEmails);
                 userFragment.setArguments(userBundle);
                 Bundle adminBundle = new Bundle();
-                adminBundle.putString("adminUsernames", adminUsernames);
-                adminBundle.putString("adminPasswords", adminPasswords);
-                adminBundle.putString("adminEmails", adminEmails);
+                adminBundle.putStringArrayList("adminUsernames", adminUsernames);
+                adminBundle.putStringArrayList("adminPasswords", adminPasswords);
+                adminBundle.putStringArrayList("adminEmails", adminEmails);
                 adminFragment.setArguments(adminBundle);
 
 //                viewpager.setAdapter(...) must come after ...Fragment.setArguments(...)
