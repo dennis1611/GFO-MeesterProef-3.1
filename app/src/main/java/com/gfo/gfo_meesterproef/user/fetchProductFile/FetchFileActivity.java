@@ -33,9 +33,7 @@ public class FetchFileActivity extends AppCompatActivity {
 
 //        get selected product from FetchProductActivity
         String product = getIntent().getExtras().getString("userProduct", "");
-//        get saved username and set label
-//        SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
-//        String username = usernamePref.getString("username", "");
+//        set label
         setTitle("Files in "+product);
 
 //        contact database for files

@@ -18,12 +18,6 @@ public class Account implements Parcelable {
         mEmail = email;
     }
 
-    protected Account(Parcel in) {
-        mName = in.readString();
-        mPass = in.readString();
-        mEmail = in.readString();
-    }
-
     public String getName() { return mName; }
     public String getPass() { return mPass; }
     public String getEmail() { return mEmail; }
@@ -33,6 +27,11 @@ public class Account implements Parcelable {
     public void setEmail(String email) {mEmail = email;}
 
 //    makes Account Parcelable
+    protected Account(Parcel in) {
+        mName = in.readString();
+        mPass = in.readString();
+        mEmail = in.readString();
+    }
     @Override
     public int describeContents() {
         return 0;

@@ -17,8 +17,6 @@ import com.gfo.gfo_meesterproef.user.UserActivity;
 
 import java.util.List;
 
-import static com.gfo.gfo_meesterproef.LoginActivity.contextOfLogin;
-
 public class FetchProductActivity extends AppCompatActivity {
 
     GridView userProductGrid;
@@ -34,7 +32,7 @@ public class FetchProductActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
 //        get saved username
-        SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
+        SharedPreferences usernamePref = getSharedPreferences("usernamePreference", MODE_PRIVATE);
         String username = usernamePref.getString("username", "");
 
 //        contact database

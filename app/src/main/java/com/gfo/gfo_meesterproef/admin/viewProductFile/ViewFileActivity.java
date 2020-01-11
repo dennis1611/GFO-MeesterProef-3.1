@@ -1,6 +1,5 @@
 package com.gfo.gfo_meesterproef.admin.viewProductFile;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,8 +19,6 @@ import java.util.List;
 
 public class ViewFileActivity extends AppCompatActivity {
 
-    public static Context fileContext;
-
     String clickedFile;
     ListView adminProductList;
     ProgressBar progressBar;
@@ -30,7 +27,6 @@ public class ViewFileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
-        fileContext = getApplicationContext();
 
 //        setup ProgressBar
         progressBar = findViewById(R.id.progressBar);

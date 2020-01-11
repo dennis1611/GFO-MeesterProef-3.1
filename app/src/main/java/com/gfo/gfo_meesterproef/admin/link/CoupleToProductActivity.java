@@ -16,8 +16,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import static com.gfo.gfo_meesterproef.admin.viewProductFile.ViewProductActivity.contextOfViewProduct;
-
 import com.gfo.gfo_meesterproef.admin.viewProductFile.ViewProductActivity;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
@@ -46,7 +44,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
         toUncouple = new ArrayList<>();
         toUncouple.clear();
 //        get selected product
-        SharedPreferences selectedProductPref = getSharedPreferences("selectedProductPreference", contextOfViewProduct.MODE_PRIVATE);
+        SharedPreferences selectedProductPref = getSharedPreferences("selectedProductPreference", MODE_PRIVATE);
         product = selectedProductPref.getString("selectedProduct", "");
 //        change label
         setTitle("Couple to "+product);

@@ -22,8 +22,6 @@ import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
 import java.util.List;
 
-import static com.gfo.gfo_meesterproef.admin.viewAccount.ViewAccountActivity.contextOfViewAccount;
-
 public class EditAccountActivity extends AppCompatActivity{
 
     String oldUsername, oldPassword, oldEmail;
@@ -38,7 +36,7 @@ public class EditAccountActivity extends AppCompatActivity{
         setContentView(R.layout.activity_edit_account);
 
 //        get saved account values
-        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", contextOfViewAccount.MODE_PRIVATE);
+        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", MODE_PRIVATE);
         oldUsername = selectedAccountPref.getString("selectedUsername", "");
         oldPassword = selectedAccountPref.getString("selectedPassword", "");
         oldEmail = selectedAccountPref.getString("selectedEmail", "");

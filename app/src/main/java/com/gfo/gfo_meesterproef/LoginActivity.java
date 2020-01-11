@@ -1,6 +1,5 @@
 package com.gfo.gfo_meesterproef;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,12 +17,10 @@ import com.gfo.gfo_meesterproef.user.UserActivity;
 
 import java.util.List;
 
-
 public class LoginActivity extends AppCompatActivity {
 
     EditText usernameET, passwordET;
     ProgressBar progressBar;
-    public static Context contextOfLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         usernameET = findViewById(R.id.editTextUser);
         passwordET = findViewById(R.id.editTextPass);
         progressBar = findViewById(R.id.progressBar);
-//        needed to save username
-        contextOfLogin = getApplicationContext();
     }
 
 //    shortcut to select user account
@@ -63,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBackgroundWorker.setProgressBar(progressBar);
         loginBackgroundWorker.execute("login", username, password);
 //        save username
-        SharedPreferences usernamePref = getSharedPreferences("usernamePreference", contextOfLogin.MODE_PRIVATE);
+        SharedPreferences usernamePref = getSharedPreferences("usernamePreference", MODE_PRIVATE);
         usernamePref.edit().putString("username", username).apply(); }//        end method
 
 //    create listener to wait for AsyncTask to finish
@@ -77,17 +72,17 @@ public class LoginActivity extends AppCompatActivity {
                     case "Y"://    admin
                         usernameET.getText().clear();
                         passwordET.getText().clear();
-                        Intent i = new Intent(contextOfLogin, AdminActivity.class);
+                        Intent i = new Intent(LoginActivity.this, AdminActivity.class);
                         LoginActivity.this.startActivity(i);
                         break;
                     case "n"://    user
                         usernameET.getText().clear();
                         passwordET.getText().clear();
-                        Intent k = new Intent(contextOfLogin, UserActivity.class);
+                        Intent k = new Intent(LoginActivity.this, UserActivity.class);
                         LoginActivity.this.startActivity(k);
                         break;
                     default:
-                        Toast.makeText(contextOfLogin,
+                        Toast.makeText(LoginActivity.this,
                                 adminFlag, Toast.LENGTH_LONG).show();
                         break; }
             }

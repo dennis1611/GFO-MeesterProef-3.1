@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static com.gfo.gfo_meesterproef.admin.viewAccount.ViewAccountActivity.contextOfViewAccount;
-
 public class CoupleToAccountActivity extends AppCompatActivity {
 
     String username;
@@ -46,7 +44,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         toUncouple = new ArrayList<>();
         toUncouple.clear();
 //        get selected username
-        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", contextOfViewAccount.MODE_PRIVATE);
+        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", MODE_PRIVATE);
         username = selectedAccountPref.getString("selectedUsername", "");
 //        change label
         setTitle("Couple to " + username);

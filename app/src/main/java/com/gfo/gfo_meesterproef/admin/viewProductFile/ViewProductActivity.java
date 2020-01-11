@@ -1,6 +1,5 @@
 package com.gfo.gfo_meesterproef.admin.viewProductFile;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,15 +26,10 @@ public class ViewProductActivity extends AppCompatActivity {
     String selectedProduct;
     ProgressBar progressBar;
 
-    public static Context contextOfViewProduct;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grid);
-
-//      needed to save selectedUsername
-        contextOfViewProduct = getApplicationContext();
 
 //        setup ProgressBar
         progressBar = findViewById(R.id.progressBar);
@@ -84,7 +78,7 @@ public class ViewProductActivity extends AppCompatActivity {
                 builder.setNegativeButton("Couple Product to Accounts", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                save selected product for couple to product
-                        SharedPreferences selectedProductPref = getSharedPreferences("selectedProductPreference", contextOfViewProduct.MODE_PRIVATE);
+                        SharedPreferences selectedProductPref = getSharedPreferences("selectedProductPreference", MODE_PRIVATE);
                         selectedProductPref.edit().putString("selectedProduct", selectedProduct).apply();
 //                        start couple activity
                         Intent i = new Intent(ViewProductActivity.this, CoupleToProductActivity.class);

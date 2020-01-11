@@ -1,6 +1,5 @@
 package com.gfo.gfo_meesterproef.admin.viewAccount;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,15 +34,11 @@ public class ViewAccountActivity extends AppCompatActivity{
     AdminAccountsFragment adminFragment;
     ProgressBar progressBar;
 
-    public static Context contextOfViewAccount;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_account);
 
-//        needed to save selectedUsername
-        contextOfViewAccount = getApplicationContext();
 //        setup ProgressBar
         progressBar = findViewById(R.id.progressBar);
 
@@ -101,7 +96,7 @@ public class ViewAccountActivity extends AppCompatActivity{
 //    gets called from within fragment
     public void onSelect(String selectedUsername, String selectedPassword, String selectedEmail, String type){
         //                save selected username, password and email
-        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", contextOfViewAccount.MODE_PRIVATE);
+        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", MODE_PRIVATE);
         selectedAccountPref.edit().putString("selectedUsername", selectedUsername).apply();
         selectedAccountPref.edit().putString("selectedPassword", selectedPassword).apply();
         selectedAccountPref.edit().putString("selectedEmail", selectedEmail).apply();
