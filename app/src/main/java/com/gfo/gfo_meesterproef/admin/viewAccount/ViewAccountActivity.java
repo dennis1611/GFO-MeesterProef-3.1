@@ -47,7 +47,7 @@ public class ViewAccountActivity extends AppCompatActivity{
 //        setup ProgressBar
         progressBar = findViewById(R.id.progressBar);
 
-//        get 6 separate account value lists (not separated, contained in parent list) from database
+//        get all accounts in JSON format as String
         JSONBackgroundWorker jsonBackgroundWorker = new JSONBackgroundWorker(this, listener);
         jsonBackgroundWorker.setProgressBar(progressBar);
         jsonBackgroundWorker.execute("getAccounts");}//        end method
@@ -58,28 +58,19 @@ public class ViewAccountActivity extends AppCompatActivity{
             @Override
             public void onTaskCompleted(String result) throws JSONException {
 
-//                temporarily
-                ArrayList<String> userUsernames = new ArrayList<>(),
-                        userPasswords = new ArrayList<>(),
-                        userEmails = new ArrayList<>(),
-                        adminUsernames = new ArrayList<>(),
-                        adminPasswords = new ArrayList<>(),
-                        adminEmails = new ArrayList<>();
-
-//                temporarily
+//                create two ArrayList<Account> out of JSON string result
+                ArrayList<Account> userAccounts = new ArrayList<>(),
+                        adminAccounts = new ArrayList<>();
                 JSONArray jsonArray = new JSONArray(result);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    String type = obj.getString("adminflag");
-                    if (type.equals("n")) {
-                        userUsernames.add(obj.getString("username"));
-                        userPasswords.add(obj.getString("password"));
-                        userEmails.add(obj.getString("email"));
-                    } else if (type.equals("Y")) {
-                        adminUsernames.add(obj.getString("username"));
-                        adminPasswords.add(obj.getString("password"));
-                        adminEmails.add(obj.getString("email"));
-                    }
+                    String username = obj.getString("username"),
+                            password = obj.getString("password"),
+                            email = obj.getString("email"),
+                            type = obj.getString("adminflag");
+                    Account newAccount = new Account(username, password, email);
+                    if (type.equals("n")) { userAccounts.add(newAccount); }
+                    else if (type.equals("Y")) { adminAccounts.add(newAccount); }
                 }
 
                 //        needed for toolbar
@@ -94,14 +85,10 @@ public class ViewAccountActivity extends AppCompatActivity{
 
 //                send data to fragments
                 Bundle userBundle = new Bundle();
-                userBundle.putStringArrayList("userUsernames", userUsernames);
-                userBundle.putStringArrayList("userPasswords", userPasswords);
-                userBundle.putStringArrayList("userEmails", userEmails);
+                userBundle.putParcelableArrayList("userAccounts", userAccounts);
                 userFragment.setArguments(userBundle);
                 Bundle adminBundle = new Bundle();
-                adminBundle.putStringArrayList("adminUsernames", adminUsernames);
-                adminBundle.putStringArrayList("adminPasswords", adminPasswords);
-                adminBundle.putStringArrayList("adminEmails", adminEmails);
+                adminBundle.putParcelableArrayList("adminAccounts", adminAccounts);
                 adminFragment.setArguments(adminBundle);
 
 //                viewpager.setAdapter(...) must come after ...Fragment.setArguments(...)

@@ -11,7 +11,6 @@ import android.widget.ListView;
 import com.gfo.gfo_meesterproef.R;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,23 +29,9 @@ public class UserAccountsFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.list, container, false);
 
-//        get ArrayLists with all values
-        ArrayList<String> splitUsernameList = getArguments().getStringArrayList("userUsernames");
-        ArrayList<String> splitPasswordList = getArguments().getStringArrayList("userPasswords");
-        ArrayList<String> splitEmailList = getArguments().getStringArrayList("userEmails");
+//        get all user Accounts from ViewAccountActivity
+        ArrayList<Account> accounts = getArguments().getParcelableArrayList("userAccounts");
 
-//        look for unhandled accounts and add them to accountList
-        ArrayList<Account> accounts = new ArrayList<>();
-        Iterator<String> usernameIterator = splitUsernameList.iterator();
-        Iterator<String> passwordIterator = splitPasswordList.iterator();
-        Iterator<String> emailIterator = splitEmailList.iterator();
-        while(emailIterator.hasNext()){
-            String user = usernameIterator.next();
-            String pass = passwordIterator.next();
-            String email = emailIterator.next();
-            Account newAccount = new Account(user, pass, email);
-            accounts.add(newAccount);
-        }
 //        couple accounts to layout
         accountList = rootView.findViewById(R.id.list);
         AccountAdapter accountAdapter = new AccountAdapter(getActivity(), accounts);
