@@ -16,6 +16,7 @@ import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
 public class AdminActivity extends AppCompatActivity {
+
     Button addAccountButton, viewProductButton, viewAccountButton;
 
     @Override
@@ -26,7 +27,8 @@ public class AdminActivity extends AppCompatActivity {
 //        Add account, position: top
         addAccountButton = findViewById(R.id.top);
         addAccountButton.setText("Add Account");
-        addAccountButton.setOnClickListener(new View.OnClickListener() {@Override
+        addAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 Intent i = new Intent(AdminActivity.this, AddAccountActivity.class);
                 startActivity(i);

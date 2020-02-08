@@ -2,7 +2,6 @@ package com.gfo.gfo_meesterproef.admin.viewAccount;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -94,20 +93,15 @@ public class ViewAccountActivity extends AppCompatActivity{
         };
 
 //    gets called from within fragment
-    public void onSelect(String selectedUsername, String selectedPassword, String selectedEmail, String type){
-        //                save selected username, password and email
-        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", MODE_PRIVATE);
-        selectedAccountPref.edit().putString("selectedUsername", selectedUsername).apply();
-        selectedAccountPref.edit().putString("selectedPassword", selectedPassword).apply();
-        selectedAccountPref.edit().putString("selectedEmail", selectedEmail).apply();
-
+    public void onSelect(final Account selectedAccount, String type){
         //                choice to edit account or couple products
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewAccountActivity.this);
-        builder.setTitle(selectedUsername);
+        builder.setTitle(selectedAccount.getName());
 //                builder.setMessage("What do you want to do?");
         builder.setPositiveButton("Edit Account", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent i = new Intent(ViewAccountActivity.this, EditAccountActivity.class);
+                i.putExtra("selectedAccount", selectedAccount);
                 ViewAccountActivity.this.startActivity(i);
             }
         });
@@ -119,6 +113,7 @@ public class ViewAccountActivity extends AppCompatActivity{
                 boolean connection = new ConnectionCheck().test(getApplicationContext());
                 if (!connection){return;}
                 Intent i = new Intent(ViewAccountActivity.this, CoupleToAccountActivity.class);
+                i.putExtra("selectedUsername", selectedAccount.getName());
                 startActivity(i);
             }
         });}

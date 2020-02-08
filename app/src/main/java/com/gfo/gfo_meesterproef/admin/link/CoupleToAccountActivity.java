@@ -1,7 +1,6 @@
 package com.gfo.gfo_meesterproef.admin.link;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,8 +43,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         toUncouple = new ArrayList<>();
         toUncouple.clear();
 //        get selected username
-        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", MODE_PRIVATE);
-        username = selectedAccountPref.getString("selectedUsername", "");
+        username = getIntent().getStringExtra("selectedUsername");
 //        change label
         setTitle("Couple to " + username);
 

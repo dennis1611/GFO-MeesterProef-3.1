@@ -2,7 +2,6 @@ package com.gfo.gfo_meesterproef.admin.viewProductFile;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,18 +69,16 @@ public class ViewProductActivity extends AppCompatActivity {
 //                builder.setMessage("What do you want to do?");
                 builder.setPositiveButton("View Files", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                start ViewFileActivity
+//                        start ViewFileActivity
                         Intent i = new Intent(ViewProductActivity.this, ViewFileActivity.class);
                         i.putExtra("adminProduct", selectedProduct);
                         startActivity(i);}
                 });
                 builder.setNegativeButton("Couple Product to Accounts", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                save selected product for couple to product
-                        SharedPreferences selectedProductPref = getSharedPreferences("selectedProductPreference", MODE_PRIVATE);
-                        selectedProductPref.edit().putString("selectedProduct", selectedProduct).apply();
 //                        start couple activity
                         Intent i = new Intent(ViewProductActivity.this, CoupleToProductActivity.class);
+                        i.putExtra("selectedProduct", selectedProduct);
                         startActivity(i);
                     }
                 });

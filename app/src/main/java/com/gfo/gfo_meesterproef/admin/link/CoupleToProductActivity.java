@@ -1,7 +1,6 @@
 package com.gfo.gfo_meesterproef.admin.link;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,8 +43,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
         toUncouple = new ArrayList<>();
         toUncouple.clear();
 //        get selected product
-        SharedPreferences selectedProductPref = getSharedPreferences("selectedProductPreference", MODE_PRIVATE);
-        product = selectedProductPref.getString("selectedProduct", "");
+        product = getIntent().getStringExtra("selectedProduct");
 //        change label
         setTitle("Couple to "+product);
 
@@ -60,7 +58,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
         public void onTaskCompleted(List<String> splitResultList) {
 //            get already coupled usernames
             totalList = splitResultList;
-            MasterBackgroundWorker coupledAccount = new MasterBackgroundWorker(CoupleToProductActivity.this, coupledListener );
+            MasterBackgroundWorker coupledAccount = new MasterBackgroundWorker(CoupleToProductActivity.this, coupledListener);
             coupledAccount.setProgressBar(progressBar);
             coupledAccount.execute("coupledAccount", product); }
     };//    end totalListener

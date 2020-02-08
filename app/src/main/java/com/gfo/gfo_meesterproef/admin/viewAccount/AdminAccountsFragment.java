@@ -45,14 +45,11 @@ public class AdminAccountsFragment extends Fragment {
         accountList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View viewClicked, int position, long id) {
-//                get values from selected account
+//                get selected object as account
                 Object accountClicked = accountList.getItemAtPosition(position);
                 Account selectedAccount = (Account) accountClicked;
-                String selectedUsername = selectedAccount.getName();
-                String selectedPassword = selectedAccount.getPass();
-                String selectedEmail = selectedAccount.getEmail();
 //                call method in parent activity
-                ((ViewAccountActivity)getActivity()).onSelect(selectedUsername, selectedPassword, selectedEmail, "admin");
+                ((ViewAccountActivity)getActivity()).onSelect(selectedAccount, "admin");
             }
         });
     }

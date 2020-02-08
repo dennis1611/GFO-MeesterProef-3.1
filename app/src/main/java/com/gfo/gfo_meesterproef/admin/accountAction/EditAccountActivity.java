@@ -2,7 +2,6 @@ package com.gfo.gfo_meesterproef.admin.accountAction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gfo.gfo_meesterproef.admin.viewAccount.Account;
 import com.gfo.gfo_meesterproef.admin.viewAccount.ViewAccountActivity;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
@@ -35,11 +35,12 @@ public class EditAccountActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
 
-//        get saved account values
-        SharedPreferences selectedAccountPref = getSharedPreferences("selectedAccountPreference", MODE_PRIVATE);
-        oldUsername = selectedAccountPref.getString("selectedUsername", "");
-        oldPassword = selectedAccountPref.getString("selectedPassword", "");
-        oldEmail = selectedAccountPref.getString("selectedEmail", "");
+//        get selected account and values
+        Account selectedAccount = getIntent().getParcelableExtra("selectedAccount");
+        oldUsername = selectedAccount.getName();
+        oldPassword = selectedAccount.getPass();
+        oldEmail = selectedAccount.getEmail();
+
 //        connect views with id
         usernameTV = findViewById(R.id.usernameTextView);
         passwordTV = findViewById(R.id.passwordTextView);
