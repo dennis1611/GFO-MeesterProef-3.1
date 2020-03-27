@@ -29,8 +29,7 @@ public class ViewAccountActivity extends AppCompatActivity{
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
-    UserAccountsFragment userFragment;
-    AdminAccountsFragment adminFragment;
+    AccountsFragment userFragment, adminFragment;
     ProgressBar progressBar;
 
     @Override
@@ -56,15 +55,24 @@ public class ViewAccountActivity extends AppCompatActivity{
                 ArrayList<Account> userAccounts = new ArrayList<>(),
                         adminAccounts = new ArrayList<>();
                 JSONArray jsonArray = new JSONArray(result);
+//                loop through all account entries
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
                     String username = obj.getString("username"),
                             password = obj.getString("password"),
                             email = obj.getString("email"),
                             type = obj.getString("adminflag");
-                    Account newAccount = new Account(username, password, email);
-                    if (type.equals("n")) { userAccounts.add(newAccount); }
-                    else if (type.equals("Y")) { adminAccounts.add(newAccount); }
+//                    check type and add entry to corresponding ArrayList
+                    switch (type) {
+                        case "Y"://    admin
+                            adminAccounts.add(new Account(username, password, email, true));
+                            break;
+                        case "n"://    user
+                            userAccounts.add(new Account(username, password, email, false));
+                            break;
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + type);
+                    }
                 }
 
                 //        needed for toolbar
@@ -72,17 +80,17 @@ public class ViewAccountActivity extends AppCompatActivity{
                 setSupportActionBar(toolbar);
                 viewPager = findViewById(R.id.viewPager);
                 viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-                userFragment = new UserAccountsFragment();
+                userFragment = new AccountsFragment();
                 viewPagerAdapter.addFragment(userFragment, "Users");
-                adminFragment = new AdminAccountsFragment();
+                adminFragment = new AccountsFragment();
                 viewPagerAdapter.addFragment(adminFragment, "Admins");
 
 //                send data to fragments
                 Bundle userBundle = new Bundle();
-                userBundle.putParcelableArrayList("userAccounts", userAccounts);
+                userBundle.putParcelableArrayList("accounts", userAccounts);
                 userFragment.setArguments(userBundle);
                 Bundle adminBundle = new Bundle();
-                adminBundle.putParcelableArrayList("adminAccounts", adminAccounts);
+                adminBundle.putParcelableArrayList("accounts", adminAccounts);
                 adminFragment.setArguments(adminBundle);
 
 //                viewpager.setAdapter(...) must come after ...Fragment.setArguments(...)
@@ -92,12 +100,12 @@ public class ViewAccountActivity extends AppCompatActivity{
             }
         };
 
-//    gets called from within fragment
-    public void onSelect(final Account selectedAccount, String type){
-        //                choice to edit account or couple products
+//    gets called from within fragment when account is selected
+    public void onSelect(final Account selectedAccount){
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewAccountActivity.this);
-        builder.setTitle(selectedAccount.getName());
-//                builder.setMessage("What do you want to do?");
+        builder.setTitle("Account: " + selectedAccount.getName());
+        builder.setMessage("What would you like to do?");
+//        option to edit account, for all accounts
         builder.setPositiveButton("Edit Account", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Intent i = new Intent(ViewAccountActivity.this, EditAccountActivity.class);
@@ -105,8 +113,8 @@ public class ViewAccountActivity extends AppCompatActivity{
                 ViewAccountActivity.this.startActivity(i);
             }
         });
-//        no need to show (all) products to an admin
-        if (type.equals("user")){
+//        option to show products, only needed for user-accounts
+        if (!selectedAccount.getAdminFlag()){
         builder.setNegativeButton("Couple Account to Products", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //        check for internet connection

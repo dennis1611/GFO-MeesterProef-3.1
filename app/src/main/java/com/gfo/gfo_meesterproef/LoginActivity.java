@@ -11,6 +11,7 @@ import android.widget.Toast;
 import android.content.SharedPreferences;
 
 import com.gfo.gfo_meesterproef.admin.AdminActivity;
+//import com.gfo.gfo_meesterproef.databinding.ActivityLoginBinding;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.user.UserActivity;
@@ -19,12 +20,20 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
+//    ActivityLoginBinding viewBinding;
+
     EditText usernameET, passwordET;
     ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        viewBinding = ActivityLoginBinding.inflate(getLayoutInflater());
+//        View layoutView = viewBinding.getRoot();
+//        setContentView(layoutView);
+//        ALLOWS TO CALL EVERY VIEW BY ITS ID (if ViewBinding is enabled in build.gradle), can be used in combination with setContentView(R.layout.activity_login)
+
         setContentView(R.layout.activity_login);
 //        connect views with id
         usernameET = findViewById(R.id.editTextUser);
