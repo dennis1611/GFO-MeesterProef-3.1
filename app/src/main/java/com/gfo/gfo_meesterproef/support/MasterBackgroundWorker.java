@@ -27,7 +27,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
     private String php_url;
     private String[] inputKeys;
     private boolean feedbackToast;
-    private PhpCase phpCase;
+    private PhpBranch phpBranch;
 
     Context context;
     private OnTaskCompleted listener;
@@ -46,13 +46,13 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
         String type = params[0];
 
 //        define phpCase and determine its variables in processType
-        phpCase = new PhpCase(php_url, inputKeys, feedbackToast);
-        phpCase.processType(type);
+        phpBranch = new PhpBranch(php_url, inputKeys, feedbackToast);
+        phpBranch.processType(type);
 
 //        determine input keys for php etc. , based on type, stored in phpCase
-        php_url = phpCase.getUrl();
-        inputKeys = phpCase.getInputKeys();
-        feedbackToast = phpCase.getFeedbackToast();
+        php_url = phpBranch.getUrl();
+        inputKeys = phpBranch.getInputKeys();
+        feedbackToast = phpBranch.getFeedbackToast();
 
 //        copy params[] to inputValues[] without type as first index entry
         String[] inputValues = new String[inputKeys.length];

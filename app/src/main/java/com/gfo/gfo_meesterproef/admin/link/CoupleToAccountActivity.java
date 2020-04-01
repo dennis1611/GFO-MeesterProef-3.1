@@ -14,15 +14,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gfo.gfo_meesterproef.admin.viewAccount.ViewAccountActivity;
+import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class CoupleToAccountActivity extends AppCompatActivity {
 
@@ -60,9 +64,8 @@ public class CoupleToAccountActivity extends AppCompatActivity {
             totalList = splitResultList;
             MasterBackgroundWorker coupledProduct = new MasterBackgroundWorker(CoupleToAccountActivity.this, coupledListener);
             coupledProduct.setProgressBar(progressBar);
-            coupledProduct.execute("coupledProduct", username);
-        }//        end totalListener
-    };
+            coupledProduct.execute("coupledProduct", username); }
+    };//        end totalListener
 
 //    create coupledListener to wait for AsyncTask to finish
     MasterBackgroundWorker.OnTaskCompleted coupledListener = new MasterBackgroundWorker.OnTaskCompleted() {
@@ -152,8 +155,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_item_link) {
-            couple();
-            uncouple();
+            link();
             Intent i = new Intent(CoupleToAccountActivity.this, ViewAccountActivity.class);
             CoupleToAccountActivity.this.finish();
             startActivity(i);
@@ -162,36 +164,26 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void couple() {
+    private void link() {
         //        check for internet connection
         boolean connection = new ConnectionCheck().test(getApplicationContext());
         if (!connection){return;}
-//        couple all selected products
-        for (String product : toCouple) {
-            CouplerBackgroundWorker couple = new CouplerBackgroundWorker(this);
-            couple.setProgressBar(progressBar);
-            try {
-                List<String> echo = couple.execute("couple", username, product).get();
-            }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace(); }
+//        create JSON arrays from to(Un)Couple products, saved as String
+        String toCoupleJSON = new JSONArray(toCouple).toString(),
+                toUncoupleJSON = new JSONArray(toUncouple).toString();
+//        contact database
+        JSONBackgroundWorker jsonBackgroundWorker = new JSONBackgroundWorker(this, listener);
+        jsonBackgroundWorker.setProgressBar(progressBar);
+        jsonBackgroundWorker.execute("linkToAccount", username, toCoupleJSON, toUncoupleJSON);
+    }//    end method
+//    create listener to wait for AsyncTask to finish
+    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
+        @Override
+        public void onTaskCompleted(String result) throws JSONException {
+            Toast.makeText(CoupleToAccountActivity.this, result, Toast.LENGTH_SHORT).show();
         }
-    }
-    private void uncouple() {
-        //        check for internet connection
-        boolean connection = new ConnectionCheck().test(getApplicationContext());
-        if (!connection){return;}
-//        uncouple all selected products
-        for (String product : toUncouple) {
-            CouplerBackgroundWorker uncouple = new CouplerBackgroundWorker(this);
-            uncouple.setProgressBar(progressBar);
-            try {
-                List<String> echo = uncouple.execute("uncouple", username, product).get();
-            }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace(); }
-        }
-    }
+    };
+
     @Override
     public void onBackPressed() {
         //        check for internet connection

@@ -14,15 +14,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gfo.gfo_meesterproef.admin.viewProductFile.ViewProductActivity;
+import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class CoupleToProductActivity extends AppCompatActivity {
 
@@ -145,14 +149,12 @@ public class CoupleToProductActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.link, menu);
         return true;
     }
-
     @Override
 //    set onClick to icons in toolbar
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_item_link) {
-            couple();
-            uncouple();
+            link();
             Intent i = new Intent(CoupleToProductActivity.this, ViewProductActivity.class);
             i.putExtra("adminProduct", product);
             CoupleToProductActivity.this.finish();
@@ -162,36 +164,26 @@ public class CoupleToProductActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void couple() {
+    private void link() {
         //        check for internet connection
         boolean connection = new ConnectionCheck().test(getApplicationContext());
         if (!connection){return;}
-//        couple all selected accounts
-        for (String name : toCouple) {
-            CouplerBackgroundWorker couple = new CouplerBackgroundWorker(this);
-            couple.setProgressBar(progressBar);
-            try {
-                List<String> echo = couple.execute("couple", name, product).get();
-            }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace(); }
+//        create JSON arrays from to(Un)Couple products, saved as String
+        String toCoupleJSON = new JSONArray(toCouple).toString(),
+                toUncoupleJSON = new JSONArray(toUncouple).toString();
+//        contact database
+        JSONBackgroundWorker jsonBackgroundWorker = new JSONBackgroundWorker(this, listener);
+        jsonBackgroundWorker.setProgressBar(progressBar);
+        jsonBackgroundWorker.execute("linkToAccount", product, toCoupleJSON, toUncoupleJSON);
+    }//    end method
+//    create listener to wait for AsyncTask to finish
+    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
+        @Override
+        public void onTaskCompleted(String result) throws JSONException {
+            Toast.makeText(CoupleToProductActivity.this, result, Toast.LENGTH_SHORT).show();
         }
-    }
-    private void uncouple() {
-        //        check for internet connection
-        boolean connection = new ConnectionCheck().test(getApplicationContext());
-        if (!connection){return;}
-//        uncouple all selected accounts
-        for (String name : toUncouple) {
-            CouplerBackgroundWorker uncouple = new CouplerBackgroundWorker(this);
-            uncouple.setProgressBar(progressBar);
-            try {
-                List<String> echo = uncouple.execute("uncouple", name, product).get();
-            }
-            catch (InterruptedException e) { e.printStackTrace(); }
-            catch (ExecutionException e) { e.printStackTrace(); }
-        }
-    }
+    };
+
     @Override
     public void onBackPressed() {
         //        check for internet connection
