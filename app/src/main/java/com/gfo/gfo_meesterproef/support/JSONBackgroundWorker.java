@@ -17,6 +17,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Arrays;
 
 public class JSONBackgroundWorker extends AsyncTask<String, Void, String> {
 
@@ -24,6 +25,8 @@ public class JSONBackgroundWorker extends AsyncTask<String, Void, String> {
 
     private String php_url;
     private String[] inputKeys;
+    private boolean feedbackToast;
+    private boolean useType;
     private PhpBranch phpBranch;
 
     Context context;
@@ -42,13 +45,19 @@ public class JSONBackgroundWorker extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String task = params[0];
 
-//        define phpCase and determine its variables in processType
-        phpBranch = new PhpBranch(php_url, inputKeys, false);
+//        define phpBranch and determine its variables in processType
+        phpBranch = new PhpBranch();
         phpBranch.processType(task);
 
-        //        determine input keys for php etc. , based on type, stored in phpCase
+//        determine input keys for php etc. , based on type, stored in phpBranch
         php_url = phpBranch.getUrl();
         inputKeys = phpBranch.getInputKeys();
+        useType = phpBranch.getUseType();
+
+//        copy params[] to inputValues[], with (if) or without (else) the type parameter at index 0
+        String[] inputValues;
+        if (useType){ inputValues = params; }
+        else { inputValues = Arrays.copyOfRange(params,1,params.length); }
 
             try {
 //                connect to database
@@ -63,7 +72,7 @@ public class JSONBackgroundWorker extends AsyncTask<String, Void, String> {
                 //                format data
                 StringBuilder post_dataBuilder = new StringBuilder();
                 for (int i = 0; i < inputKeys.length; i++) {
-                    post_dataBuilder.append(URLEncoder.encode(inputKeys[i], "UTF-8") + "=" + URLEncoder.encode(params[i + 1], "UTF-8"));
+                    post_dataBuilder.append(URLEncoder.encode(inputKeys[i], "UTF-8")).append("=").append(URLEncoder.encode(inputValues[i], "UTF-8"));
 //                    last iteration shouldn't append "&", all before should
                     if (i < (inputKeys.length - 1)) {
                         post_dataBuilder.append("&");
@@ -85,7 +94,7 @@ public class JSONBackgroundWorker extends AsyncTask<String, Void, String> {
                 String json;
                 while ((json = bufferedReader.readLine()) != null) {
                     //appending it to string builder
-                    sb.append(json + "\n");
+                    sb.append(json).append("\n");
                 }
 //                close input
                 bufferedReader.close();

@@ -4,7 +4,17 @@
             "outputFile": "C:\\Users\\Dennis\\Desktop\\AS_projects\\GFO-MeesterProef-3.0-master\\GFO-MeesterProef-3.0-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\aaffe2c7f23d715ca045db9d0a51d031\\appcompat-v7-28.0.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\09c1f5634c674c46b74176ad3d1ddced\\support-compat-28.0.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\e3ba22704938798f8d9c1d66b1795883\\appcompat-v7-28.0.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Dennis\\.gradle\\caches\\transforms-2\\files-2.1\\4e7b3bbed8e6e29e2ba6d4fc6e8eccff\\support-compat-28.0.0\\res\\values-v16\\values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
                     }
                 }
             ]

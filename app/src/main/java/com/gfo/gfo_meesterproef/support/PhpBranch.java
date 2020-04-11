@@ -4,21 +4,16 @@ public class PhpBranch {
     private String mUrl;
     private String[] mInputKeys;
     private boolean mFeedbackToast;
+    private boolean mUseType;
 
-    public PhpBranch(String url, String[] inputKeys, boolean feedbackToast) {
-        mUrl = url;
-        mInputKeys = inputKeys;
-        mFeedbackToast = feedbackToast;
+    public PhpBranch() {
+//        empty, information in this class is meant to be hardcoded and can only be retrieved
     }
 
     public String getUrl() { return mUrl;}
     public String[] getInputKeys() { return mInputKeys;}
     public boolean getFeedbackToast() { return mFeedbackToast;}
-
-////        Methods below aren't meant to be used, branches are meant to be hardcoded
-//    public void setUrl(String url) { mUrl = url;}
-//    public void setInputKeys(String[] inputKeys) { mInputKeys = inputKeys;}
-//    public void setFeedbackToast(boolean feedbackToast) { mFeedbackToast = feedbackToast;}
+    public boolean getUseType() { return mUseType;}
 
     void processType(String type) {
         switch (type) {
@@ -49,15 +44,15 @@ public class PhpBranch {
                 mUrl = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
                 mInputKeys = new String[] {};
                 break;
-            case "coupledProduct":
-                mUrl = "https://mantixcloud.nl/gfo/couple/coupledproduct.php";
-                mInputKeys = new String[] {"username"};
-                break;
             case "allAccounts":
                 mUrl = "https://mantixcloud.nl/gfo/account/viewusername-user.php";
                 mInputKeys = new String[] {};
                 break;
-            case "coupledAccount":
+            case "coupledProducts":
+                mUrl = "https://mantixcloud.nl/gfo/couple/coupledproduct.php";
+                mInputKeys = new String[] {"username"};
+                break;
+            case "coupledAccounts":
                 mUrl = "https://mantixcloud.nl/gfo/couple/coupledaccount.php";
                 mInputKeys = new String[] {"product"};
                 break;
@@ -84,13 +79,18 @@ public class PhpBranch {
                 mInputKeys = new String[] {};
                 break;
             case "linkToAccount":
-                mUrl = "https://mantixcloud.nl/gfo/couple/linktoaccount.php";
-                mInputKeys = new String[]{"account", "tocouple", "touncouple"};
-                break;
             case "linkToProduct":
-                mUrl = "https://mantixcloud.nl/gfo/couple/linktoproduct.php";
-                mInputKeys = new String[]{"product", "tocouple", "touncouple"};
+                mUrl = "https://mantixcloud.nl/gfo/couple/link.php";
+                mInputKeys = new String[]{"type", "subject", "tocouple", "touncouple"};
+                mUseType = true;
                 break;
+//            case "coupledProducts":
+//            case "coupledAccounts":
+//                mUrl = "https://mantixcloud.nl/gfo/couple/coupled.php";
+//                mInputKeys = new String[] {"type", "subject"};
+//                mUseType = true;
+//                break;
+
         }
     }
 

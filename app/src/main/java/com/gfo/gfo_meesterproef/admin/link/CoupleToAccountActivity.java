@@ -62,9 +62,9 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         public void onTaskCompleted(List<String> splitResultList) {
 //            get already coupled products
             totalList = splitResultList;
-            MasterBackgroundWorker coupledProduct = new MasterBackgroundWorker(CoupleToAccountActivity.this, coupledListener);
-            coupledProduct.setProgressBar(progressBar);
-            coupledProduct.execute("coupledProduct", username); }
+            MasterBackgroundWorker coupledProducts = new MasterBackgroundWorker(CoupleToAccountActivity.this, coupledListener);
+            coupledProducts.setProgressBar(progressBar);
+            coupledProducts.execute("coupledProducts", username); }
     };//        end totalListener
 
 //    create coupledListener to wait for AsyncTask to finish

@@ -45,11 +45,11 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
     protected List<String> doInBackground(String... params) {
         String type = params[0];
 
-//        define phpCase and determine its variables in processType
-        phpBranch = new PhpBranch(php_url, inputKeys, feedbackToast);
+//        define phpBranch and determine its variables in processType
+        phpBranch = new PhpBranch();
         phpBranch.processType(type);
 
-//        determine input keys for php etc. , based on type, stored in phpCase
+//        determine input keys for php etc. , based on type, stored in phpBranch
         php_url = phpBranch.getUrl();
         inputKeys = phpBranch.getInputKeys();
         feedbackToast = phpBranch.getFeedbackToast();
@@ -76,7 +76,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
 //                format data
                 StringBuilder post_dataBuilder = new StringBuilder();
                 for (int i = 0; i < inputKeys.length; i++) {
-                    post_dataBuilder.append(URLEncoder.encode(inputKeys[i],"UTF-8")+"="+URLEncoder.encode(inputValues[i],"UTF-8"));
+                    post_dataBuilder.append(URLEncoder.encode(inputKeys[i], "UTF-8")).append("=").append(URLEncoder.encode(inputValues[i], "UTF-8"));
 //                    last iteration shouldn't append "&", all before should
                     if (i < (inputKeys.length - 1)) {
                         post_dataBuilder.append("&");
