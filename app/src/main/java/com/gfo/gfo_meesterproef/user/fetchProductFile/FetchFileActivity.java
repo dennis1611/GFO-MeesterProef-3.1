@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
@@ -42,12 +41,12 @@ public class FetchFileActivity extends AppCompatActivity {
         setTitle("Files in "+product);
 
 //        contact database for files
-        JSONBackgroundWorker fetchFile = new JSONBackgroundWorker(this, listener);
+        MasterBackgroundWorker fetchFile = new MasterBackgroundWorker(this, listener);
         fetchFile.setProgressBar(progressBar);
         fetchFile.execute("fetchFile", product);}//        end method
 
 //    create listener to wait for AsyncTask to finish
-    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
         public void onTaskCompleted(String result) throws JSONException {
 //            convert (JSON) String result to ArrayList<> files

@@ -11,7 +11,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
@@ -43,12 +42,12 @@ public class ViewFileActivity extends AppCompatActivity {
         setTitle("View Files from "+product);
 
 //        contact database for files
-        JSONBackgroundWorker viewFile = new JSONBackgroundWorker(this, listener);
+        MasterBackgroundWorker viewFile = new MasterBackgroundWorker(this, listener);
         viewFile.setProgressBar(progressBar);
         viewFile.execute("viewFile", product);}//        end method
 
-//    create listener to wait for AsyncTask to finish
-    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
+//        create listener to wait for AsyncTask to finish
+        MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
         public void onTaskCompleted(String result) throws JSONException {

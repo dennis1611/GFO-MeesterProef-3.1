@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gfo.gfo_meesterproef.admin.viewProductFile.ViewProductActivity;
-import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
@@ -26,8 +25,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class CoupleToProductActivity extends AppCompatActivity {
 
@@ -53,12 +50,12 @@ public class CoupleToProductActivity extends AppCompatActivity {
         setTitle("Couple to "+product);
 
 //        get all usernames as (Array)List
-        JSONBackgroundWorker allAccounts = new JSONBackgroundWorker(CoupleToProductActivity.this, totalListener);
+        MasterBackgroundWorker allAccounts = new MasterBackgroundWorker(CoupleToProductActivity.this, totalListener);
         allAccounts.setProgressBar(progressBar);
         allAccounts.execute("allAccounts");}//        end method
 
 //    create totalListener to wait for AsyncTask to finish
-    JSONBackgroundWorker.OnTaskCompleted totalListener = new JSONBackgroundWorker.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted totalListener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
         public void onTaskCompleted(String result) throws JSONException {
 //            convert (JSON) String result to ArrayList<> totalList
@@ -69,13 +66,13 @@ public class CoupleToProductActivity extends AppCompatActivity {
             }
 
 //            get already coupled usernames
-            JSONBackgroundWorker coupledAccounts = new JSONBackgroundWorker(CoupleToProductActivity.this, coupledListener);
+            MasterBackgroundWorker coupledAccounts = new MasterBackgroundWorker(CoupleToProductActivity.this, coupledListener);
             coupledAccounts.setProgressBar(progressBar);
             coupledAccounts.execute("coupledAccounts", product); }
     };//    end totalListener
 
 //    create coupledListener to wait for AsyncTask to finish
-    JSONBackgroundWorker.OnTaskCompleted coupledListener = new JSONBackgroundWorker.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted coupledListener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
         public void onTaskCompleted(String result) throws JSONException {
 //            convert (JSON) String result to ArrayList<> alreadyCoupled
@@ -183,14 +180,14 @@ public class CoupleToProductActivity extends AppCompatActivity {
         String toCoupleJSON = new JSONArray(toCouple).toString(),
                 toUncoupleJSON = new JSONArray(toUncouple).toString();
 //        contact database
-        JSONBackgroundWorker jsonBackgroundWorker = new JSONBackgroundWorker(this, listener);
-        jsonBackgroundWorker.setProgressBar(progressBar);
-        jsonBackgroundWorker.execute("linkToProduct", product, toCoupleJSON, toUncoupleJSON);
+        MasterBackgroundWorker masterBackgroundWorker = new MasterBackgroundWorker(this, listener);
+        masterBackgroundWorker.setProgressBar(progressBar);
+        masterBackgroundWorker.execute("linkToProduct", product, toCoupleJSON, toUncoupleJSON);
     }//    end method
 //    create listener to wait for AsyncTask to finish
-    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
-        public void onTaskCompleted(String result) throws JSONException {
+        public void onTaskCompleted(String result) {
             Toast.makeText(CoupleToProductActivity.this, result, Toast.LENGTH_SHORT).show();
         }
     };

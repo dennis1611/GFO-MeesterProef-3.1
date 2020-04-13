@@ -15,7 +15,7 @@ import com.gfo.gfo_meesterproef.admin.link.CoupleToAccountActivity;
 import com.gfo.gfo_meesterproef.admin.accountAction.EditAccountActivity;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
-import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
+import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,12 +41,12 @@ public class ViewAccountActivity extends AppCompatActivity{
         progressBar = findViewById(R.id.progressBar);
 
 //        get all accounts in JSON format as String
-        JSONBackgroundWorker jsonBackgroundWorker = new JSONBackgroundWorker(this, listener);
-        jsonBackgroundWorker.setProgressBar(progressBar);
-        jsonBackgroundWorker.execute("getAccounts");}//        end method
+        MasterBackgroundWorker masterBackgroundWorker = new MasterBackgroundWorker(this, listener);
+        masterBackgroundWorker.setProgressBar(progressBar);
+        masterBackgroundWorker.execute("getAccounts");}//        end method
 
 //    create listener to wait for AsyncTask to finish
-        JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
+        MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
             @Override
             public void onTaskCompleted(String result) throws JSONException {

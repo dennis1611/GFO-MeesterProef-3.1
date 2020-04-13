@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -22,10 +24,13 @@ import java.util.Arrays;
 
 public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
 
+    private String result;
+
     private String php_url;
     private String[] inputKeys;
     private boolean feedbackToast;
     private boolean useType;
+    private boolean outputJSON;
     private PhpBranch phpBranch;
 
     Context context;
@@ -38,7 +43,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
     @SuppressLint("StaticFieldLeak") private ProgressBar progressBar;
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
     //    create interface to communicate with Activity
-    public interface OnTaskCompleted{ void onTaskCompleted(String result);}
+    public interface OnTaskCompleted{ void onTaskCompleted(String result) throws JSONException;}
 
     @Override
     protected String doInBackground(String... params) {
@@ -49,18 +54,16 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
         phpBranch.processType(type);
 
 //        determine input keys for php etc. , based on type, stored in phpBranch
-        php_url = phpBranch.getUrl();
-        inputKeys = phpBranch.getInputKeys();
-        feedbackToast = phpBranch.getFeedbackToast();
-        useType = phpBranch.getUseType();
+        php_url         = phpBranch.getUrl();
+        inputKeys       = phpBranch.getInputKeys();
+        feedbackToast   = phpBranch.getFeedbackToast();
+        useType         = phpBranch.getUseType();
+        outputJSON      = phpBranch.getOutputJSON();
 
 //        copy params[] to inputValues[], with (if) or without (else) the type parameter at index 0
         String[] inputValues;
         if (useType){ inputValues = params; }
         else { inputValues = Arrays.copyOfRange(params,1,params.length); }
-
-//        create variables
-        String result = null;//        define as null is needed
 
         if (php_url != null){
             try {
@@ -95,10 +98,21 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
                 httpURLConnection.setRequestMethod("GET");
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                result = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    result += line;//   IGNORE WARNING: php sends result as a single line anyway
+                if (outputJSON) { // get listed results in JSON format
+                    StringBuilder sb = new StringBuilder();
+                    String json;
+                    while ((json = bufferedReader.readLine()) != null) {
+                        //appending it to string builder
+                        sb.append(json).append("\n");
+                    }
+                    result = sb.toString().trim();
+                }
+                else { // get single-value results as regular String
+                    result = "";
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        result += line;
+                    }
                 }
 //                close input
                 bufferedReader.close();
@@ -107,11 +121,9 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
 //                disconnect to database
                 httpURLConnection.disconnect();
                 return result;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            catch (MalformedURLException e) { e.printStackTrace(); }
+            catch (IOException e) { e.printStackTrace(); }
         }return result;
     }
 
@@ -125,6 +137,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
         progressBar.setVisibility(View.GONE);
         if (feedbackToast) { Toast.makeText(context, result, Toast.LENGTH_LONG).show(); }
 //        notify Activity that AsyncTask is finished
-        listener.onTaskCompleted(result);
+        try { listener.onTaskCompleted(result); }
+        catch (JSONException e) { e.printStackTrace(); }
     }
 }

@@ -10,7 +10,6 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.support.FolderAdapter;
-import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
@@ -41,12 +40,12 @@ public class FetchProductActivity extends AppCompatActivity {
         String username = usernamePref.getString("username", "");
 
 //        contact database
-        JSONBackgroundWorker fetchProduct = new JSONBackgroundWorker(this, listener);
+        MasterBackgroundWorker fetchProduct = new MasterBackgroundWorker(this, listener);
         fetchProduct.setProgressBar(progressBar);
         fetchProduct.execute("fetchProduct", username);}//        end method
 
 //        create listener to wait for AsyncTask to finish
-        JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
+        MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
             @Override
             public void onTaskCompleted(String result) throws JSONException {
 //                convert (JSON) String result to ArrayList<> products

@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import com.gfo.gfo_meesterproef.admin.AdminActivity;
 import com.gfo.gfo_meesterproef.admin.link.CoupleToProductActivity;
 import com.gfo.gfo_meesterproef.support.FolderAdapter;
-import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
@@ -39,12 +38,12 @@ public class ViewProductActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
 //        contact database
-        JSONBackgroundWorker viewProduct = new JSONBackgroundWorker(this, listener);
+        MasterBackgroundWorker viewProduct = new MasterBackgroundWorker(this, listener);
         viewProduct.setProgressBar(progressBar);
         viewProduct.execute("viewProduct");}//        end method
 
 //    create listener to wait for AsyncTask to finish
-    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
+    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
         public void onTaskCompleted(String result) throws JSONException {
@@ -76,8 +75,8 @@ public class ViewProductActivity extends AppCompatActivity {
                 selectedProduct = (String) adminProductGrid.getItemAtPosition(position);
 //                choice to couple product or view files
                 AlertDialog.Builder builder = new AlertDialog.Builder(ViewProductActivity.this);
-                builder.setTitle(selectedProduct);
-//                builder.setMessage("What do you want to do?");
+                builder.setTitle("Product: " + selectedProduct);
+                builder.setMessage("What would you like to do?");
                 builder.setPositiveButton("View Files", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                        start ViewFileActivity
