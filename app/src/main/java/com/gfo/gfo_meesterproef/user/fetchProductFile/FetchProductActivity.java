@@ -10,18 +10,22 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import com.gfo.gfo_meesterproef.support.FolderAdapter;
+import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 import com.gfo.gfo_meesterproef.user.UserActivity;
 
-import java.util.Arrays;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class FetchProductActivity extends AppCompatActivity {
 
     GridView userProductGrid;
     String selectedProduct;
+    ArrayList<String> products;
     ProgressBar progressBar;
 
     @Override
@@ -37,17 +41,20 @@ public class FetchProductActivity extends AppCompatActivity {
         String username = usernamePref.getString("username", "");
 
 //        contact database
-        MasterBackgroundWorker fetchProduct = new MasterBackgroundWorker(this, listener);
+        JSONBackgroundWorker fetchProduct = new JSONBackgroundWorker(this, listener);
         fetchProduct.setProgressBar(progressBar);
         fetchProduct.execute("fetchProduct", username);}//        end method
 
 //        create listener to wait for AsyncTask to finish
-        MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
+        JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
             @Override
-            public void onTaskCompleted(String result) {
-//                convert result (comma separated String) to List<String> products
-                String[] splitResultArray = result.split(",");
-                List<String> products = (Arrays.asList(splitResultArray));
+            public void onTaskCompleted(String result) throws JSONException {
+//                convert (JSON) String result to ArrayList<> products
+                products = new ArrayList<>();
+                JSONArray jsonArray = new JSONArray(result);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    products.add(jsonArray.getString(i));
+                }
 
 //                fill gridView with (Array)List
                 userProductGrid = findViewById(R.id.grid);

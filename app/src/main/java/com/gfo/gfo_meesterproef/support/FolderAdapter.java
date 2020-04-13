@@ -9,14 +9,14 @@ import android.widget.TextView;
 
 import com.gfo.gfo_meesterproef.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by OenO on 5-12-2017.
  */
 
 public class FolderAdapter extends ArrayAdapter<String> {
-        public FolderAdapter(Context context, List<String> groups){
+        public FolderAdapter(Context context, ArrayList<String> groups){
             super(context, 0, groups);
         }
         @Override

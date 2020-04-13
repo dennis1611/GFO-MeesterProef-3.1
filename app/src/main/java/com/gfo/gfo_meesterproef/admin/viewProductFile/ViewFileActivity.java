@@ -11,16 +11,20 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
-import java.util.Arrays;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class ViewFileActivity extends AppCompatActivity {
 
     String clickedFile;
+    ArrayList<String> files;
     ListView adminProductList;
     ProgressBar progressBar;
 
@@ -39,18 +43,21 @@ public class ViewFileActivity extends AppCompatActivity {
         setTitle("View Files from "+product);
 
 //        contact database for files
-        MasterBackgroundWorker viewFile = new MasterBackgroundWorker(this, listener);
+        JSONBackgroundWorker viewFile = new JSONBackgroundWorker(this, listener);
         viewFile.setProgressBar(progressBar);
         viewFile.execute("viewFile", product);}//        end method
 
 //    create listener to wait for AsyncTask to finish
-    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
+    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted(String result) {
-//            convert result (comma separated String) to List<String> files
-            String[] splitResultArray = result.split(",");
-            List<String> files = (Arrays.asList(splitResultArray));
+        public void onTaskCompleted(String result) throws JSONException {
+//            convert (JSON) String result to ArrayList<> files
+            files = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                files.add(jsonArray.getString(i));
+            }
 
 //            fill listView with (Array)List
             adminProductList = findViewById(R.id.list);

@@ -26,13 +26,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CoupleToAccountActivity extends AppCompatActivity {
 
     String username;
-    List<String> totalList, alreadyCoupled, toCouple, toUncouple;
+    ArrayList<String> totalList, alreadyCoupled, toCouple, toUncouple;
     ListView list;
     ProgressBar progressBar;
 
@@ -53,17 +52,20 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         setTitle("Couple to " + username);
 
 //        get all products (in group)
-        MasterBackgroundWorker allProducts = new MasterBackgroundWorker(CoupleToAccountActivity.this, totalListener);
+        JSONBackgroundWorker allProducts = new JSONBackgroundWorker(CoupleToAccountActivity.this, totalListener);
         allProducts.setProgressBar(progressBar);
         allProducts.execute("allProducts");}//        end method
 
 //    create totalListener to wait for AsyncTask to finish
-    MasterBackgroundWorker.OnTaskCompleted totalListener = new MasterBackgroundWorker.OnTaskCompleted() {
+    JSONBackgroundWorker.OnTaskCompleted totalListener = new JSONBackgroundWorker.OnTaskCompleted() {
         @Override
-        public void onTaskCompleted(String result) {
-//            convert result (comma separated String) to List<String> totalList
-            String[] splitResultArray = result.split(",");
-            totalList = (Arrays.asList(splitResultArray));
+        public void onTaskCompleted(String result) throws JSONException {
+//            convert (JSON) String result to ArrayList<> totalList
+            totalList = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                totalList.add(jsonArray.getString(i));
+            }
 
 //            get already coupled products
             JSONBackgroundWorker coupledProducts = new JSONBackgroundWorker(CoupleToAccountActivity.this, coupledListener);

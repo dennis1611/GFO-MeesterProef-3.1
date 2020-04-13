@@ -11,17 +11,21 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
-import java.util.Arrays;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class FetchFileActivity extends AppCompatActivity {
 
-    ListView userProductList;
     String clickedFile;
+    ArrayList<String> files;
+    ListView userProductList;
     ProgressBar progressBar;
 
     @Override
@@ -38,17 +42,20 @@ public class FetchFileActivity extends AppCompatActivity {
         setTitle("Files in "+product);
 
 //        contact database for files
-        MasterBackgroundWorker fetchFile = new MasterBackgroundWorker(this, listener);
+        JSONBackgroundWorker fetchFile = new JSONBackgroundWorker(this, listener);
         fetchFile.setProgressBar(progressBar);
         fetchFile.execute("fetchFile", product);}//        end method
 
 //    create listener to wait for AsyncTask to finish
-    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
+    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
         @Override
-        public void onTaskCompleted(String result) {
-//            convert result (comma separated String) to List<String> files
-            String[] splitResultArray = result.split(",");
-            List<String> files = (Arrays.asList(splitResultArray));
+        public void onTaskCompleted(String result) throws JSONException {
+//            convert (JSON) String result to ArrayList<> files
+            files = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                files.add(jsonArray.getString(i));
+            }
 
             //        fill listView with (Array)List
             userProductList = findViewById(R.id.list);

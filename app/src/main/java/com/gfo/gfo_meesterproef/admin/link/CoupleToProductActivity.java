@@ -32,7 +32,7 @@ import java.util.List;
 public class CoupleToProductActivity extends AppCompatActivity {
 
     String product;
-    List<String> totalList, alreadyCoupled, toCouple, toUncouple;
+    ArrayList<String> totalList, alreadyCoupled, toCouple, toUncouple;
     ListView list;
     ProgressBar progressBar;
 
@@ -53,17 +53,20 @@ public class CoupleToProductActivity extends AppCompatActivity {
         setTitle("Couple to "+product);
 
 //        get all usernames as (Array)List
-        MasterBackgroundWorker allAccounts = new MasterBackgroundWorker(CoupleToProductActivity.this, totalListener);
+        JSONBackgroundWorker allAccounts = new JSONBackgroundWorker(CoupleToProductActivity.this, totalListener);
         allAccounts.setProgressBar(progressBar);
         allAccounts.execute("allAccounts");}//        end method
 
 //    create totalListener to wait for AsyncTask to finish
-    MasterBackgroundWorker.OnTaskCompleted totalListener = new MasterBackgroundWorker.OnTaskCompleted() {
+    JSONBackgroundWorker.OnTaskCompleted totalListener = new JSONBackgroundWorker.OnTaskCompleted() {
         @Override
-        public void onTaskCompleted(String result) {
-//            convert result (comma separated String) to List<String> totalList
-            String[] splitResultArray = result.split(",");
-            totalList = (Arrays.asList(splitResultArray));
+        public void onTaskCompleted(String result) throws JSONException {
+//            convert (JSON) String result to ArrayList<> totalList
+            totalList = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                totalList.add(jsonArray.getString(i));
+            }
 
 //            get already coupled usernames
             JSONBackgroundWorker coupledAccounts = new JSONBackgroundWorker(CoupleToProductActivity.this, coupledListener);

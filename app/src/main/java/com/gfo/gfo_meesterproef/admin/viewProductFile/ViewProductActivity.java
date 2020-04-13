@@ -13,17 +13,21 @@ import android.widget.ProgressBar;
 import com.gfo.gfo_meesterproef.admin.AdminActivity;
 import com.gfo.gfo_meesterproef.admin.link.CoupleToProductActivity;
 import com.gfo.gfo_meesterproef.support.FolderAdapter;
+import com.gfo.gfo_meesterproef.support.JSONBackgroundWorker;
 import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
-import java.util.Arrays;
-import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class ViewProductActivity extends AppCompatActivity {
 
     GridView adminProductGrid;
     String selectedProduct;
+    ArrayList<String> products;
     ProgressBar progressBar;
 
     @Override
@@ -35,20 +39,23 @@ public class ViewProductActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
 //        contact database
-        MasterBackgroundWorker viewProduct = new MasterBackgroundWorker(this, listener);
+        JSONBackgroundWorker viewProduct = new JSONBackgroundWorker(this, listener);
         viewProduct.setProgressBar(progressBar);
         viewProduct.execute("viewProduct");}//        end method
 
 //    create listener to wait for AsyncTask to finish
-    MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
+    JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted(String result) {
-//            convert result (comma separated String) to List<String> products
-            String[] splitResultArray = result.split(",");
-            List<String> products = (Arrays.asList(splitResultArray));
+        public void onTaskCompleted(String result) throws JSONException {
+//            convert (JSON) String result to ArrayList<> products
+            products = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                products.add(jsonArray.getString(i));
+            }
 
-//            fill gridView with (Array)List
+//            fill gridView with ArrayList
             adminProductGrid = findViewById(R.id.grid);
             FolderAdapter productAdapter = new FolderAdapter(ViewProductActivity.this, products);
             adminProductGrid.setAdapter(productAdapter);
@@ -56,7 +63,6 @@ public class ViewProductActivity extends AppCompatActivity {
             registerProductClickCallback();
         }
     };
-
 
 //    select product
     private void registerProductClickCallback() {

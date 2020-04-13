@@ -40,14 +40,8 @@ public class PhpBranch {
                 mInputKeys = new String[] {"username"};
                 mFeedbackToast = true;
                 break;
-            case "allProducts":
-                mUrl = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
-                mInputKeys = new String[] {};
-                break;
-            case "allAccounts":
-                mUrl = "https://mantixcloud.nl/gfo/account/viewusername-user.php";
-                mInputKeys = new String[] {};
-                break;
+                
+//                JSON from here onwards
             case "fetchFile":
                 mUrl = "https://mantixcloud.nl/gfo/products_files/fetchfiles.php";
                 mInputKeys = new String[] {"product"};
@@ -64,8 +58,14 @@ public class PhpBranch {
                 mUrl = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
                 mInputKeys = new String[] {};
                 break;
-
-//                JSON from here onwards
+            case "allProducts":
+                mUrl = "https://mantixcloud.nl/gfo/products_files/viewproducts.php";
+                mInputKeys = new String[] {};
+                break;
+            case "allAccounts":
+                mUrl = "https://mantixcloud.nl/gfo/account/viewusername-user.php";
+                mInputKeys = new String[] {};
+                break;
             case "getAccounts":
                 mUrl = "https://mantixcloud.nl/gfo/account/getaccounts.php";
                 mInputKeys = new String[] {};
