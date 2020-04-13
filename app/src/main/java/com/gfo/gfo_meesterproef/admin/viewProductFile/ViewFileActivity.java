@@ -15,6 +15,7 @@ import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ViewFileActivity extends AppCompatActivity {
@@ -46,8 +47,12 @@ public class ViewFileActivity extends AppCompatActivity {
     MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted(List<String> files) {
-            // fill listView with List
+        public void onTaskCompleted(String result) {
+//            convert result (comma separated String) to List<String> files
+            String[] splitResultArray = result.split(",");
+            List<String> files = (Arrays.asList(splitResultArray));
+
+//            fill listView with (Array)List
             adminProductList = findViewById(R.id.list);
             ArrayAdapter<String> productAdapter = new ArrayAdapter<>(ViewFileActivity.this, android.R.layout.simple_list_item_1, files);
             adminProductList.setAdapter(productAdapter);
@@ -72,11 +77,11 @@ public class ViewFileActivity extends AppCompatActivity {
                 openFileBackgroundWorker.setProgressBar(progressBar);
                 openFileBackgroundWorker.execute("openFile", clickedFile);}//                end method
 
+//            create listener to wait for AsyncTask to finish
             MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
                 @Override
-                public void onTaskCompleted(List<String> resultList) {
+                public void onTaskCompleted(String url) {
                     //                        open file
-                    String url = resultList.get(0);
                     Intent web = new Intent(Intent.ACTION_VIEW);
                     web.setData(Uri.parse(url));
                     startActivity(web); }

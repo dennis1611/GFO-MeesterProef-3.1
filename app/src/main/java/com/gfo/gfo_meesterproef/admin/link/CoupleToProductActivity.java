@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CoupleToProductActivity extends AppCompatActivity {
@@ -59,20 +60,28 @@ public class CoupleToProductActivity extends AppCompatActivity {
 //    create totalListener to wait for AsyncTask to finish
     MasterBackgroundWorker.OnTaskCompleted totalListener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
-        public void onTaskCompleted(List<String> splitResultList) {
+        public void onTaskCompleted(String result) {
+//            convert result (comma separated String) to List<String> totalList
+            String[] splitResultArray = result.split(",");
+            totalList = (Arrays.asList(splitResultArray));
+
 //            get already coupled usernames
-            totalList = splitResultList;
-            MasterBackgroundWorker coupledAccounts = new MasterBackgroundWorker(CoupleToProductActivity.this, coupledListener);
+            JSONBackgroundWorker coupledAccounts = new JSONBackgroundWorker(CoupleToProductActivity.this, coupledListener);
             coupledAccounts.setProgressBar(progressBar);
             coupledAccounts.execute("coupledAccounts", product); }
     };//    end totalListener
 
 //    create coupledListener to wait for AsyncTask to finish
-    MasterBackgroundWorker.OnTaskCompleted coupledListener = new MasterBackgroundWorker.OnTaskCompleted() {
+    JSONBackgroundWorker.OnTaskCompleted coupledListener = new JSONBackgroundWorker.OnTaskCompleted() {
         @Override
-        public void onTaskCompleted(final List<String> splitResultList) {
+        public void onTaskCompleted(String result) throws JSONException {
+//            convert (JSON) String result to ArrayList<> alreadyCoupled
+            alreadyCoupled = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                alreadyCoupled.add(jsonArray.getString(i));
+            }
             //        display all usernames
-            alreadyCoupled = splitResultList;
             list = findViewById(R.id.list);
             list.setBackgroundResource(R.color.white);
             ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(CoupleToProductActivity.this, android.R.layout.simple_list_item_1, totalList){
@@ -156,7 +165,6 @@ public class CoupleToProductActivity extends AppCompatActivity {
         if (id == R.id.action_item_link) {
             link();
             Intent i = new Intent(CoupleToProductActivity.this, ViewProductActivity.class);
-            i.putExtra("adminProduct", product);
             CoupleToProductActivity.this.finish();
             startActivity(i);
             return true;
@@ -174,7 +182,7 @@ public class CoupleToProductActivity extends AppCompatActivity {
 //        contact database
         JSONBackgroundWorker jsonBackgroundWorker = new JSONBackgroundWorker(this, listener);
         jsonBackgroundWorker.setProgressBar(progressBar);
-        jsonBackgroundWorker.execute("linkToAccount", product, toCoupleJSON, toUncoupleJSON);
+        jsonBackgroundWorker.execute("linkToProduct", product, toCoupleJSON, toUncoupleJSON);
     }//    end method
 //    create listener to wait for AsyncTask to finish
     JSONBackgroundWorker.OnTaskCompleted listener = new JSONBackgroundWorker.OnTaskCompleted() {

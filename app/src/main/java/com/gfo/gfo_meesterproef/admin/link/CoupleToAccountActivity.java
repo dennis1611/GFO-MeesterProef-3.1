@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CoupleToAccountActivity extends AppCompatActivity {
@@ -52,67 +53,74 @@ public class CoupleToAccountActivity extends AppCompatActivity {
         setTitle("Couple to " + username);
 
 //        get all products (in group)
-        MasterBackgroundWorker allProducts = new MasterBackgroundWorker(this, totalListener);
+        MasterBackgroundWorker allProducts = new MasterBackgroundWorker(CoupleToAccountActivity.this, totalListener);
         allProducts.setProgressBar(progressBar);
         allProducts.execute("allProducts");}//        end method
 
 //    create totalListener to wait for AsyncTask to finish
     MasterBackgroundWorker.OnTaskCompleted totalListener = new MasterBackgroundWorker.OnTaskCompleted() {
         @Override
-        public void onTaskCompleted(List<String> splitResultList) {
+        public void onTaskCompleted(String result) {
+//            convert result (comma separated String) to List<String> totalList
+            String[] splitResultArray = result.split(",");
+            totalList = (Arrays.asList(splitResultArray));
+
 //            get already coupled products
-            totalList = splitResultList;
-            MasterBackgroundWorker coupledProducts = new MasterBackgroundWorker(CoupleToAccountActivity.this, coupledListener);
+            JSONBackgroundWorker coupledProducts = new JSONBackgroundWorker(CoupleToAccountActivity.this, coupledListener);
             coupledProducts.setProgressBar(progressBar);
             coupledProducts.execute("coupledProducts", username); }
     };//        end totalListener
 
 //    create coupledListener to wait for AsyncTask to finish
-    MasterBackgroundWorker.OnTaskCompleted coupledListener = new MasterBackgroundWorker.OnTaskCompleted() {
-    @Override
-    public void onTaskCompleted(List<String> splitResultList) {
-        alreadyCoupled = splitResultList;
+    JSONBackgroundWorker.OnTaskCompleted coupledListener = new JSONBackgroundWorker.OnTaskCompleted() {
+        @Override
+        public void onTaskCompleted(String result) throws JSONException {
+//            convert (JSON) String result to ArrayList<> alreadyCoupled
+            alreadyCoupled = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                alreadyCoupled.add(jsonArray.getString(i));
+            }
+            //        display all products
+            list = findViewById(R.id.list);
+            list.setBackgroundResource(R.color.white);
+            final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(CoupleToAccountActivity.this, android.R.layout.simple_list_item_1, totalList){
+                @NonNull @Override
+//                create view correctly (even when recycled)
+                public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+                    View row = convertView;
+//                    Check if an existing view is being reused, otherwise inflate the view
+                    if (row==null){ row = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false); }
+//                  handle already coupled items and toUncouple items
+                    if (alreadyCoupled.contains(totalList.get(position))){
+//                      compare row with toUncouple. If it contains, make red
+                        if (toUncouple.contains(totalList.get(position))){
+                            row.setBackgroundResource(R.color.red);
+                            row.setTag(R.color.red);
+//                      ... if not, make blue
+                        } else { row.setBackgroundResource(R.color.blue);
+                            row.setTag(R.color.blue); }
+//                  handle not yet coupled items and toCouple items
+                    } else {
+//                      compare row with toCouple. If it contains, make green
+                        if (toCouple.contains(totalList.get(position))){
+                            row.setBackgroundResource(R.color.green);
+                            row.setTag(R.color.green);
+//                      ... if not, make white
+                        } else { row.setBackgroundResource(R.color.white);
+                            row.setTag(R.color.white); }
+                    }
+//                    set text to each row
+                    String currentProduct = getItem(position);
+                    TextView productTextView = (TextView) row;
+                    productTextView.setText(currentProduct);
+                    return row; }
+            };
+            list.setAdapter(listAdapter);
 
-        //        display all products
-        list = findViewById(R.id.list);
-        list.setBackgroundResource(R.color.white);
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(CoupleToAccountActivity.this, android.R.layout.simple_list_item_1, totalList){
-            @NonNull @Override
-//            create view correctly (even when recycled)
-            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-                View row = convertView;
-//                Check if an existing view is being reused, otherwise inflate the view
-                if (row==null){ row = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false); }
-//              handle already coupled items and toUncouple items
-                if (alreadyCoupled.contains(totalList.get(position))){
-//                  compare row with toUncouple. If it contains, make red
-                    if (toUncouple.contains(totalList.get(position))){
-                        row.setBackgroundResource(R.color.red);
-                        row.setTag(R.color.red);
-//                  ... if not, make blue
-                    } else { row.setBackgroundResource(R.color.blue);
-                        row.setTag(R.color.blue); }
-//              handle not yet coupled items and toCouple items
-                } else {
-//                  compare row with toCouple. If it contains, make green
-                    if (toCouple.contains(totalList.get(position))){
-                        row.setBackgroundResource(R.color.green);
-                        row.setTag(R.color.green);
-//                  ... if not, make white
-                    } else { row.setBackgroundResource(R.color.white);
-                        row.setTag(R.color.white); }
-                }
-//                set text to each row
-                String currentProduct = getItem(position);
-                TextView productTextView = (TextView) row;
-                productTextView.setText(currentProduct);
-                return row; }
-        };
-        list.setAdapter(listAdapter);
-
-        registerProductClickCallBack();
-    }
-};
+            registerProductClickCallBack();
+        }
+    };
 
     private void registerProductClickCallBack() {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -121,7 +129,7 @@ public class CoupleToAccountActivity extends AppCompatActivity {
 //                get productname of clicked view
                 TextView textView = (TextView) viewClicked;
                 String product = textView.getText().toString();
-//                add or delete from to (un)couple list
+//                get color tag and add or delete from to (un)couple list
                     int ColorId = Integer.parseInt(viewClicked.getTag().toString());
                     if (ColorId==R.color.blue){
                         viewClicked.setBackgroundResource(R.color.red);

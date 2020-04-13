@@ -18,15 +18,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>> {
+public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
 
     private String php_url;
     private String[] inputKeys;
     private boolean feedbackToast;
+    private boolean useType;
     private PhpBranch phpBranch;
 
     Context context;
@@ -39,10 +38,10 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
     @SuppressLint("StaticFieldLeak") private ProgressBar progressBar;
     public void setProgressBar(ProgressBar progressBar) { this.progressBar = progressBar; }
     //    create interface to communicate with Activity
-    public interface OnTaskCompleted{ void onTaskCompleted(List<String> resultList);}
+    public interface OnTaskCompleted{ void onTaskCompleted(String result);}
 
     @Override
-    protected List<String> doInBackground(String... params) {
+    protected String doInBackground(String... params) {
         String type = params[0];
 
 //        define phpBranch and determine its variables in processType
@@ -53,24 +52,26 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
         php_url = phpBranch.getUrl();
         inputKeys = phpBranch.getInputKeys();
         feedbackToast = phpBranch.getFeedbackToast();
+        useType = phpBranch.getUseType();
 
-//        copy params[] to inputValues[] without type as first index entry
-        String[] inputValues = new String[inputKeys.length];
-        inputValues = Arrays.copyOfRange(params,1,params.length);
+//        copy params[] to inputValues[], with (if) or without (else) the type parameter at index 0
+        String[] inputValues;
+        if (useType){ inputValues = params; }
+        else { inputValues = Arrays.copyOfRange(params,1,params.length); }
+
 //        create variables
         String result = null;//        define as null is needed
-        List<String> resultList = new ArrayList<>();
 
-        if (type != null){
+        if (php_url != null){
             try {
 //                connect to database
                 URL url = new URL(php_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
 
 //                send data
+                httpURLConnection.setRequestMethod("POST");
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 //                format data
@@ -91,6 +92,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
                 outputStream.close();
 
 //                receive data
+                httpURLConnection.setRequestMethod("GET");
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 result = "";
@@ -98,22 +100,19 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
                 while ((line = bufferedReader.readLine()) != null) {
                     result += line;//   IGNORE WARNING: php sends result as a single line anyway
                 }
-                //                split result at , into array (IF NOT NEEDED: just places result as only entry in resultList)
-                String[] splitResultArray = result.split(",");
-                resultList = (Arrays.asList(splitResultArray));
 //                close input
                 bufferedReader.close();
                 inputStream.close();
 
 //                disconnect to database
                 httpURLConnection.disconnect();
-                return resultList;
+                return result;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }return resultList;
+        }return result;
     }
 
     @Override
@@ -122,10 +121,10 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, List<String>
     }
 
     @Override
-    protected void onPostExecute(List<String> resultList){
+    protected void onPostExecute(String result){
         progressBar.setVisibility(View.GONE);
-        if (feedbackToast) { Toast.makeText(context, resultList.get(0), Toast.LENGTH_LONG).show(); }
+        if (feedbackToast) { Toast.makeText(context, result, Toast.LENGTH_LONG).show(); }
 //        notify Activity that AsyncTask is finished
-        listener.onTaskCompleted(resultList);
+        listener.onTaskCompleted(result);
     }
 }

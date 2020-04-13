@@ -26,7 +26,6 @@ public class EditAccountActivity extends AppCompatActivity{
 
     String oldUsername, oldPassword, oldEmail;
     String newUsername, newPassword, newEmail;
-    TextView usernameTV, passwordTV, emailTV;
     EditText usernameET, passwordET, emailET;
     ProgressBar progressBar;
 
@@ -42,20 +41,17 @@ public class EditAccountActivity extends AppCompatActivity{
         oldEmail = selectedAccount.getEmail();
 
 //        connect views with id
-        usernameTV = findViewById(R.id.usernameTextView);
-        passwordTV = findViewById(R.id.passwordTextView);
-        emailTV = findViewById(R.id.emailTextView);
         usernameET = findViewById(R.id.usernameEditText);
         passwordET = findViewById(R.id.passwordEditText);
         emailET = findViewById(R.id.emailEditText);
         progressBar = findViewById(R.id.progressBar);
-//        fill views
-        usernameTV.setText(oldUsername);
-        passwordTV.setText(oldPassword);
-        emailTV.setText(oldEmail);
+//        fill views with old values as text and hint
         usernameET.setText(oldUsername);
+        usernameET.setHint(oldUsername);
         passwordET.setText(oldPassword);
+        passwordET.setHint(oldPassword);
         emailET.setText(oldEmail);
+        emailET.setHint(oldEmail);
     }
 
     public void editAccount(View view) {
@@ -109,11 +105,12 @@ public class EditAccountActivity extends AppCompatActivity{
         MasterBackgroundWorker editAccount = new MasterBackgroundWorker(EditAccountActivity.this, editListener);
         editAccount.setProgressBar(progressBar);
         editAccount.execute("editAccount", oldUsername, newUsername, newPassword, newEmail); }//        end method
+
 //    create listener to wait for AsyncTask to finish
     MasterBackgroundWorker.OnTaskCompleted editListener = new MasterBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted(List<String> resultList) {
+        public void onTaskCompleted(String result) {
 //            close Activity
             Intent i = new Intent(EditAccountActivity.this, ViewAccountActivity.class);
             EditAccountActivity.this.finish();
@@ -152,7 +149,7 @@ public class EditAccountActivity extends AppCompatActivity{
         MasterBackgroundWorker.OnTaskCompleted deleteListener = new MasterBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
             @Override
-            public void onTaskCompleted(List<String> resultList) {
+            public void onTaskCompleted(String result) {
 //                close Activity
                 Intent i = new Intent(EditAccountActivity.this, ViewAccountActivity.class);
                 EditAccountActivity.this.finish();

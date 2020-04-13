@@ -74,8 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
             @Override
-            public void onTaskCompleted(List<String> resultList) {
-                String adminFlag = resultList.get(0);
+            public void onTaskCompleted(String adminFlag) {
                 //        check adminFlag and clear EditTexts
                 switch (adminFlag) {
                     case "Y"://    admin

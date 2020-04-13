@@ -17,6 +17,7 @@ import com.gfo.gfo_meesterproef.support.MasterBackgroundWorker;
 import com.gfo.gfo_meesterproef.R;
 import com.gfo.gfo_meesterproef.support.ConnectionCheck;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ViewProductActivity extends AppCompatActivity {
@@ -42,13 +43,17 @@ public class ViewProductActivity extends AppCompatActivity {
     MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //    code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted(List<String> products) {
-//        fill gridView with (array)List
-        adminProductGrid = findViewById(R.id.grid);
-        FolderAdapter productAdapter = new FolderAdapter(ViewProductActivity.this, products);
-        adminProductGrid.setAdapter(productAdapter);
+        public void onTaskCompleted(String result) {
+//            convert result (comma separated String) to List<String> products
+            String[] splitResultArray = result.split(",");
+            List<String> products = (Arrays.asList(splitResultArray));
 
-        registerProductClickCallback();
+//            fill gridView with (Array)List
+            adminProductGrid = findViewById(R.id.grid);
+            FolderAdapter productAdapter = new FolderAdapter(ViewProductActivity.this, products);
+            adminProductGrid.setAdapter(productAdapter);
+
+            registerProductClickCallback();
         }
     };
 

@@ -78,7 +78,7 @@ public class AddAccountActivity extends AppCompatActivity {
     MasterBackgroundWorker.OnTaskCompleted listener = new MasterBackgroundWorker.OnTaskCompleted() {
 //        code below won't get executed until AsyncTask is finished
         @Override
-        public void onTaskCompleted(List<String> resultList) {
+        public void onTaskCompleted(String result) {
             //        return to AdminActivity
             onBackPressed();
         }
