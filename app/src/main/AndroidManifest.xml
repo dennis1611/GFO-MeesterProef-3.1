@@ -79,8 +79,9 @@
             android:name=".searchTool.search.SettingsActivity"
             android:label="Settings"
             android:screenOrientation="portrait" />
-        <activity android:name=".searchTool.search.InformationActivity" />
-        <activity android:name=".searchTool.search.ErrorActivity"></activity>
+        <activity android:name=".searchTool.search.InformationActivity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -66,13 +66,13 @@ public class LookUpMeterActivity extends AppCompatActivity {
 //        }
 
 //        create gRatingSpinner
-        gRatingSpinner = (Spinner) findViewById(R.id.gRatingSpinner);
+        gRatingSpinner = findViewById(R.id.gRatingSpinner);
         ArrayAdapter<Integer> gRatingAdapter = new ArrayAdapter<Integer>(this, R.layout.spinner_item, gRatingArray);
         gRatingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gRatingSpinner.setAdapter(gRatingAdapter);
 
 //        create diameterSpinner
-        diameterSpinner = (Spinner) findViewById(R.id.diameterSpinner);
+        diameterSpinner = findViewById(R.id.diameterSpinner);
         diameterAdapter = null;
         diameterSpinner.setAdapter(diameterAdapter);
 
@@ -103,7 +103,7 @@ public class LookUpMeterActivity extends AppCompatActivity {
                         diameterArray[i] = Integer.valueOf(possibleDiameterIntArray[i]);
                     }
 //            update diameterSpinner/Adapter
-                diameterSpinner = (Spinner) findViewById(R.id.diameterSpinner);
+                diameterSpinner = findViewById(R.id.diameterSpinner);
                 diameterAdapter = new ArrayAdapter<Integer>(getApplicationContext(), R.layout.spinner_item, diameterArray);
                 diameterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //                (next line) needed ...?
@@ -135,16 +135,13 @@ public class LookUpMeterActivity extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
 //        error/open specifications
-        switch (result){
-            case "No Meter Found":
-                Toast.makeText(this, "No Meter Found", Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                Intent web = new Intent(Intent.ACTION_VIEW);
-                web.setData(Uri.parse(result));
-                startActivity(web);
-                break;
+        if (result.equals("No Meter Found")) { Toast.makeText(this, "No Meter Found", Toast.LENGTH_SHORT).show(); }
+        else {
+            Intent web = new Intent(Intent.ACTION_VIEW);
+            web.setData(Uri.parse(result));
+            startActivity(web);
         }
     }
 

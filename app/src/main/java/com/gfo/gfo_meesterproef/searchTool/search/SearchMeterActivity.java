@@ -3,6 +3,7 @@ package com.gfo.gfo_meesterproef.searchTool.search;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.gfo.gfo_meesterproef.R;
+import com.gfo.gfo_meesterproef.admin.viewAccount.ViewAccountActivity;
 import com.gfo.gfo_meesterproef.user.UserActivity;
 
 import static com.gfo.gfo_meesterproef.searchTool.search.SettingsActivity.contextOfSettings;
@@ -28,7 +30,8 @@ public class SearchMeterActivity extends AppCompatActivity {
     int[] gRatings;
     double[][] gRating_Diameter;
     double maxPipeVelocity, maxPmaxAtQLine;
-    boolean isPipeVelocityTooBig, isPmaxAtQLineTooBig;
+    boolean isPipeVelocityTooBig = false,
+            isPmaxAtQLineTooBig = false;
     int spinnerNumber;
     int possibleMeter;
 //
@@ -325,16 +328,8 @@ public class SearchMeterActivity extends AppCompatActivity {
 
     public void testValues() {
         //System.out.println("testValues");
-        isPipeVelocityTooBig = false;
-        isPmaxAtQLineTooBig = false;
-        if(pipeVelocity > maxPipeVelocity)
-        {
-            isPipeVelocityTooBig = true;
-        }
-        if(PMaxAtQLine > maxPmaxAtQLine)
-        {
-            isPmaxAtQLineTooBig = true;
-        }
+        if(pipeVelocity > maxPipeVelocity) { isPipeVelocityTooBig = true; }
+        if(PMaxAtQLine > maxPmaxAtQLine) { isPmaxAtQLineTooBig = true; }
     }
 
     public void searchPossibleMeter() {
@@ -351,34 +346,44 @@ public class SearchMeterActivity extends AppCompatActivity {
 
     private void toMeterChoosingScreen() {
         boolean startInformationMeterScreen = true;
-        for(int i = 0; i < valuesEditText.length; i++)
-        {
-            if(isErrorInValues[i])
-            {
+        for(int i = 0; i < valuesEditText.length; i++) {
+            if(isErrorInValues[i]) {
                 startInformationMeterScreen = false;
+                break;
             }
         }
-        if((isPipeVelocityTooBig||isPmaxAtQLineTooBig)&&startInformationMeterScreen)
-        {
-            //System.out.println("isPipeVelocityTooBig||isPmaxAtQLineTooBig");
-            Intent intent = new Intent(this, ErrorActivity.class);
-            intent.putExtra("isPipeVelocityTooBig", isPipeVelocityTooBig);
-            intent.putExtra("isPmaxAtQLineTooBig", isPmaxAtQLineTooBig);
-            startActivity(intent);
-        }
-        else if(startInformationMeterScreen) {
-            Intent i = new Intent(this, InformationActivity.class);
-            i.putExtra("PossibleMeter", possibleMeter);
-            i.putExtra("LineCapacity", lineCapacity);
-            i.putExtra("PipeVelocity", pipeVelocity);
-            i.putExtra("MaxCapacity", maxCapacity);
-            i.putExtra("Req_G_Rating", req_G_Rating);
-            i.putExtra("MinCapacity", minCapacity);
-            i.putExtra("MaxDensityAtQLine", maxDensityAtQLine);
-            i.putExtra("PMaxAtQLine", PMaxAtQLine);
-            i.putExtra("DpLineCond", dpLineCond);
-            i.putExtra("Diameter", values[5]);
-            startActivity(i);
+
+        if (startInformationMeterScreen) {
+//            AlertDialog only shown when there is an error
+            AlertDialog.Builder builder = new AlertDialog.Builder(SearchMeterActivity.this);
+            builder.setTitle("Error");
+            if (isPipeVelocityTooBig && !isPmaxAtQLineTooBig) {
+                builder.setMessage("Pipe velocity is too high, consider using bigger pipes or less volume.");
+                AlertDialog alert = builder.create();
+                alert.show();
+            } else if (!isPipeVelocityTooBig && isPmaxAtQLineTooBig) {
+                builder.setMessage("Pressure at QLine is too high for available meters, contact GFO for a special meter for your situation.");
+                AlertDialog alert = builder.create();
+                alert.show();
+            } else if (isPipeVelocityTooBig && isPmaxAtQLineTooBig) {
+                builder.setMessage("Pipe velocity is too high, consider using bigger pipes or less volume. \n " +
+                        "Pressure at QLine is too high for available meters, contact GFO for a special meter for your situation.");
+                AlertDialog alert = builder.create();
+                alert.show();
+            } else {
+                Intent i = new Intent(this, InformationActivity.class);
+                i.putExtra("PossibleMeter", possibleMeter);
+                i.putExtra("LineCapacity", lineCapacity);
+                i.putExtra("PipeVelocity", pipeVelocity);
+                i.putExtra("MaxCapacity", maxCapacity);
+                i.putExtra("Req_G_Rating", req_G_Rating);
+                i.putExtra("MinCapacity", minCapacity);
+                i.putExtra("MaxDensityAtQLine", maxDensityAtQLine);
+                i.putExtra("PMaxAtQLine", PMaxAtQLine);
+                i.putExtra("DpLineCond", dpLineCond);
+                i.putExtra("Diameter", values[5]);
+                startActivity(i);
+            }
         }
     }
 

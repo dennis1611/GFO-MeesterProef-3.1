@@ -35,7 +35,7 @@ public class ViewAccountActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_account);
+        setContentView(R.layout.multi_fragment);
 
 //        setup ProgressBar
         progressBar = findViewById(R.id.progressBar);

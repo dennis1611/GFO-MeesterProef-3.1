@@ -30,7 +30,6 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
     private String[] inputKeys;
     private boolean feedbackToast;
     private boolean useType;
-    private boolean outputJSON;
     private PhpBranch phpBranch;
 
     Context context;
@@ -58,9 +57,8 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
         inputKeys       = phpBranch.getInputKeys();
         feedbackToast   = phpBranch.getFeedbackToast();
         useType         = phpBranch.getUseType();
-        outputJSON      = phpBranch.getOutputJSON();
 
-//        copy params[] to inputValues[], with (if) or without (else) the type parameter at index 0
+//        copy params[] to inputValues[], with (/if) or without (/else) the type parameter at index 0
         String[] inputValues;
         if (useType){ inputValues = params; }
         else { inputValues = Arrays.copyOfRange(params,1,params.length); }
@@ -98,22 +96,15 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
                 httpURLConnection.setRequestMethod("GET");
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                if (outputJSON) { // get listed results in JSON format
-                    StringBuilder sb = new StringBuilder();
-                    String json;
-                    while ((json = bufferedReader.readLine()) != null) {
-                        //appending it to string builder
-                        sb.append(json).append("\n");
-                    }
-                    result = sb.toString().trim();
+//                format data
+                StringBuilder read_dataBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    //appending it to string builder
+                    read_dataBuilder.append(line).append("\n");
                 }
-                else { // get single-value results as regular String
-                    result = "";
-                    String line = "";
-                    while ((line = bufferedReader.readLine()) != null) {
-                        result += line;
-                    }
-                }
+                result = read_dataBuilder.toString().trim();
+
 //                close input
                 bufferedReader.close();
                 inputStream.close();
@@ -124,7 +115,7 @@ public class MasterBackgroundWorker extends AsyncTask<String, Void, String> {
             }
             catch (MalformedURLException e) { e.printStackTrace(); }
             catch (IOException e) { e.printStackTrace(); }
-        }return result;
+        } return result;
     }
 
     @Override
